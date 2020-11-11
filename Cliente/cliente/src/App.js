@@ -1,5 +1,6 @@
 import Login from './pages/login/login'
 import Home from './pages/home/home'
+import Register from './pages/register/register'
 import UserContext from "./context/userContext"
 
 import React, { useState, useEffect } from "react";
@@ -45,6 +46,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route path="/login" component={Login}></Route>
+            <Route path="/register" component={Register}></Route>
           </Switch>
         </div>
       </UserContext.Provider>
