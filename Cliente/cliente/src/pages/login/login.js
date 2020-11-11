@@ -1,10 +1,12 @@
-import React from 'react'
 import LoginForm from '../../componens/login-form/login-form'
 import './login.css'
 
+import React, { useState, useContext } from "react";
+
+
 function login() {
     return (
-        <div >
+        <div className="container_page" >
             <LoginForm/>
         </div>
     )
