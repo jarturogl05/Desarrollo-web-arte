@@ -4,13 +4,8 @@ import UserContext from './userContext'
 
 
 const PrivateRoute = ({ component: Component, ...otherProps }) => {
-
-
+  
   const {user}  = useContext(UserContext);
-
-  console.log(user)
-
-
   return (
     <Route
     {...otherProps}

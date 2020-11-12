@@ -18,7 +18,6 @@ function Form() {
   const submit = async (e) =>{
     e.preventDefault();
     
-    console.log(user);
 
     const loginUser = {username,password};
     const loginRes = {token:"12asda331", username: "muterk"} //petición

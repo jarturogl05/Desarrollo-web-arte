@@ -11,7 +11,7 @@ function Home() {
     const logOut = (e) =>{
         e.preventDefault();
         localStorage.clear();
-        history.push("/login");
+        history.replace("/login");
 
     }
 
