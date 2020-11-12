@@ -1,52 +1,40 @@
 import Login from './pages/login/login'
 import Home from './pages/home/home'
 import Register from './pages/register/register'
-import UserContext from "./context/userContext"
+import PrivateRoute from './utils/auth'
+import UserContext from "./utils/userContext"
 
-import React, { useState, useEffect } from "react";
+import {setLocalStorage, getLocalStorage} from './utils/localStorage'
+
+import React, { useState, useEffect, useMemo } from "react";
+
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 
-function App() {
-  const [userData, setUserData] = useState({
-    token: undefined,
-    token: undefined,
-  });
+function App() {  
 
-  useEffect(() =>{
-    const checkLoggedIn = async () =>{
-      let token = localStorage.getItem("auth-token");
+  var initialState = {
+    userId: undefined,
+    userName: undefined,
+    token: undefined
+  };
+  
 
-      if(token === null){
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
+  const [user, setUser] = useState(() => getLocalStorage("user", initialState));
 
-      const tokenRes = true; // reemplazar por llamada
-
-      if(tokenRes){
-
-        const userRes = {id:111, user: "muterk" } //reemplaar por llamada
-
-        setUserData({
-          token,
-          user: userRes,
-        });
-      }
-    };
-    
-    checkLoggedIn();
-  },[])
+  useEffect(() => {
+    setLocalStorage("user", user);
+  }, [user]);
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ userData, setUserData }}>
+      <UserContext.Provider value={{user, setUser}}>
         <header/>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/login" component={Login}></Route>
-            <Route path="/register" component={Register}></Route>
+            <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
+            <Route exact path="/login" component={Login}></Route>
+            <Route exact path="/register" component={Register}></Route>
           </Switch>
         </div>
       </UserContext.Provider>
@@ -54,4 +42,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+export default  App;

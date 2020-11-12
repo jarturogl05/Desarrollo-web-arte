@@ -2,7 +2,7 @@ import React from 'react'
 import RegisterForm from '../../componens/register-form/register-form'
 import './register.css'
 
- function register() {
+ function Register() {
     return (
         <div className="container_page">
             <RegisterForm/>
@@ -10,4 +10,4 @@ import './register.css'
     )
 }
 
-export default register;
+export default Register;
