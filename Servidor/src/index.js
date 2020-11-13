@@ -20,6 +20,18 @@ app.use(routes);
 const PORT = process.env.PORT || 4000;
 
 
-app.listen(PORT, function(){
-    console.log("server running");
-});
+
+mongoose
+  .connect(process.env.MONGO, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+      console.log("Connection succesfull");
+      app.listen(PORT, function(){
+        console.log("Server running on: " + PORT);
+    });
+
+  }).catch(Error => {
+      console.log("Mongo error", Error);
+  });
