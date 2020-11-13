@@ -4,8 +4,8 @@ const path = require('path')
 const userController = require(`../controllers/user-controller`)
 
 
-
-router.post('/getToken', userController.getToken)
+router.post('/login' , userController.login);
+router.post('/create' , userController.createUser);
 router.post('/authenticateToken', userController.authenticateToken)
 
 module.exports = router;
