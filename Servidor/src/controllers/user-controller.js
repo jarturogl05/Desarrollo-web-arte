@@ -1,6 +1,8 @@
 var express = require('express');
 const bcrypt = require('bcryptjs');
 
+const tokenService = require('./token-service')
+
 var app = express();
 
 const login = async(req, res) => {
@@ -8,7 +10,6 @@ const login = async(req, res) => {
             const {username, password} = req.body;
             const user = await Users.findOne({username});
             if(user){
-                // const isOk = (password === user.password);
                 const isOk = await bcrypt.compare(password, user.password);
                 if(isOk){
                     const token = tokenService.createToken(user);
