@@ -5,7 +5,7 @@ function createToken (user){
     const payload = {
         sub: user.username,
         iat: moment().unix(),
-        exp: moment().add(14, 'days').unix()
+        exp: moment().add(30, 'minutes').unix()
     }
     return jwt.encode(payload, process.env.SECRETKEY);
 }
@@ -14,10 +14,13 @@ function decodeToken(token){
     const decoded = new Promise((resolve, reject) => {
         try{
             const payload = jwt.decode(token, process.env.SECRETKEY);
+            const username = payload.sub
+            const user = await Users.findOne({username});
             if (payload.exp <= moment.unix()){
                 reject({
-                    status: 401,
-                    message: 'Expired Token'
+                    status: 200,
+                    message: 'Expired Token',
+                    newToken: createToken(user)
                 });
             }else{
                 resolve(payload.sub);

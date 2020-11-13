@@ -65,7 +65,24 @@ const createUser = async(req, res) =>{
 };
 
 const authenticateToken = async(req, res) =>{
-    res.json({message: 'tokenAuthentication', token: 'invalid' })
+    if (!req.headers.authorization){
+        res.status(403).send("Access Forbidden");
+    }else{
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        tokenService.decodeToken(token)
+        .then(response => {
+            if (response.newToken){
+                res.status(response.status).send({message: 'Access Granted', newToken: response.newToken});
+            }else{
+                res.status(200).send({message: 'Access Granted'});
+            }
+            next();
+        })
+        .catch(response => {
+            res.status(response.status).send({message: response.message})
+        })
+    }
 };
 
 
