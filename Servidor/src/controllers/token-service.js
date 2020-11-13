@@ -1,6 +1,8 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 
+const Users = require('../mongo/models/user.js');
+
 function createToken (user){
     const payload = {
         sub: user.username,
@@ -10,14 +12,14 @@ function createToken (user){
     return jwt.encode(payload, process.env.SECRETKEY);
 }
 
-function decodeToken(token){
+const decodeToken = async(token) =>{
     const decoded = new Promise((resolve, reject) => {
         try{
             const payload = jwt.decode(token, process.env.SECRETKEY);
             const username = payload.sub
-            const user = await Users.findOne({username});
+            const user = Users.findOne({username});
             if (payload.exp <= moment.unix()){
-                reject({
+                resolve({
                     status: 200,
                     message: 'Expired Token',
                     newToken: createToken(user)

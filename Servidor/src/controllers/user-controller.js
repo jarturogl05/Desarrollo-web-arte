@@ -1,6 +1,7 @@
 var express = require('express');
 const bcrypt = require('bcryptjs');
 
+const Users = require('../mongo/models/user.js');
 const tokenService = require('./token-service')
 
 var app = express();
