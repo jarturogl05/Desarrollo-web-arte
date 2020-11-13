@@ -1,8 +1,14 @@
 const express = require ('express');
-const app = express();
 const dotenv = require('dotenv');
-const routes = require('./routes/user-routes');
-const cors = require ('cors');
+const cors = require('cors');
+const path = require('path')
+
+const routes = require('./routes/routes');
+
+global.baseDir = path.resolve(__dirname)
+
+const app = express();
+
 
 app.use(cors());
 
@@ -13,3 +19,7 @@ app.use(routes);
 
 const PORT = process.env.PORT || 4000;
 
+
+app.listen(PORT, function(){
+    console.log("server running");
+});
