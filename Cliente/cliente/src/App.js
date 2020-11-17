@@ -3,32 +3,39 @@ import Home from './pages/home/home'
 import Register from './pages/register/register'
 import PrivateRoute from './utils/auth'
 import UserContext from "./utils/userContext"
+import checkToken from './services/tokenServices'
 
 import {setLocalStorage, getLocalStorage} from './utils/localStorage'
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 
-function App() {  
+function App() {
 
-  var initialState = {
-    userId: undefined,
-    userName: undefined,
-    token: undefined
-  };
-  
+ var tokenInitialState = undefined;
 
-  const [user, setUser] = useState(() => getLocalStorage("user", initialState));
+  const [token, setToken] = useState(() => getLocalStorage("token", tokenInitialState));
 
   useEffect(() => {
-    setLocalStorage("user", user);
-  }, [user]);
+    const tokenStauts = async () => {
+      const response =  await checkToken(token);
+      if(response.message === "Access Granted"){
+        setLocalStorage("token", token);
+      }else{
+        setToken(undefined)
+        setLocalStorage("token", undefined);
+      }
+    }
+      tokenStauts();
+  }, [token]);
+
+
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{user, setUser}}>
+      <UserContext.Provider value={{token, setToken}}>
         <header/>
         <div className="App">
           <Switch>
@@ -41,7 +48,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
-
-
 export default  App;

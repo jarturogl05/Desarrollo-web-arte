@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 function Home() {
 
-    const {user}  = useContext(UserContext);
+    const {token}  = useContext(UserContext);
     const history = useHistory();
 
     const logOut = (e) =>{
@@ -18,7 +18,7 @@ function Home() {
     return (
         
         <div>
-            <h1>{user.token}</h1>
+            <h1>{token}</h1>
             <button onClick={logOut}>Log out</button>
         </div>
     )

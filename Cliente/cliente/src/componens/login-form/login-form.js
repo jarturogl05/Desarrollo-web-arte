@@ -12,7 +12,7 @@ function Form() {
   const [password, setPassword] = useState();
   const [error, setError] = useState();
 
-  const {user, setUser } = useContext(UserContext);
+  const {token, setToken } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{
@@ -22,10 +22,7 @@ function Form() {
     const loginUser = {username,password};
     const loginRes = {token:"12asda331", username: "muterk"} //petición
 
-    setUser({
-      token: loginRes.token,
-      user: loginRes.username,
-    });
+    setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcmNhbXNvZnRAZ21haWwuY29tIiwiaWF0IjoxNjA1NTg0MjM2LCJleHAiOjE2MDU1ODYwMzZ9.bcdXqWUMISiqLHQrXD9LWjcMgJYb3552e4C59hHcitA");
 
     history.push("/");
   }
