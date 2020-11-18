@@ -14,10 +14,13 @@ const login = async(req, res) => {
                 const isOk = await bcrypt.compare(password, user.password);
                 if(isOk){
                     const token = tokenService.createToken(user);
+                    const refreshToken = tokenService.createRefreshToken(user);
+                    user.refreshToken = refreshToken;
                     res.status(200).send({
                         status:'ok',
                         message: 'Logeado correctamente',
-                        token: token
+                        token: token,
+                        refreshToken: refreshToken
                     })
                 }else{
                     res.status(403).send({status:'INVALID_PASSWORD', message: 'Contraseña incorrecta'});
@@ -66,21 +69,27 @@ const createUser = async(req, res) =>{
 };
 
 const authenticateToken = async(req, res) =>{
-    if (!req.headers.authorization){
+    if (!req.headers.authorization || !req.headers.refreshtoken){
         res.status(403).send("Access Forbidden");
     }else{
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
+        const refreshTokenCode = req.headers.refreshtoken;
+        const refreshToken = refreshTokenCode.split(' ')[1];
         tokenService.decodeToken(token)
         .then(response => {
-            if (response.newToken){
-                res.status(response.status).send({message: 'Access Granted', newToken: response.newToken});
+            if (response.message == 'Token expired'){
+                newToken = tokenService.reissueToken(token, refreshToken)
+                if (newToken){
+                    res.status(response.status).send({message: 'Access Granted', newToken: response.newToken}); 
+                }
             }else{
                 res.status(200).send({message: 'Access Granted'});
             }
             next();
         })
         .catch(response => {
+            console.log('hola')
             res.status(response.status).send({message: response.message})
         })
     }
