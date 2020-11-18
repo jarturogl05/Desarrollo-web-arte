@@ -2,7 +2,8 @@ var express = require('express');
 const bcrypt = require('bcryptjs');
 
 const Users = require('../mongo/models/user.js');
-const tokenService = require('./token-service')
+const tokenService = require('./token-service');
+const { reissueToken } = require('./token-service');
 
 var app = express();
 
@@ -16,6 +17,7 @@ const login = async(req, res) => {
                     const token = tokenService.createToken(user);
                     const refreshToken = tokenService.createRefreshToken(user);
                     user.refreshToken = refreshToken;
+                    user.save()
                     res.status(200).send({
                         status:'ok',
                         message: 'Logeado correctamente',
@@ -76,21 +78,22 @@ const authenticateToken = async(req, res) =>{
         const token = tokenCode.split(' ')[1];
         const refreshTokenCode = req.headers.refreshtoken;
         const refreshToken = refreshTokenCode.split(' ')[1];
-        tokenService.decodeToken(token)
+        await tokenService.decodeToken(token)
         .then(response => {
             if (response.message == 'Token expired'){
-                newToken = tokenService.reissueToken(token, refreshToken)
-                if (newToken){
-                    res.status(response.status).send({message: 'Access Granted', newToken: response.newToken}); 
-                }
+                tokenService.reissueToken(refreshToken)
+                .then(reissueResponse => {
+                    res.status(reissueResponse.status).send({message: reissueResponse.message})
+                })
+                .catch(reissueResponse =>{
+                    res.status(reissueResponse.status).send({message: reissueResponse.message})
+                })
             }else{
                 res.status(200).send({message: 'Access Granted'});
             }
-            next();
         })
         .catch(response => {
-            console.log('hola')
-            res.status(response.status).send({message: response.message})
+            res.status(response.status || 404).send({message: response.message})
         })
     }
 };

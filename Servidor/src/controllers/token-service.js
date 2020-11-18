@@ -50,24 +50,25 @@ const decodeToken = async(token) =>{
     return decoded;
 }
 
-const reissueToken = async(token, refreshToken) =>{
+const reissueToken = async(refreshToken) =>{
     const decoded = new Promise((resolve, reject) => {
         try{
             const payload = jwt.decode(refreshToken, process.env.REFRESHSECRETKEY);
             const username = payload.sub
-            const user = Users.findOne({username})
-            if (user.refreshToken == refreshToken){
-                resolve({
-                    status: 200,
-                    message: 'Refreshing Token',
-                    newToken: createToken(user)
-                })
-            }else{
-                reject({
-                    status: 403,
-                    message: 'Invalid Token'
-                })
-            }
+            Users.findOne({username}).then(user => {
+                if (user.refreshToken == refreshToken){
+                    resolve({
+                        status: 200,
+                        message: 'Refreshing Token',
+                        newToken: createToken(user)
+                    })
+                }else{
+                    reject({
+                        status: 403,
+                        message: 'Invalid Token'
+                    })
+                }
+            })
         }catch (err){
             reject({
                 status: 403,
