@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react"
-import UserContext from '../../utils/userContext'
+import UserContext from "../../utils/userContext";
 import { useHistory } from "react-router-dom";
 
+import doLogin from "../../services/userServices";
 
 
 import "./login-form.css";
@@ -17,19 +18,48 @@ function Form() {
 
   const submit = async (e) =>{
     e.preventDefault();
-    
+    const loginResponse = await doLogin(username, password)
+    //await loginResponseStatus(loginResponse);
+    if (loginResponse){
+     loginResponseStatus(loginResponse);
+    }
+    else{
+      setError("Server Error")
+      console.log(error);
+    }
 
-    const loginUser = {username,password};
-    const loginRes = {token:"12asda331", username: "muterk"} //petición
+  }
 
-    setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcmNhbXNvZnRAZ21haWwuY29tIiwiaWF0IjoxNjA1NTg0MjM2LCJleHAiOjE2MDU1ODYwMzZ9.bcdXqWUMISiqLHQrXD9LWjcMgJYb3552e4C59hHcitA");
+   function loginResponseStatus(loginResponse){
+    switch(loginResponse.status){
+      case "ok":
+        setToken(loginResponse.token);
+        history.push("/");
+        console.log(error);
 
-    history.push("/");
+        break;
+      case "USER_NOT_FOUND":
+        setError(loginResponse.status);
+        console.log(error);
+
+        break;
+      case "INVALID_PASSWORD":
+        setError(loginResponse.status);
+        console.log(error);
+
+        break;
+      default:
+        setError("Server error");
+        console.log(error);
+
+    }
   }
 
 
   return (
     <div className="container_form">
+      {error ?(
+      <h1>{error}</h1>): null}
       <h2>Login</h2>
       <form className="form-grup" onSubmit={submit}>
         <p>
@@ -40,6 +70,7 @@ function Form() {
             autoComplete="username"
             maxLength="150"
             required
+            onChange = {(e) => setUsername(e.target.value)}
           ></input>
         </p>
         <p>
@@ -49,6 +80,7 @@ function Form() {
             autoComplete="current-password"
             autoFocus
             required
+            onChange = {(e) => setPassword(e.target.value)}
           ></input>
         </p>
         <button type="submit">Login</button>

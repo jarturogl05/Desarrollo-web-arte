@@ -21,8 +21,8 @@ function App() {
   useEffect(() => {
     const tokenStauts = async () => {
       const response =  await checkToken(token);
-      if(response.message === "Access Granted"){
-        setLocalStorage("token", token);
+      if (response){
+        checkResponse(response);
       }else{
         setToken(undefined)
         setLocalStorage("token", undefined);
@@ -31,7 +31,15 @@ function App() {
       tokenStauts();
   }, [token]);
 
-
+  
+  const checkResponse = (response) => {
+    if(response.message === "Access Granted"){
+      setLocalStorage("token", token);
+    }else{
+      setToken(undefined)
+      setLocalStorage("token", undefined);
+    }
+  }
 
   return (
     <BrowserRouter>

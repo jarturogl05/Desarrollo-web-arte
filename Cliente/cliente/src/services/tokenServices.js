@@ -16,8 +16,7 @@ async function checkToken (token){
     } catch (error) {
         console.log(error);
     }
-
-    
+ 
 }
 
 
