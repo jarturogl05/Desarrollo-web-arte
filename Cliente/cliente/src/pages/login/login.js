@@ -1,13 +1,16 @@
-import React from 'react'
 import LoginForm from '../../componens/login-form/login-form'
 import './login.css'
 
-function login() {
+
+
+function Login() {
+
+
     return (
-        <div >
+        <div className="container_page" >
             <LoginForm/>
         </div>
     )
 }
 
-export default login
+export default Login;
