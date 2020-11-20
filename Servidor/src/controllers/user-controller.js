@@ -83,10 +83,10 @@ const authenticateToken = async(req, res) =>{
             if (response.message == 'Token expired'){
                 tokenService.reissueToken(refreshToken)
                 .then(reissueResponse => {
-                    res.status(reissueResponse.status).send({message: reissueResponse.message})
+                    res.status(reissueResponse.status).send({message: reissueResponse.message, newToken: reissueResponse.newToken})
                 })
                 .catch(reissueResponse =>{
-                    res.status(reissueResponse.status).send({message: reissueResponse.message})
+                    res.status(reissueResponse.status).send({message: reissueResponse.message, newToken: reissueResponse.newToken})
                 })
             }else{
                 res.status(200).send({message: 'Access Granted'});
