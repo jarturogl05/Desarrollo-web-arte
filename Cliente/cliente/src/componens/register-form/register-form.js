@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
+import doRegister from '../../services/userServices'
+
 import "./register-form.css";
+
 
 function Form() {
 
@@ -20,8 +23,31 @@ function Form() {
     const newUser = {username, email, password};
     console.log(newUser);
 
-    history.push("/login");
+    const registerResponse = await doRegister(username, email, password)
+    
+    if (registerResponse){
+      registerResponseStatus(registerResponse);
+     }
+     else{
+       setError("Server Error")
+       console.log(error);
+     }
+  }
 
+
+  function registerResponseStatus(registerResponse){
+    switch(registerResponse.status){
+      case "ok":
+        history.push("/login");
+        break;
+      case "DUPLICATED_VALUES":
+        console.log(error);
+        break;
+      default:
+        setError("Server error");
+        console.log(error);
+
+    }
   }
 
 
