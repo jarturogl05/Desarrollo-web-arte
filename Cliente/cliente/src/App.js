@@ -1,6 +1,7 @@
 import Login from './pages/login/login'
 import Home from './pages/home/home'
 import Register from './pages/register/register'
+import Post from './pages/post/post'
 import PrivateRoute from './utils/auth'
 import UserContext from "./utils/userContext"
 import checkToken from './services/tokenServices'
@@ -61,6 +62,7 @@ function App() {
             <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
+            <Route exact path="/post/:id" component={Post}></Route>
           </Switch>
         </div>
       </UserContext.Provider>
