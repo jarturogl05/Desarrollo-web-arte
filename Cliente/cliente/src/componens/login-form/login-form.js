@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react"
 import UserContext from "../../utils/userContext";
 import { useHistory } from "react-router-dom";
 
-import doLogin from "../../services/userServices";
+import { doLogin } from "../../services/userServices";
 
 
 import "./login-form.css";
