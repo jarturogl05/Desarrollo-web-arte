@@ -48,4 +48,4 @@ async function doRegister(username, email, password){
     }
 }
 
-export default {doLogin, doRegister};
+export {doLogin, doRegister}

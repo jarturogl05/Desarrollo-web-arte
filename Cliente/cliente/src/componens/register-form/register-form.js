@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-import doRegister from '../../services/userServices'
+import { doRegister } from '../../services/userServices'
 
 import "./register-form.css";
 
@@ -19,20 +19,44 @@ function Form() {
 
   const submit = async (e) =>{
     e.preventDefault();
-
-    const newUser = {username, email, password};
-    console.log(newUser);
-
-    const registerResponse = await doRegister(username, email, password)
     
-    if (registerResponse){
-      registerResponseStatus(registerResponse);
-     }
-     else{
-       setError("Server Error")
-       console.log(error);
-     }
+    if (checkFields()){
+      const registerResponse = await doRegister(username, email, password)
+      if (registerResponse){
+        registerResponseStatus(registerResponse);
+       }else{
+         setError("Server Error")
+         console.log(error);
+       }
+    }
   }
+
+  function checkFields(){
+    var result  = false
+    if (isValidPassword() && areMatchingPasswords()){
+      result = true
+    }
+    return result
+  }
+  
+  function isValidPassword(){
+    var result = false
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+    result = true;
+    return result
+  }
+  function areMatchingPasswords(){
+    var result = false
+    if (password == passwordCheck){
+      result = true
+    }else{
+      alert('Las contraseñas no coinciden')
+    }
+    return result
+  }
+
 
 
   function registerResponseStatus(registerResponse){
@@ -42,11 +66,11 @@ function Form() {
         break;
       case "DUPLICATED_VALUES":
         console.log(error);
+        alert('Usuario existente')
         break;
       default:
         setError("Server error");
         console.log(error);
-
     }
   }
 
