@@ -7,7 +7,7 @@ const userSchema = new Schema({
     password: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     confirmed: {type: Boolean, required: true},
-    refreshToken: {type: String, required: false}
+    refreshToken: {type: String, default: null}
 });
 
 const model = mongoose.model('User', userSchema);

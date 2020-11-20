@@ -27,7 +27,7 @@ function createConfirmationToken(username, mail){
         exp: moment().add(1, 'hour').unix(),
         mail: mail 
     }
-    return jwt.encode(payload, process.env.REFRESHSECRETKEY);
+    return jwt.encode(payload, process.env.EMAILSECRETKEY);
 }
 
 const decodeToken = async(token) =>{

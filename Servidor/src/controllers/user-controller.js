@@ -1,5 +1,6 @@
 var express = require('express');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer')
 
 const Users = require('../mongo/models/user.js');
 const tokenService = require('./token-service');
@@ -42,7 +43,13 @@ const createUser = async(req, res) =>{
 
     try{
         const {username, password, email} = req.body;
-
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: process.env.GMAIL_USER,
+              pass: process.env.GMAIL_PASS,
+            },
+          });
         const hash =  await bcrypt.hash(password, 15);
         await Users.create({
             username,
@@ -50,8 +57,8 @@ const createUser = async(req, res) =>{
             password: hash, 
             confirmed: false   
         })
-        const confirmationToken = tokenService.createConfirmationToken(username, mail)
-        const url = `http://localhost:3000/confirmation/${emailToken}`;
+        const confirmationToken = tokenService.createConfirmationToken(username, email)
+        const url = `http://localhost:4000/confirm/${confirmationToken}`;
 
         
         transporter.sendMail({
@@ -80,16 +87,18 @@ const createUser = async(req, res) =>{
 
 const confirmUser = async(req, res)=>{
     try{
-        const decoded = await tokenService.decodeConfirmationToken(req.param.token)
-        const user = await Users.find({username: decoded.sub})
-        if (user){
+        const username = await tokenService.decodeConfirmationToken(req.params.token)
+        const user = await Users.findOne({username})
+        console.log(user.username)
+        if (user.username != "undefined"){
             user.confirmed = true
-            user.save
+            user.save()
             res.status(200).send({message: "Email confirmed"})
         }else{
             res.status(404).send({message: "User does not exist"})
         }
     }catch(err){
+        console.log(err)
         res.status(400).send({message: "Server error"})
     }
 }
