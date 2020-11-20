@@ -20,6 +20,15 @@ function createRefreshToken(user){
     }
     return jwt.encode(payload, process.env.REFRESHSECRETKEY);
 }
+function createConfirmationToken(username, mail){
+    const payload = {
+        sub: username,
+        iat: moment().unix(),
+        exp: moment().add(1, 'hour').unix(),
+        mail: mail 
+    }
+    return jwt.encode(payload, process.env.REFRESHSECRETKEY);
+}
 
 const decodeToken = async(token) =>{
     const decoded = new Promise((resolve, reject) => {
@@ -79,4 +88,26 @@ const reissueToken = async(refreshToken) =>{
     return decoded;
 }
 
-module.exports = {createToken, createRefreshToken, decodeToken, reissueToken}
+const decodeConfirmationToken = async(token) =>{
+    const decoded = new Promise((resolve, reject) => {
+        try{
+            const payload = jwt.decode(token, process.env.EMAILSECRETKEY);
+            resolve(payload.sub);
+        }catch (err){
+            if (err.message == 'Token expired'){
+                resolve({
+                    status: 401,
+                    message: err.message
+                })
+            }else{
+                reject({
+                    status: 403,
+                    message: 'Invalid Token'
+                })
+            }
+        }
+    })
+    return decoded;
+}
+
+module.exports = {createToken, createRefreshToken, createConfirmationToken, decodeToken, decodeConfirmationToken, reissueToken}

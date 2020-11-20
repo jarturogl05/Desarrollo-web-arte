@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const Users = require('../mongo/models/user.js');
 const tokenService = require('./token-service');
 const { reissueToken } = require('./token-service');
+const { response } = require('express');
 
 var app = express();
 
@@ -43,16 +44,23 @@ const createUser = async(req, res) =>{
         const {username, password, email} = req.body;
 
         const hash =  await bcrypt.hash(password, 15);
-
-
         await Users.create({
             username,
             email,
-            password: hash,    
+            password: hash, 
+            confirmed: false   
         })
+        const confirmationToken = tokenService.createConfirmationToken(username, mail)
+        const url = `http://localhost:3000/confirmation/${emailToken}`;
+
+        
+        transporter.sendMail({
+            to: email,
+            subject: 'Confirm Email',
+            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+        });
 
         res.send({status: 'ok', message: 'usuario creado' });
-
 
     }catch(ERROR){
         console.log(ERROR);
@@ -69,6 +77,22 @@ const createUser = async(req, res) =>{
     }
 
 };
+
+const confirmUser = async(req, res)=>{
+    try{
+        const decoded = await tokenService.decodeConfirmationToken(req.param.token)
+        const user = await Users.find({username: decoded.sub})
+        if (user){
+            user.confirmed = true
+            user.save
+            res.status(200).send({message: "Email confirmed"})
+        }else{
+            res.status(404).send({message: "User does not exist"})
+        }
+    }catch(err){
+        res.status(400).send({message: "Server error"})
+    }
+}
 
 const authenticateToken = async(req, res) =>{
     if (!req.headers.authorization || !req.headers.refreshtoken){
@@ -99,4 +123,4 @@ const authenticateToken = async(req, res) =>{
 };
 
 
-module.exports = {login, createUser, authenticateToken};
+module.exports = {login, createUser, confirmUser, authenticateToken};
