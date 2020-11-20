@@ -17,33 +17,44 @@ function App() {
  var tokenInitialState = undefined;
 
   const [token, setToken] = useState(() => getLocalStorage("token", tokenInitialState));
+  const [refreshToken, setRefreshToken] = useState(() => getLocalStorage("refreshToken", tokenInitialState))
 
   useEffect(() => {
     const tokenStauts = async () => {
-      const response =  await checkToken(token);
+      const response =  await checkToken(token, refreshToken);
       if (response){
         checkResponse(response);
       }else{
         setToken(undefined)
         setLocalStorage("token", undefined);
+        setLocalStorage("refreshToken", undefined);
+
       }
     }
       tokenStauts();
   }, [token]);
 
+  useEffect(() => {
+    setLocalStorage("refreshToken", refreshToken);
+  },[refreshToken])
+
   
   const checkResponse = (response) => {
     if(response.message === "Access Granted"){
       setLocalStorage("token", token);
-    }else{
-      setToken(undefined)
+    }else if(response.message === "Refreshing Token"){
+      setLocalStorage("token", response.newToken);
+    }
+    else{
+      setToken(undefined);
       setLocalStorage("token", undefined);
+
     }
   }
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{token, setToken}}>
+      <UserContext.Provider value={{token,refreshToken, setToken, setRefreshToken}}>
         <header/>
         <div className="App">
           <Switch>

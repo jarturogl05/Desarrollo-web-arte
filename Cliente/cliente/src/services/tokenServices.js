@@ -1,12 +1,12 @@
-async function checkToken (token){
+async function checkToken (token, refreshToken){
 
     const settings = {
         method: 'POST',
         headers: new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-
+            'Authorization': 'Bearer ' + token,
+            'refreshtoken': 'Bearer ' + refreshToken
         })
     }
     try {

@@ -6,7 +6,6 @@ import UserContext from './userContext'
 const PrivateRoute =  ({ component: Component, ...otherProps }) => {
 
   const {token}  = useContext(UserContext);
-  console.log(token);
   return (
     <Route
     {...otherProps}
