@@ -13,13 +13,12 @@ function Form() {
   const [password, setPassword] = useState();
   const [error, setError] = useState();
 
-  const {token, setToken } = useContext(UserContext);
+  const {token, setToken,  setRefreshToken } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{
     e.preventDefault();
     const loginResponse = await doLogin(username, password)
-    //await loginResponseStatus(loginResponse);
     if (loginResponse){
      loginResponseStatus(loginResponse);
     }
@@ -34,19 +33,16 @@ function Form() {
     switch(loginResponse.status){
       case "ok":
         setToken(loginResponse.token);
+        setRefreshToken(loginResponse.refreshToken);
         history.push("/");
-        console.log(error);
-
         break;
       case "USER_NOT_FOUND":
         setError(loginResponse.status);
         console.log(error);
-
         break;
       case "INVALID_PASSWORD":
         setError(loginResponse.status);
         console.log(error);
-
         break;
       default:
         setError("Server error");
