@@ -1,0 +1,8 @@
+.publication_info_socialButtons{
+    float: right;
+}
+
+.publication_info_socialButtons button{
+    padding: 10px;
+    margin: 10px;
+}
