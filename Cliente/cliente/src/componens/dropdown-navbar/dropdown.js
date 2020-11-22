@@ -13,7 +13,7 @@ function Dropdown() {
         className={click ? "dropdown-menu clicked" : "dropdown-menu"}>
         <li>
           <a href="/messages">Messages</a>
-          <a>Settings</a>
+          <a href="/settings">Settings</a>
           <a>Logout</a>
         </li>
       </ul>
