@@ -11,6 +11,7 @@ function Post() {
         <div>
             <NavBar></NavBar>
             <h1>{id}</h1>
+
         </div>
     )
 }

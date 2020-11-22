@@ -6,6 +6,9 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    
     
 }
 
@@ -25,6 +28,7 @@
     width: 80vw;
     justify-content: end;
     margin-right: 2em;
+    align-items: center;
 }
 
 .nav-bar a{
@@ -32,6 +36,13 @@
     text-decoration: none;
     padding: 0.5rem 1em;
     cursor: pointer;
+}
+
+.nav-bar button{
+    text-decoration: none;
+    padding: 0.5rem 1em;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 .nav-bar li {
@@ -44,4 +55,14 @@
     background-color:#484848;
     border-radius: 4px;
     transition: all 0.2 ease-out;
+}
+
+.nav-bar_userImage{
+    height: auto; 
+    width: auto; 
+    max-width: 50px; 
+    max-height: 50px;
+    object-fit: contain;
+
+    
 }
