@@ -13,6 +13,17 @@
     padding-top: 10px;
 }
 
+.publication_tags{
+    padding-top: 10px;
+}
+
+.publication_tags a{
+    padding-right: 10px;
+    color: blue;
+    cursor: pointer;
+
+}
+
 @media only screen and (max-width: 600px) {
     .publication {
         margin-left: auto;
