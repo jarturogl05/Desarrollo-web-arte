@@ -1,0 +1,24 @@
+
+.userInfo-container{
+    padding-top: 110px;
+    text-align: center;
+    align-items: start;
+    display: flex;
+    position: absolute;
+
+}
+
+.userInfo-container img{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+.userInfo-container h3{
+    font-size: 1.5rem;
+    padding-left: 30px;
+    padding-top: 30px;
+    cursor: pointer;
+}
