@@ -8,6 +8,7 @@ function Post() {
     let { id } = useParams();
     console.log(id);
     const postInfo = {id:1, publicationName: "Lofi cafe 👌", tags:["#City", "#Lofi"], urlImage:"https://i.redd.it/ytkkbowirm061.jpg"};
+    
 
     return (
         
