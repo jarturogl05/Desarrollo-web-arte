@@ -7,7 +7,6 @@ const tokenService = require('./token-service');
 const { reissueToken } = require('./token-service');
 const { response } = require('express');
 
-var app = express();
 
 const login = async(req, res) => {
     try {      
@@ -89,11 +88,10 @@ const confirmUser = async(req, res)=>{
     try{
         const username = await tokenService.decodeConfirmationToken(req.params.token)
         const user = await Users.findOne({username})
-        console.log(user.username)
         if (user.username != "undefined"){
             user.confirmed = true
             user.save()
-            res.status(200).send({message: "Email confirmed"})
+            res.status(200).send({message: "Email confirmed, you can now login"})
         }else{
             res.status(404).send({message: "User does not exist"})
         }
