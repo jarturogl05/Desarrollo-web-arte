@@ -53,8 +53,7 @@ const ResponseCommission = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 } 
-const PayCommission = async(req, res) => {
-      
+const PayCommission = async(req, res) => {      
 
 } 
 
