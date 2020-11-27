@@ -6,7 +6,7 @@ const commissionSchema = new Schema({
     contractorUser : {type: String, required: true},
     contractedUser : {type: String, required: true},
     CommisionType: {type: String, required: true},
-    accepted : {type: Boolean, required: truem, default: false},
+    accepted : {type: Boolean, required: true, default: false},
     paid: {type: Boolean, required: true, default : false}
 });
 

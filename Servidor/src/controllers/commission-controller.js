@@ -7,7 +7,7 @@ const tokenService = require('./token-service');
 
 const createCommission = async(req, res) => {
     try {        
-        const { contracted, commissiontype }
+        const { contracted, commissiontype } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         contractorUsername = await tokenService.decodeToken(token)
@@ -29,7 +29,7 @@ const createCommission = async(req, res) => {
 } 
 const ResponseCommission = async(req, res) => {
     try {        
-        const { response, commissionid }
+        const { response, commissionid } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         contractedUsername = await tokenService.decodeToken(token)
