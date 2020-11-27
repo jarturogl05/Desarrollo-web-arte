@@ -1,0 +1,12 @@
+.carousel-container{
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.carousel-container img {
+    max-width: fit-content;
+    max-height: fit-content;
+}

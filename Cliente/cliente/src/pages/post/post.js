@@ -3,6 +3,7 @@ import {  useParams } from "react-router-dom";
 import NavBar from '../../componens/navbar/navbar'
 import Publication from '../../componens/publication/publication'
 
+
 function Post() {
     let { id } = useParams();
     console.log(id);
@@ -13,6 +14,7 @@ function Post() {
         <div>
             <NavBar></NavBar>
             <Publication postInfo = {postInfo} ></Publication> 
+
         </div>
     )
 }
