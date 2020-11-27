@@ -12,6 +12,7 @@
 .publication_info{
     display: block;
     padding-top: 10px;
+    height: 50px;
 }
 
 .publication_info_metadata{
