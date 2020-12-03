@@ -63,6 +63,7 @@ function App() {
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/post/:id" component={Post}></Route>
+            <Route exact path="/profile/:id" component={Post}></Route>
           </Switch>
         </div>
       </UserContext.Provider>
