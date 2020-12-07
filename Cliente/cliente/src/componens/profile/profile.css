@@ -23,17 +23,20 @@
     text-align: center;
     align-items: center;
     display: grid;
-    position: relative;
+    position: fixed;
 }
 .userInfo-Container img{
+    position: absolute;
+    top: -50%;
     width: 140px;
     height: 140px;
+    margin-top: 5px;
     border-radius: 50%;
-    background-position-y: -100px;
+    border: 2px solid rgb(0, 0, 0); 
 }
 .userInfo-Container h2{
     font-size: 1.5rem;
-    padding-top: 10px;
+    padding-top: 60px;
     text-align: left;
 }
 .userInfo-Container h3{
