@@ -1,39 +1,108 @@
-.your_princess_was_not_found {
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    padding-top: 25px;
-    justify-content: center;
+.userNotFound-container{
+    padding-top: 10px;
     text-align: center;
+    align-items: start;
+    display: flex;
+    position: absolute;
 }
-.user {
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    padding-top: 25px;
-    justify-content: center;
-    text-align: center;
+.userNotFound-container h1 {
+    font-size: 2.5rem;
 }
 
+.userProfile-Container {
+    margin-top: 110px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    align-items: start;
+    display: flex;
+    position: relative;
+    background-color: rgb(245, 245, 245);
+}
+.userInfo-Container {
+    text-align: center;
+    align-items: center;
+    display: grid;
+    position: relative;
+}
+.userInfo-Container img{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-position-y: -100px;
+}
+.userInfo-Container h2{
+    font-size: 1.5rem;
+    padding-top: 10px;
+    text-align: left;
+}
+.userInfo-Container h3{
+    font-size: 1rem;
+    text-align: left;
+    padding-top: 10px;
+    width: 300px;
+    height: 100px;
+}
+.userProfileButton-Container{
+    padding-top: 10px;
+    padding-right: 10px;
+    display: grid;
+    margin-left: auto;
+}
+.userProfile-followButton{
+    position: relative;
 
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
 
-@media only screen and (max-width: 600px) {
-    .publication {
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        padding-top: 25px;
-        text-align: none;
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    z-index: 1;
+    background-color:rgba(38,72,75,1) ;
+}
+.userProfile-commissionButton{
+    position: relative;
 
-    }
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
 
-    .publication_info{
-        text-align: left;
-        align-items: flex-start;
-        display: inline-grid;
-        padding-top: 10px;
-    }
-    .publication img{
-        text-align: center;
-    }
-  }
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    z-index: 1;
+    background-color:rgba(38,72,75,1) ;
+}
+.userProfile-donationButton{
+    position: relative;
+
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    z-index: 1;
+    background-color:rgba(38,72,75,1) ;
+}
