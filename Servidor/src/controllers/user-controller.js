@@ -1,11 +1,12 @@
 var express = require('express');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer')
 
 const Users = require('../mongo/models/user.js');
 const tokenService = require('./token-service');
 const { reissueToken } = require('./token-service');
+const { response } = require('express');
 
-var app = express();
 
 const login = async(req, res) => {
     try {      
@@ -41,18 +42,31 @@ const createUser = async(req, res) =>{
 
     try{
         const {username, password, email} = req.body;
-
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: process.env.GMAIL_USER,
+              pass: process.env.GMAIL_PASS,
+            },
+          });
         const hash =  await bcrypt.hash(password, 15);
-
-
         await Users.create({
             username,
             email,
-            password: hash,    
+            password: hash, 
+            confirmed: false   
         })
+        const confirmationToken = tokenService.createConfirmationToken(username, email)
+        const url = `http://localhost:4000/confirm/${confirmationToken}`;
+
+        
+        transporter.sendMail({
+            to: email,
+            subject: 'Confirm Email',
+            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+        });
 
         res.send({status: 'ok', message: 'usuario creado' });
-
 
     }catch(ERROR){
         console.log(ERROR);
@@ -69,6 +83,23 @@ const createUser = async(req, res) =>{
     }
 
 };
+
+const confirmUser = async(req, res)=>{
+    try{
+        const username = await tokenService.decodeConfirmationToken(req.params.token)
+        const user = await Users.findOne({username})
+        if (user.username != "undefined"){
+            user.confirmed = true
+            user.save()
+            res.status(200).send({message: "Email confirmed, you can now login"})
+        }else{
+            res.status(404).send({message: "User does not exist"})
+        }
+    }catch(err){
+        console.log(err)
+        res.status(400).send({message: "Server error"})
+    }
+}
 
 const authenticateToken = async(req, res) =>{
     if (!req.headers.authorization || !req.headers.refreshtoken){
@@ -103,4 +134,4 @@ const getUserProfileInfoByUsername = async(req, res) => {
     
 }
 
-module.exports = {login, createUser, authenticateToken};
+module.exports = {login, createUser, confirmUser, authenticateToken};
