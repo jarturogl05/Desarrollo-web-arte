@@ -2,20 +2,24 @@ import React from 'react'
 import {  useParams } from "react-router-dom";
 import NavBar from '../../componens/navbar/navbar'
 import Profile from '../../componens/profile/profile'
+import { getProfileInfo} from '../../services/profileServices'
 
-
-function UserProfile() {
+function UserProfile(){
     let { username } = useParams();
-    let profilePicture = "https://www.anime-planet.com/images/characters/akiko-himenokouji-43346.jpg"
-    let description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et feugiat ex, ac iaculis velit. Maecenas in sem dui"
-    const userInfo = {username, profilePicture, description};
-    
-
-
+    var profileInfo;
+    React.useEffect(() => {
+        async function infoProfile(){
+            try {
+                profileInfo = await getProfileInfo(username)
+            }catch(err){
+                console.log('Error')
+            }
+        }
+    })
     return (
         <div>
             <NavBar></NavBar>
-            <Profile userProfileInfo = {userInfo} ></Profile> 
+            <Profile userProfileInfo = {profileInfo} ></Profile> 
         </div>
     )
 }
