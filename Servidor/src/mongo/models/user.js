@@ -6,7 +6,9 @@ const userSchema = new Schema({
     username : {type: String, required: true, unique: true},
     password: {type: String, required: true},
     email: {type: String, required: true, unique: true},
-    refreshToken: {type: String, required: false}
+    confirmed: {type: Boolean, required: true},
+    refreshToken: {type: String, default: null},
+    userType: {type: String, required: true, default: 'normalUser'}
 });
 
 const model = mongoose.model('User', userSchema);
