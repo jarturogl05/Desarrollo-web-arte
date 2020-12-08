@@ -7,9 +7,9 @@ function UserProfile(props) {
     return(
         <div className="userProfile-Container">
           <div className="userInfo-Container">
-            <img src={userProfileInfo.profilePicture} alt="User Profile Picture"></img>
-            <h2>{userProfileInfo.username}</h2>
-            <h3>{userProfileInfo.description}</h3>
+            <img src={userProfileInfo.data.profilePictureURL} alt="User Profile Picture"></img>
+            <h2>{userProfileInfo.data.username}</h2>
+            <h3>{userProfileInfo.data.description}</h3>
           </div>
           <div className="userProfileButton-Container">
           <button className="userProfile-followButton">Follow</button>

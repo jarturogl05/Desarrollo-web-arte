@@ -13,7 +13,7 @@ async function getProfileInfo(username){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getProfileInfo', settings);
+        const response = await fetch('http://localhost:4000/getUserProfileInfoByUsername', settings);
         const json = await response.json();
         return json;
     } catch (error) {

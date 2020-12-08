@@ -6,15 +6,18 @@ import { getProfileInfo} from '../../services/profileServices'
 
 function UserProfile(){
     let { username } = useParams();
-    var profileInfo;
-    React.useEffect(() => {
-        async function infoProfile(){
-            try {
-                profileInfo = await getProfileInfo(username)
-            }catch(err){
-                console.log('Error')
-            }
+    var [dataIsReturned, setDataIsReturned] = React.useState(false)
+    var [profileInfo, setProfileInfo] = React.useState()
+    async function infoProfile(){
+        try {
+            setProfileInfo(await getProfileInfo(username))
+            setDataIsReturned(true)
+        }catch(err){
+            console.log('Error')
         }
+    }
+    React.useEffect(() => {
+        infoProfile()
     })
     return (
         <div>
