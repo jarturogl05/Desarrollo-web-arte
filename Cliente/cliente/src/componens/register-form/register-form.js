@@ -1,7 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import { doRegister } from '../../services/userServices'
+
 import "./register-form.css";
+
 
 function Form() {
 
@@ -16,12 +19,74 @@ function Form() {
 
   const submit = async (e) =>{
     e.preventDefault();
+    
+    if (checkFields()){
+      const registerResponse = await doRegister(username, email, password)
+      if (registerResponse){
+        registerResponseStatus(registerResponse);
+       }else{
+         setError("Server Error")
+         console.log(error);
+       }
+    }
+  }
 
-    const newUser = {username, email, password};
-    console.log(newUser);
+  function checkFields(){
+    var result  = false
+    if (isValidPassword() && areMatchingPasswords() && isValidEmail()){
+      result = true
+    }
+    return result
+  }
+  
+  
+  function isValidEmail(){
+    var result = false
+    const emailRegex = new RegExp("^[-.]+@([-]+.)+[-]{2,4}$")
+    if (emailRegex.test(email)){
+      alert('La dirección de email es invalida')
+    }
+    return result
+  }
+  function isValidPassword(){
+    var result = false
 
-    history.push("/login");
+    result = true;
+    return result
+  }
+  function areMatchingPasswords(){
+    var result = false
+    if (password === passwordCheck){
+      result = true
+    }else{
+      alert('Las contraseñas no coinciden')
+    }
+    return result
+  }
 
+  function checkPasswordStrength(event){
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})");
+    const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+    if (strongRegex.test(event.target.value)) {
+    } else if (mediumRegex.test(event.target.value)) {
+    } else {
+    }
+  }
+
+
+  function registerResponseStatus(registerResponse){
+    switch(registerResponse.status){
+      case "ok":
+        alert('!Usuario registrado!')
+        history.push("/login");
+        break;
+      case "DUPLICATED_VALUES":
+        alert('Usuario existente')
+        break;
+      default:
+        setError("Server error");
+        console.log(error);
+    }
   }
 
 
@@ -57,7 +122,6 @@ function Form() {
               autoFocus
               required
               onChange={(e) => setPassword(e.target.value)}
-
             ></input>
           </p>
           <p>
