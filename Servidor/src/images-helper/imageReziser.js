@@ -12,7 +12,6 @@ async function resizeImageBuffer (stream){
      .withMetadata()
      .toBuffer()
      .then( (data) =>{
-       console.log(data)
        buffer = data
      })
   
@@ -34,4 +33,5 @@ async function applySmartCrop(src, dest, width, height) {
           .toBuffer()
       })
 }
-  
+
+module.exports = {applySmartCrop, resizeImageBuffer}
