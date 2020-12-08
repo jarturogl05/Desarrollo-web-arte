@@ -14,4 +14,14 @@ const createPost = async(req, res) =>{
     }
 }
 
-module.exports = {createPost}
+const UploadProfile = async(req, res) =>{
+    //var bufferResize = await resizeImageBuffer(req.file.buffer);
+    var bufferMiniature = await applySmartCrop(req.file.buffer, '', 512, 512);
+    var result = await uploadImageProfile(bufferMiniature);
+    console.log(result);
+    if(result){
+        res.status(200).send('Archivo subido exitosamente...')
+    }
+}
+
+module.exports = {createPost, UploadProfile}

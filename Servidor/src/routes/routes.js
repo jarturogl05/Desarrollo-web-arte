@@ -18,6 +18,6 @@ router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
 router.get('/confirm/:token', userController.confirmUser);
 
-router.post('/upload', uploadStrategy, postService.createPost);
+router.post('/upload', uploadStrategy, postService.UploadProfile);
 
 module.exports = router;
