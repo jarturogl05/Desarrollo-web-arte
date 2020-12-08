@@ -13,6 +13,6 @@ router.post('/login' , userController.login);
 router.post('/create' , userController.createUser);
 router.post('/authenticateToken', userController.authenticateToken);
 
-router.post('/upload', uploadStrategy, postService.createPost);
+router.post('/upload', uploadStrategy, postService.UploadProfile);
 
 module.exports = router;

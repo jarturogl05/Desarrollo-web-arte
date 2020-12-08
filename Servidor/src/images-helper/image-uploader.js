@@ -28,13 +28,35 @@ async function uploadImagePost(buffer){
 }
 
 
-function uploadImageMiniature(stream){
+async function uploadImageMiniature(buffer){
 
+  const blobName = 'pruebaMiniatura.jpg';
+  const stream = getStream(buffer);
+  const streamLength = buffer.length;
+  blobService.createBlockBlobFromStream(containerNameMiniature, blobName, stream, streamLength, err =>{
+    if(err){
+      console.log(err);
+      return false;
+    }
+  });
+
+  return true;
 }
 
 
-function uploadImageProfile(stream){
+async function uploadImageProfile(buffer){
 
+  const blobName = 'pruebaperfil.jpg';
+  const stream = getStream(buffer);
+  const streamLength = buffer.length;
+  blobService.createBlockBlobFromStream(containerNameProfile, blobName, stream, streamLength, err =>{
+    if(err){
+      console.log(err);
+      return false;
+    }
+  });
+
+  return true;
 }
 
 
