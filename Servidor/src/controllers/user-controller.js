@@ -129,5 +129,9 @@ const authenticateToken = async(req, res) =>{
     }
 };
 
+const getUserProfileInfoByUsername = async(req, res) => {
+
+    
+}
 
 module.exports = {login, createUser, confirmUser, authenticateToken};
