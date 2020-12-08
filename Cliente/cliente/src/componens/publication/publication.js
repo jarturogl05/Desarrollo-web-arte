@@ -7,6 +7,10 @@ import Carousel from "../userInfo-Image-carousel/carousel";
 
 function Publication(props) {
   const postInfo = props.postInfo;
+
+  
+
+
   return (
     <div className="publication">
       <img src={postInfo.urlImage} alt="art"></img>
