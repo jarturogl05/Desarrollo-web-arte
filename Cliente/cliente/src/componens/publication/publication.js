@@ -2,15 +2,10 @@ import React from "react";
 import SocialButtons from "../social-buttons/social-buttons";
 import UserInfo from "../userInfo-publication/userInfo";
 import "./publication.css";
-
 import Carousel from "../userInfo-Image-carousel/carousel";
 
 function Publication(props) {
   const postInfo = props.postInfo;
-
-  
-
-
   return (
     <div className="publication">
       <img src={postInfo.urlImage} alt="art"></img>

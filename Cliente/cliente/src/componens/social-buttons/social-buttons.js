@@ -4,9 +4,9 @@ import './social-buttons.css'
 function SocialButtons() {
     return (
         <div className="publication_info_socialButtons">
-          <button>Like</button>
-          <button>Share</button>
-          <button>Fav</button>
+          <button>X</button>
+          <button>X</button>
+          <button>X</button>
         </div>
     )
 }

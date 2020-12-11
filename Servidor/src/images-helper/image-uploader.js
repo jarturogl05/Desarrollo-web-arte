@@ -12,8 +12,8 @@ const getStream = require ('into-stream');
 
 
 
-async function uploadImagePost(buffer){
-    const blobName = 'prueba.jpg';
+async function uploadImagePost(buffer, name){
+    const blobName = name;
     const stream = getStream(buffer);
     const streamLength = buffer.length;
     blobService.createBlockBlobFromStream(containerNamePosts, blobName, stream, streamLength, err =>{
@@ -28,9 +28,9 @@ async function uploadImagePost(buffer){
 }
 
 
-async function uploadImageMiniature(buffer){
+async function uploadImageMiniature(buffer, name){
 
-  const blobName = 'pruebaMiniatura.jpg';
+  const blobName = name;
   const stream = getStream(buffer);
   const streamLength = buffer.length;
   blobService.createBlockBlobFromStream(containerNameMiniature, blobName, stream, streamLength, err =>{
@@ -44,9 +44,9 @@ async function uploadImageMiniature(buffer){
 }
 
 
-async function uploadImageProfile(buffer){
+async function uploadImageProfile(buffer, name){
 
-  const blobName = 'pruebaperfil.jpg';
+  const blobName = name;
   const stream = getStream(buffer);
   const streamLength = buffer.length;
   blobService.createBlockBlobFromStream(containerNameProfile, blobName, stream, streamLength, err =>{
@@ -60,4 +60,10 @@ async function uploadImageProfile(buffer){
 }
 
 
-module.exports = {uploadImageMiniature, uploadImagePost, uploadImageProfile}
+function createImageName(originalName){
+  const identifier = Math.random().toString().replace(/0\./,'');
+  //return `${identifier}-${originalName}.jpg`;
+  return identifier + originalName + '.jpg'
+}
+
+module.exports = {uploadImageMiniature, uploadImagePost, uploadImageProfile, createImageName}
