@@ -13,6 +13,7 @@ router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
 router.post('/createCommission', commissionController.createCommission);
 router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
+router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
 router.get('/confirm/:token', userController.confirmUser);
 
 module.exports = router;

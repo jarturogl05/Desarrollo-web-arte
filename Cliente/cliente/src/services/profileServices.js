@@ -20,17 +20,18 @@ async function getProfileInfo(username){
         console.log(error);
     }
 }
-async function getAvailableCommissions(username){
+async function getAvailableCommissions(token, refreshToken){
 
     const settings = {
         method: 'POST',
         headers: new Headers({
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            'refreshtoken': 'Bearer ' + refreshToken
         }),
 
         body: JSON.stringify({
-            'username': username
         })
     }
 
