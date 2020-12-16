@@ -2,7 +2,6 @@ import React from "react";
 import SocialButtons from "../social-buttons/social-buttons";
 import UserInfo from "../userInfo-publication/userInfo";
 import "./publication.css";
-
 import Carousel from "../userInfo-Image-carousel/carousel";
 
 function Publication(props) {
