@@ -20,12 +20,15 @@ function CommissionAdmin(){
     React.useEffect(() => {
         getCommissionList()
     })
-    if(dataIsReturned || !commissionList.length){
+    if(dataIsReturned && commissionList && commissionList != Error){
         console.log(commissionList)
+        const commissionComponentList = commissionList.map(tempCommission => <Commission commissionInfo = {tempCommission}></Commission>)
         return (
             <div>
                 <NavBar></NavBar>
-                <Commission commissionInfo = {commissionList[1]}></Commission>
+                <div>
+                    {commissionComponentList}
+                </div>
             </div>
         )
     }else{

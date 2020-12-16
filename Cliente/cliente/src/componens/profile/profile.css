@@ -69,7 +69,7 @@
     letter-spacing: .15rem;
     overflow: hidden;
     z-index: 1;
-    background-color:rgba(38,72,75,1) ;
+    background-color:rgb(51, 193, 206) ;
 }
 .userProfile-commissionButton{
     position: relative;
@@ -88,7 +88,7 @@
     letter-spacing: .15rem;
     overflow: hidden;
     z-index: 1;
-    background-color:rgba(38,72,75,1) ;
+    background-color:rgb(187, 175, 13) ;
 }
 .userProfile-donationButton{
     position: relative;
@@ -107,5 +107,15 @@
     letter-spacing: .15rem;
     overflow: hidden;
     z-index: 1;
-    background-color:rgba(38,72,75,1) ;
+    background-color:rgb(255, 0, 0) ;
+}
+
+@media only screen and (max-width: 767px) {
+    
+    .userProfileButton-Container{
+        padding-top: 10px;
+        padding-right: 10px;
+        display: grid;
+        margin-top: 100%;
+    }
 }
