@@ -19,21 +19,26 @@ function CommissionAdmin(){
     }
     React.useEffect(() => {
         getCommissionList()
-    })
-    if(dataIsReturned && commissionList && commissionList != Error){
-        console.log(commissionList)
-        const commissionComponentList = commissionList.map(tempCommission => <Commission commissionInfo = {tempCommission}></Commission>)
-        return (
-            <div>
-                <NavBar></NavBar>
+    }, [])
+    if(dataIsReturned){
+        if (commissionList.data){
+            const commissionComponentList = commissionList.map(tempCommission => <Commission commissionInfo = {tempCommission}></Commission>)
+            return (
                 <div>
-                    {commissionComponentList}
+                    <NavBar></NavBar>
+                    <div>
+                        {commissionComponentList}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <h1>No se encuentran comisiones</h1>
+            )
+        }
     }else{
         return(
-            <h1>Loading</h1>
+            <h1>Error desconocido</h1>
         )
     }
 }

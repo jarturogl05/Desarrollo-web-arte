@@ -38,7 +38,7 @@ async function getAvailableCommissions(token, refreshToken){
     try {
         const response = await fetch('http://localhost:4000/getAvailableCommissions', settings);
         const json = await response.json();
-        return json.data;
+        return json;
     } catch (error) {
         console.log(error);
     }
