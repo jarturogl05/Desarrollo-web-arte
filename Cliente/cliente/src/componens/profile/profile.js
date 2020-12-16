@@ -3,9 +3,10 @@ import "./profile.css";
 
 function UserProfile(props) {
   const userProfileInfo = props.userProfileInfo;
-  console.log(userProfileInfo)
   if (userProfileInfo){
     console.log(userProfileInfo)
+    const buttons = userProfileInfo.isOwn ? 
+    <button className="userProfile-editButton">Editar</button> : [<button className="userProfile-followButton">Follow</button>, <button className="userProfile-commissionButton">Commission</button>, <button className="userProfile-donationButton">Donate</button>]
     return(
         <div className="userProfile-Container">
           <div className="userInfo-Container">
@@ -14,9 +15,7 @@ function UserProfile(props) {
             <h3>{userProfileInfo.data.description}</h3>
           </div>
           <div className="userProfileButton-Container">
-          <button className="userProfile-followButton">Follow</button>
-            <button className="userProfile-commissionButton">Commission</button>
-            <button className="userProfile-donationButton">Donate</button>
+            {buttons}
           </div>
         </div>
     )
