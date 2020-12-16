@@ -18,11 +18,11 @@ function UserProfile(){
     }
     React.useEffect(() => {
         infoProfile()
-    })
+    }, [])
     return (
         <div>
             <NavBar></NavBar>
-            <Profile userProfileInfo = {profileInfo} ></Profile> 
+            <Profile userProfileInfo = {dataIsReturned && profileInfo.data ? profileInfo.data: undefined} ></Profile> 
         </div>
     )
 }

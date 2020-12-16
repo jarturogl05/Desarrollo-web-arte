@@ -3,6 +3,7 @@ import "./profile.css";
 
 function UserProfile(props) {
   const userProfileInfo = props.userProfileInfo;
+  console.log(userProfileInfo)
   if (userProfileInfo){
     return(
         <div className="userProfile-Container">

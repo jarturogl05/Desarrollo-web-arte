@@ -1,4 +1,5 @@
 const Profiles = require('../mongo/models/profileInfo');
+const tokenService = require('../controllers/token-service')
 
 
 
@@ -6,8 +7,17 @@ const getUserInfo = async(req, res) => {
     try {      
             const {username} = req.body;
             const profile = await Profiles.findOne({username});
-            if(profile){
-                res.status(200).send({status:'USER_FOUND', data: profile})
+            if(profile){            
+                const tokenCode = req.headers.authorization;
+                const token = tokenCode.split(' ')[1];
+                var isOwned = false
+                if (token && token != 'undefined'){
+                    senderUsername = await tokenService.decodeToken(token)
+                    if (senderUsername === username){
+                        isOwned = true
+                    }
+                }
+                res.status(200).send({status:'USER_FOUND', isOwn:isOwned, data: profile})
             }else{
                 res.status(401).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
             }
