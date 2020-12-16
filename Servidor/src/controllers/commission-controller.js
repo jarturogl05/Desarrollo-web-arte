@@ -56,6 +56,45 @@ const ResponseCommission = async(req, res) => {
 
 const PayCommission = async(req, res) => {      
 
-} 
+}
 
-module.exports = {createCommission, ResponseCommission, PayCommission}
+
+const getMyAvailableCommission = async(req, res) => {
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        username = await tokenService.decodeToken(token)
+
+        commissions = await Commissions.find({contractedUser: username, accepted: false})
+        
+        if (commissions.length){
+            console.log(commissions.length)
+            res.status(200).send({message: 'Sucessfully retracted', data: commissions})
+        }else{
+            res.status(404).send({message: 'Commissions not found, try adding one'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+
+const getAllMyCommission = async(req, res) => {
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        username = await tokenService.decodeToken(token)
+
+        commissions = await Commissions.find({contractedUser: username})
+        
+        if (commissions.any()){
+            send.status(200).send({message: 'Sucessfully retracted', data: commissions})
+        }else{
+            send.status(404).send({message: 'Commissions not found, try adding one'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+module.exports = {createCommission, ResponseCommission, PayCommission, getMyAvailableCommission}

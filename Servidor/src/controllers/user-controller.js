@@ -79,9 +79,7 @@ const createUser = async(req, res) =>{
         }
         
         res.status(505).send({status: 'ERROR', message: 'usuario no creado' });
-
     }
-
 };
 
 const confirmUser = async(req, res)=>{
@@ -128,10 +126,5 @@ const authenticateToken = async(req, res) =>{
         })
     }
 };
-
-const getUserProfileInfoByUsername = async(req, res) => {
-
-    
-}
 
 module.exports = {login, createUser, confirmUser, authenticateToken};

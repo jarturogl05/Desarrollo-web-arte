@@ -3,6 +3,7 @@ import Home from './pages/home/home'
 import Register from './pages/register/register'
 import Post from './pages/post/post'
 import UserProfile from './pages/userprofile/userprofile'
+import commissionAdmin from './pages/commissionAdmin/commissionAdmin'
 import PrivateRoute from './utils/auth'
 import UserContext from "./utils/userContext"
 import checkToken from './services/tokenServices'
@@ -66,6 +67,7 @@ function App() {
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/post/:id" component={Post}></Route>
             <Route exact path="/profile/:username" component={UserProfile}></Route>
+            <Route exact path="/myavailablecommission" component={commissionAdmin}></Route>
           </Switch>
         </div>
       </UserContext.Provider>

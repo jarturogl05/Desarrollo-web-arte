@@ -1,10 +1,11 @@
-async function getProfileInfo(username){
+async function getProfileInfo(username, token){
 
     const settings = {
         method: 'POST',
         headers: new Headers({
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         }),
 
         body: JSON.stringify({
@@ -13,7 +14,31 @@ async function getProfileInfo(username){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getProfileInfo', settings);
+        const response = await fetch('http://localhost:4000/getUserProfileInfoByUsername', settings);
+        console.log()
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function getAvailableCommissions(token, refreshToken){
+
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            'refreshtoken': 'Bearer ' + refreshToken
+        }),
+
+        body: JSON.stringify({
+        })
+    }
+
+    try {
+        const response = await fetch('http://localhost:4000/getAvailableCommissions', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -22,4 +47,4 @@ async function getProfileInfo(username){
 }
 
 
-export { getProfileInfo }
+export { getProfileInfo, getAvailableCommissions }
