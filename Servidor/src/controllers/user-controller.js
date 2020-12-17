@@ -49,7 +49,7 @@ const createUser = async(req, res) =>{
               pass: process.env.GMAIL_PASS,
             },
           });
-        const hash =  await bcrypt.hash(password, 15);
+        const hash =  await bcrypt.hash(password, 2);
         await Users.create({
             username,
             email,
