@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 const Users = require('../mongo/models/user.js');
 const profile = require('../mongo/models/profileInfo');
 const tokenService = require('./token-service');
-const { reissueToken } = require('./token-service');
-const { response } = require('express');
 
 
 const login = async(req, res) => {
@@ -58,15 +56,14 @@ const createUser = async(req, res) =>{
         let createUser = await Users.create([{
             email,
             password: hash, 
+            username: username,
             confirmed: false   
         }], options)
-        console.log('----------------------------')
+
         let createProfile = await profile.create([{
-            user: createUser[0]._id,
-            username: username
+            user: createUser[0]._id
         }], options)
 
-        console.log('----------------------------')
         if (createUser && createProfile){
             try{
                 const confirmationToken = tokenService.createConfirmationToken(username, email)
@@ -94,7 +91,6 @@ const createUser = async(req, res) =>{
 
         }
     }catch(ERROR){
-        console.log(ERROR)
         await session.abortTransaction();
         session.endSession();
 

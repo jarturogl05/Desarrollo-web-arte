@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
     user : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
-    username : {type: String, required: true, unique: true},
     description: {type: String, maxlength: 355},
     profilePictureURL: {type: String, required: true, default: "https://cdn.onlinewebfonts.com/svg/img_401900.png"},
     commission: [{type: mongoose.Schema.Types.ObjectId, ref: 'commissionType', required: false}],

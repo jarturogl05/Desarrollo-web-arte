@@ -1,10 +1,7 @@
-const express = require('express')
-
 const Commissions = require('./../mongo/models/commission')
 const Users = require('./../mongo/models/user')
 
 const tokenService = require('./token-service');
-
 const createCommission = async(req, res) => {
     try {        
         const { contracted, commissiontype } = req.body
@@ -26,7 +23,30 @@ const createCommission = async(req, res) => {
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});
     }
+}
+const askCommission = async(req, res) => {
+    try {        
+        const { contracted, commissiontype } = req.body
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        contractorUsername = await tokenService.decodeToken(token)
+
+        contractorUser = await Users.findOne(contractorUsername)
+        contractedUser = await Users.findOne(contracted)
+
+        await Commissions.create({
+            contractorUser,
+            contractedUser,
+            commissiontype
+        })
+        
+        send.status(200).send({message: 'Registered Commission!'})
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
 } 
+
 const ResponseCommission = async(req, res) => {
     try {        
         const { response, commissionid } = req.body
@@ -97,4 +117,4 @@ const getAllMyCommission = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+module.exports = {createCommission, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}

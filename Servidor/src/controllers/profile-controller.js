@@ -26,7 +26,7 @@ const getUserInfo = async(req, res) => {
             res.status(500).send({status:'ERROR', message: 'error'});
         }
 }
-const createProfile = async(req, res) =>{
+const updateProfile = async(req, res) =>{
 
     try{
         const {username, description, profilePictureURL, commission, twitter, facebook, instagram, youtube} = req.body;
@@ -58,4 +58,4 @@ const createProfile = async(req, res) =>{
 
 };
 
-module.exports = {getUserInfo, createProfile}
+module.exports = {getUserInfo, updateProfile}

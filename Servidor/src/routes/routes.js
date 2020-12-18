@@ -12,12 +12,16 @@ const uploadStrategy = multer({storage: inMemoryStorage}).single('image');
 router.post('/login' , userController.login);
 router.post('/create' , userController.createUser);
 router.post('/authenticateToken', userController.authenticateToken);
-router.post('/createProfile' , profileController.createProfile);
+
+router.post('/updateProfile' , profileController.updateProfile);
 router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
+
 router.post('/createCommission', commissionController.createCommission);
+router.post('/askCommission', commissionController.askCommission);
 router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
+
 router.get('/confirm/:token', userController.confirmUser);
 
 router.post('/upload', uploadStrategy, postService.UploadProfile);
