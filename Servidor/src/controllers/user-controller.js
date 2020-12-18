@@ -1,8 +1,10 @@
 var express = require('express');
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const mongoose = require('mongoose');
 
 const Users = require('../mongo/models/user.js');
+const profile = require('../mongo/models/profileInfo');
 const tokenService = require('./token-service');
 const { reissueToken } = require('./token-service');
 const { response } = require('express');
@@ -39,8 +41,11 @@ const login = async(req, res) => {
 
 
 const createUser = async(req, res) =>{
-
+    const session = await mongoose.startSession()
+    session.startTransaction()
     try{
+        const options = {session, new: true}
+
         const {username, password, email} = req.body;
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
@@ -50,35 +55,56 @@ const createUser = async(req, res) =>{
             },
           });
         const hash =  await bcrypt.hash(password, 2);
-        await Users.create({
+        let createUser = await Users.create({
             username,
             email,
             password: hash, 
             confirmed: false   
-        })
-        const confirmationToken = tokenService.createConfirmationToken(username, email)
-        const url = `http://localhost:4000/confirm/${confirmationToken}`;
+        }, options)
 
+        let createProfile = await profile.create({
+
+        }, options)
+
+        if (createUser.isOk && createProfile.isOk){
+            try{
+                const confirmationToken = tokenService.createConfirmationToken(username, email)
+                const url = `http://localhost:4000/confirm/${confirmationToken}`;
         
-        transporter.sendMail({
-            to: email,
-            subject: 'Confirm Email',
-            html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-        });
+                
+                await transporter.sendMail({
+                    to: email,
+                    subject: 'Confirm Email',
+                    html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+                });
+                
+                await session.commitTransaction();
+                session.endSession();
 
-        res.send({status: 'ok', message: 'usuario creado' });
+                res.send({status: 'ok', message: 'usuario creado' });
+            }catch(error){
+                await session.abortTransaction();
+                session.endSession();
+                res.send({
+                    status: 'error',
+                    message: 'No se pudo enviar el correo, reintentar mas tarde'
+                })
+            }
 
+        }
     }catch(ERROR){
-        console.log(ERROR);
+        await session.abortTransaction();
+        session.endSession();
 
+        console.log(ERROR);
         if(ERROR.code && ERROR.code == 11000){
             res
                 .status(400)
                 .send({status: 'DUPLICATED_VALUES', message: Error.keyValue});
-                return;
+        }else{
+            res.status(505).send({status: 'ERROR', message: 'usuario no creado' });
         }
         
-        res.status(505).send({status: 'ERROR', message: 'usuario no creado' });
     }
 };
 
