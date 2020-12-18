@@ -93,7 +93,7 @@ const createUser = async(req, res) =>{
     }catch(ERROR){
         await session.abortTransaction();
         session.endSession();
-
+        console.log(ERROR)
         if(ERROR.code && ERROR.code == 11000){
             res
                 .status(400)
