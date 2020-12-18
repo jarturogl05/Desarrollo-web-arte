@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
 const Profiles = require('../mongo/models/profileInfo');
-const tokenService = require('../controllers/token-service')
-
+const Users = require('../mongo/models/user');
+const tokenService = require('../controllers/token-service');
+const { options } = require('../routes/routes');
 
 
 const getUserInfo = async(req, res) => {
@@ -26,36 +28,51 @@ const getUserInfo = async(req, res) => {
             res.status(500).send({status:'ERROR', message: 'error'});
         }
 }
-const createProfile = async(req, res) =>{
-
+const updateProfile = async(req, res) =>{
+    const session = await mongoose.startSession()
+    session.startTransaction()
     try{
-        const {username, description, profilePictureURL, commission, twitter, facebook, instagram, youtube} = req.body;
-        await Profiles.create({
-            username,
+        const {username, description, profilePictureURL, twitter, facebook, instagram, youtube} = req.body;
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        const options = {session, new: true}
+        tokenUsername = await tokenService.decodeToken(token)
+
+        let user = await Users.findOne({username: tokenUsername})
+        let profile = await Profiles.findOne({user: user._id})
+
+        let profileUpdate = await profile.update({
             description,
             profilePictureURL,
-            commission,
             twitter,
             facebook,
             instagram,
             youtube
-        })
-        res.send({status: 'ok', message: 'usuario creado' });
+        }, options)
 
+        let userUpdate = await user.update({
+            username: username
+        }, options)
+
+        if (profileUpdate.ok && userUpdate.ok){
+            await session.commitTransaction()
+            session.endSession()
+
+            res.status(200).send({status:'ok', message: 'Perfil Actualizado!'});
+        }else{
+            res.status(500).send({status:'Error', message: 'Error en el servidor'});
+        }
     }catch(ERROR){
-        console.log(ERROR);
-
+        console.log(ERROR)
         if(ERROR.code && ERROR.code == 11000){
             res
                 .status(400)
-                .send({status: 'DUPLICATED_VALUES', message: Error.keyValue});
-                return;
+                .send({status: 'DUPLICATED_VALUES', message: ERROR.keyValue});
+        }else{
+            res.status(505).send({status: 'ERROR', message: 'Problema al actualizar' });
         }
-        
-        res.status(505).send({status: 'ERROR', message: 'usuario no creado' });
-
     }
 
 };
 
-module.exports = {getUserInfo, createProfile}
+module.exports = {getUserInfo, updateProfile}

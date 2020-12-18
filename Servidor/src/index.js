@@ -21,7 +21,9 @@ app.use(routes);
 const PORT = process.env.PORT || 4000;
 
 
-
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose
   .connect(process.env.MONGO, {
     useNewUrlParser: true,

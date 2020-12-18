@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commissionSchema = new Schema({
-    contractorUser : {type: String, required: true},
-    contractedUser : {type: String, required: true},
-    Description : {type: String, required: true},
-    CommisionType: {type: String, required: true},
+    contractorUserId : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
+    contractedUserId : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
+    comments : {type: String, required: true},
+    commisionType: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'commissionType'},
     accepted : {type: Boolean, required: true, default: false},
     paid: {type: Boolean, required: true, default : false}
 });
