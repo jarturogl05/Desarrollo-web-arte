@@ -10,8 +10,6 @@ const postSchema = new Schema({
     URLImage: [{type: String, required: true}],
     URLThumbnail: [{type: String, required: true}],
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'users'}]
-
-
 })
 
 
