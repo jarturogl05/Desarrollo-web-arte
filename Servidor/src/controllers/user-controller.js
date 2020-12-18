@@ -55,23 +55,23 @@ const createUser = async(req, res) =>{
             },
           });
         const hash =  await bcrypt.hash(password, 2);
-        let createUser = await Users.create({
-            username,
+        let createUser = await Users.create([{
             email,
             password: hash, 
             confirmed: false   
-        }, options)
+        }], options)
+        console.log('----------------------------')
+        let createProfile = await profile.create([{
+            user: createUser[0]._id,
+            username: username
+        }], options)
 
-        let createProfile = await profile.create({
-
-        }, options)
-
-        if (createUser.isOk && createProfile.isOk){
+        console.log('----------------------------')
+        if (createUser && createProfile){
             try{
                 const confirmationToken = tokenService.createConfirmationToken(username, email)
                 const url = `http://localhost:4000/confirm/${confirmationToken}`;
-        
-                
+
                 await transporter.sendMail({
                     to: email,
                     subject: 'Confirm Email',
@@ -90,17 +90,18 @@ const createUser = async(req, res) =>{
                     message: 'No se pudo enviar el correo, reintentar mas tarde'
                 })
             }
+        }else{
 
         }
     }catch(ERROR){
+        console.log(ERROR)
         await session.abortTransaction();
         session.endSession();
 
-        console.log(ERROR);
         if(ERROR.code && ERROR.code == 11000){
             res
                 .status(400)
-                .send({status: 'DUPLICATED_VALUES', message: Error.keyValue});
+                .send({status: 'DUPLICATED_VALUES', message: ERROR.keyValue});
         }else{
             res.status(505).send({status: 'ERROR', message: 'usuario no creado' });
         }

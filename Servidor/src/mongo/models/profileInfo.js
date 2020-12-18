@@ -7,8 +7,8 @@ const profileSchema = new Schema({
     username : {type: String, required: true, unique: true},
     description: {type: String, maxlength: 355},
     profilePictureURL: {type: String, required: true, default: "https://cdn.onlinewebfonts.com/svg/img_401900.png"},
-    commission: [{type: mongoose.Schema.Types.ObjectId, ref: 'commissionType'}],
-    twitter: {type: comissionDescription, default: null},
+    commission: [{type: mongoose.Schema.Types.ObjectId, ref: 'commissionType', required: false}],
+    twitter: {type: String, default: null},
     facebook: {type: String, default: null},
     instagram: {type: String, default: null},
     youtube: {type: String, default: null}
