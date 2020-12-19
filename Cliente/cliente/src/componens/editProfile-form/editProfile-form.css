@@ -14,8 +14,17 @@
     left: 25%;
     right: 25%;
     top: 25%;
-    bottom: 25%;
     margin: auto;
     border-radius: 20px;
     background: white;
+  }
+  .popup_inner img{
+    width: 140px;
+    height: 140px;
+    margin-top: 5px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0);
+  }
+  input {
+      height: 200px;
   }

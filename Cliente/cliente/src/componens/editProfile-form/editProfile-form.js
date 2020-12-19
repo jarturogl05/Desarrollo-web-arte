@@ -7,7 +7,54 @@ function UserProfileEdit(props) {
     return (
         <div className='popup'>
             <div className='popup_inner'>
-                <h1>{userProfileInfo.user}</h1>
+
+                <img src={userProfileInfo.profilePictureURL} alt="User Profile Picture"></img>
+
+                <p>
+                    <label>Confirm password</label>
+                    <br></br>
+                    <input
+                        type="password"
+                        autoFocus
+                        required
+                    ></input>
+                </p>
+                <p>
+                    <label>Confirm password</label>
+                    <br></br>
+                    <input
+                        type="password"
+                        autoFocus
+                        required
+                    ></input>
+                </p>
+                <p>
+                    <label>Confirm password</label>
+                    <br></br>
+                    <input
+                        type="password"
+                        autoFocus
+                        required
+                    ></input>
+                </p>
+                <p>
+                    <label>Confirm password</label>
+                    <br></br>
+                    <input
+                        type="password"
+                        autoFocus
+                        required
+                    ></input>
+                </p>
+                <p>
+                    <label>Confirm password</label>
+                    <br></br>
+                    <input
+                        type="password"
+                        autoFocus
+                        required
+                    ></input>
+                </p>
                 <button onClick={props.binding}>close me</button>
             </div>
         </div>
