@@ -4,7 +4,7 @@ import "./editProfile-form.css";
 
 function UserProfileEdit(props) {
     let userProfileInfo = props.userProfileInfo
-    console.log(userProfileInfo)
+    console.log(userProfileInfo.twitter)
     return (
         <div className='popup'>
             <div className='popup_inner'>
@@ -19,7 +19,7 @@ function UserProfileEdit(props) {
                         type="text"
                         autoFocus
                         required
-                        text={userProfileInfo.username}
+                        defaultValue={userProfileInfo.username}
                     ></input>
                 </p>
                 <p>
@@ -29,7 +29,7 @@ function UserProfileEdit(props) {
                         type="text"
                         autoFocus
                         required
-                        text={userProfileInfo.twitter === undefined ? "": userProfileInfo.twitter}
+                        defaultValue={userProfileInfo.twitter === undefined ? "": userProfileInfo.twitter}
                     ></input>
                 </p>
                 <p>
@@ -39,7 +39,7 @@ function UserProfileEdit(props) {
                         type="text"
                         autoFocus
                         required
-                        text={userProfileInfo.facebook === undefined ? "": userProfileInfo.facebook}
+                        defaultValue={userProfileInfo.facebook === undefined ? "": userProfileInfo.facebook}
                     ></input>
                 </p>
                 <p>
@@ -49,7 +49,7 @@ function UserProfileEdit(props) {
                         type="text"
                         autoFocus
                         required
-                        text={userProfileInfo.instagram === undefined ? "": userProfileInfo.instagram}
+                        defaultValue={userProfileInfo.instagram === undefined ? "": userProfileInfo.instagram}
                     ></input>
                 </p>
                 <p>
@@ -59,7 +59,7 @@ function UserProfileEdit(props) {
                         type="text"
                         autoFocus
                         required
-                        text={userProfileInfo.description === undefined ? "": userProfileInfo.description}
+                        defaultValue={userProfileInfo.description === undefined ? "": userProfileInfo.description}
                     ></input>
                 </p>
                 <button onClick={props.binding}>close me</button>
