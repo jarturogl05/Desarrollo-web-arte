@@ -4,55 +4,62 @@ import "./editProfile-form.css";
 
 function UserProfileEdit(props) {
     let userProfileInfo = props.userProfileInfo
+    console.log(userProfileInfo)
     return (
         <div className='popup'>
             <div className='popup_inner'>
+                <h1>Actualizar perfil</h1>
 
                 <img src={userProfileInfo.profilePictureURL} alt="User Profile Picture"></img>
 
                 <p>
-                    <label>Confirm password</label>
+                    <label>Username</label>
                     <br></br>
                     <input
-                        type="password"
+                        type="text"
                         autoFocus
                         required
+                        text={userProfileInfo.username}
                     ></input>
                 </p>
                 <p>
-                    <label>Confirm password</label>
+                    <label>Twitter</label>
                     <br></br>
                     <input
-                        type="password"
+                        type="text"
                         autoFocus
                         required
+                        text={userProfileInfo.twitter === undefined ? "": userProfileInfo.twitter}
                     ></input>
                 </p>
                 <p>
-                    <label>Confirm password</label>
+                    <label>Facebook</label>
                     <br></br>
                     <input
-                        type="password"
+                        type="text"
                         autoFocus
                         required
+                        text={userProfileInfo.facebook === undefined ? "": userProfileInfo.facebook}
                     ></input>
                 </p>
                 <p>
-                    <label>Confirm password</label>
+                    <label>Instagram</label>
                     <br></br>
                     <input
-                        type="password"
+                        type="text"
                         autoFocus
                         required
+                        text={userProfileInfo.instagram === undefined ? "": userProfileInfo.instagram}
                     ></input>
                 </p>
                 <p>
-                    <label>Confirm password</label>
+                    <label>Profile Description</label>
                     <br></br>
                     <input
-                        type="password"
+                        type="text"
                         autoFocus
                         required
+                        text={userProfileInfo.description === undefined ? "": userProfileInfo.description}
                     ></input>
                 </p>
                 <button onClick={props.binding}>close me</button>

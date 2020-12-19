@@ -13,10 +13,12 @@
     position: absolute;
     left: 25%;
     right: 25%;
-    top: 25%;
+    top: 10%;
+    bottom: 5%;
     margin: auto;
     border-radius: 20px;
     background: white;
+    overflow: scroll;
   }
   .popup_inner img{
     width: 140px;
@@ -25,6 +27,20 @@
     border-radius: 50%;
     border: 2px solid rgb(0, 0, 0);
   }
-  input {
-      height: 200px;
-  }
+  .popup_inner input{
+    position: relative;
+    top: 0;
+    left: 0;
+    
+    outline: none;
+    background:none;
+    border-radius: 1em;
+    padding: 1em;
+    font-size: 1rem;
+}
+.popup_inner label{
+  display: block;
+  position: relative;
+  padding: 1em;
+  font-size: 1em;
+}
