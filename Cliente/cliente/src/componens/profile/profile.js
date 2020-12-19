@@ -36,7 +36,6 @@ function UserProfile(props) {
   }
   if (userProfileInfo){
     return(
-      <div>
       <div className="userProfile-Container">
         <div className="userInfo-Container">
           <img src={userProfileInfo.data.profilePictureURL} alt="User Profile Picture"></img>
@@ -44,8 +43,7 @@ function UserProfile(props) {
           <h3>{userProfileInfo.data.description}</h3>
         </div>
         {renderButtons()}
-      </div>
-        {showPopup ? <EditProfile userProfileInfo= {userProfileInfo}></EditProfile>: null}
+        {showPopup ? <EditProfile binding={toggleShowPopup} userProfileInfo = {userProfileInfo.data}></EditProfile>: null}
       </div>
     )
   }else{
