@@ -8,7 +8,8 @@ const { options } = require('../routes/routes');
 const getUserInfo = async(req, res) => {
     try {      
             const {username} = req.body;
-            const profile = await Profiles.findOne({username});
+            const user = await Users.findOne({username});
+            const profile = await Profiles.findOne({user: user._id})
             if(profile){            
                 const tokenCode = req.headers.authorization;
                 const token = tokenCode.split(' ')[1];
@@ -21,7 +22,7 @@ const getUserInfo = async(req, res) => {
                 }
                 res.status(200).send({status:'USER_FOUND', isOwn: isOwned, data: profile})
             }else{
-                res.status(401).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
+                res.status(404).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
             }
         } catch (error) {
             console.log(error);
