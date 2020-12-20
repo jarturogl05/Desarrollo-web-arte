@@ -63,6 +63,7 @@ function App() {
         <div className="App">
           <Switch>
             <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
+            <Route excat path='/hometest' component={Home}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/post/:id" component={Post}></Route>
