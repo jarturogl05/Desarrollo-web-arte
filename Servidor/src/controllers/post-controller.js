@@ -5,7 +5,6 @@ const {uploadImageMiniature, uploadImagePost, uploadImageProfile, createImageNam
 const URLBlob = 'https://imageswebart.blob.core.windows.net/'
 
 const createPost = async(req, res) =>{
-
     const{autorId, date, name, workType, tags} = req.body;
     const blobImageName = createImageName(name);
     const blobThumbnailName = 'thumbnail' + createImageName(name);
@@ -28,23 +27,18 @@ const createPost = async(req, res) =>{
         await uploadImagePost(bufferResize, blobImageName);
         await uploadImageMiniature(bufferThumbnail, blobThumbnailName)
         res.status(200).send({message: 'Registered Post'})
-  
-
-
     }catch(error){
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});
     }
-
-
-    // var bufferResize = await resizeImageBuffer(req.file.buffer);
-    // var bufferMiniature = await applySmartCrop(bufferResize, '', 512, 512);
-    // var result = await uploadImagePost(bufferResize);
-    // console.log(result);
-    // if(result){
-    //     res.status(200).send('Archivo subido exitosamente...')
-    // }
 }
+
+const getPost = async (req, res) =>{
+    const postId = req.params.post
+    console.log(postId);
+}
+
+
 
 const UploadProfile = async(req, res) =>{
     //var bufferResize = await resizeImageBuffer(req.file.buffer);
@@ -56,4 +50,4 @@ const UploadProfile = async(req, res) =>{
     }
 }
 
-module.exports = {createPost, UploadProfile}
+module.exports = {createPost, UploadProfile, getPost}
