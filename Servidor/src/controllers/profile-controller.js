@@ -20,7 +20,7 @@ const getUserInfo = async(req, res) => {
                         isOwned = true
                     }
                 }
-                res.status(200).send({status:'USER_FOUND', isOwn: isOwned, data: profile})
+                res.status(200).send({status:'USER_FOUND', username: user.username, isOwn: isOwned, data: profile})
             }else{
                 res.status(404).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
             }

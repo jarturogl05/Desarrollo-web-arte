@@ -39,11 +39,11 @@ function UserProfile(props) {
       <div className="userProfile-Container">
         <div className="userInfo-Container">
           <img src={userProfileInfo.data.profilePictureURL} alt="User Profile Picture"></img>
-          <h2>{userProfileInfo.data.username}</h2>
+          <h2>{userProfileInfo.username}</h2>
           <h3>{userProfileInfo.data.description}</h3>
         </div>
         {renderButtons()}
-        {showPopup ? <EditProfile binding={toggleShowPopup} userProfileInfo = {userProfileInfo.data}></EditProfile>: null}
+        {showPopup ? <EditProfile binding={toggleShowPopup} userProfileInfo = {userProfileInfo}></EditProfile>: null}
       </div>
     )
   }else{
