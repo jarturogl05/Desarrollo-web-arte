@@ -62,7 +62,6 @@ async function uploadImageProfile(buffer, name){
 
 function createImageName(originalName){
   const identifier = Math.random().toString().replace(/0\./,'');
-  //return `${identifier}-${originalName}.jpg`;
   return identifier + originalName + '.jpg'
 }
 
