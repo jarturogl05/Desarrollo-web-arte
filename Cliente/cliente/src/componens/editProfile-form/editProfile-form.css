@@ -44,3 +44,27 @@
   padding: 1em;
   font-size: 1em;
 }
+
+.editprofile-editbutton {
+  margin-top: 2em;
+  margin-right: 3rem;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(21, 255, 0);
+}
+.editprofile-cancelbutton {
+  margin-top: 2em;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(255, 0, 0);
+}
