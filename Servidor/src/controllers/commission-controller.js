@@ -1,24 +1,85 @@
+const mongoose = require('mongoose');
+
 const Commissions = require('./../mongo/models/commission')
+const CommissionTypes = require('../mongo/models/commissionType')
 const Users = require('./../mongo/models/user')
+const Profiles = require('../mongo/models/profileInfo')
 
 const tokenService = require('./token-service');
+
 const createCommission = async(req, res) => {
+    const { title, description, price, picture } = req.body
+    const session = await mongoose.startSession()
+    session.startTransaction();
     try {        
-        const { contracted, commissiontype } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
-        contractorUsername = await tokenService.decodeToken(token)
+        const options = {session, new: true}
+        username = await tokenService.decodeToken(token)
+        user = await Users.findOne({username})
+        profile = await Profiles.findOne({_id: user._id})
 
-        contractorUser = await Users.findOne(contractorUsername)
-        contractedUser = await Users.findOne(contracted)
+        let createCommissionType = await CommissionTypes.create({
+            title,
+            description,
+            price,
+            picture
+        }, options)
 
-        await Commissions.create({
-            contractorUser,
-            contractedUser,
-            commissiontype
-        })
-        
-        send.status(200).send({message: 'Registered Commission!'})
+        let updateProfile = await Profiles.update(
+            { user: user._id},
+            { $push: {commission: createCommission._id}}
+        , options)
+
+        if (createCommissionType && updateProfile){
+            await session.commitTransaction()
+            session.endSession()
+            send.status(200).send({message: 'Registered Commission!'})
+        }else{
+            await session.abortTransaction()
+            session.endSession()
+            send.status(500).send({message: 'Error at registering the commission'})
+        }
+
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+const editCommission = async(req, res) => {
+
+}
+const deleteCommission = async(req, res) => {
+    const { commissionTypeId } = req.body 
+    const session = await mongoose.startSession()
+    session.startTransaction();
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        const options = {session, new: true}
+        username = await tokenService.decodeToken(token)
+        user = await Users.findOne({username})
+        profile = await Profiles.findOne({_id: user._id})
+
+        let deleteCommissionType = await CommissionTypes.deleteOne({
+            _id: commissionTypeId
+        }, options)
+
+        let updateProfile = await Profiles.update(
+            { user: user._id},
+            { $pop: {commission: commissionTypeId}}
+        , options)
+
+        if (deleteCommission && updateProfile){
+            await session.commitTransaction()
+            session.endSession()
+            send.status(200).send({message: 'Deleted Commission!'})
+        }else{
+            await session.abortTransaction()
+            session.endSession()
+            send.status(500).send({message: 'Error at deleting the commission'})
+        }
+
     }catch(error){
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});

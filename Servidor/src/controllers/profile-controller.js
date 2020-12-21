@@ -29,7 +29,6 @@ const getUserInfo = async(req, res) => {
         }
 }
 const updateProfile = async(req, res) =>{
-    console.log(req.body)
     const session = await mongoose.startSession()
     session.startTransaction()
     try{
