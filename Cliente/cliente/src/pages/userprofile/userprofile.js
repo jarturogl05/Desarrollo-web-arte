@@ -10,6 +10,10 @@ function UserProfile(){
     let { username } = useParams();
     var [dataIsReturned, setDataIsReturned] = React.useState(false)
     var [profileInfo, setProfileInfo] = React.useState()
+
+        React.useEffect(() => {
+            infoProfile()
+    }, [])    
     async function infoProfile(){
         try {
             setProfileInfo(await getProfileInfo(username, token))
@@ -18,9 +22,6 @@ function UserProfile(){
             console.log('Error')
         }
     }
-    React.useEffect(() => {
-        infoProfile()
-    }, [])
     return (
         <div>
             <NavBar></NavBar>

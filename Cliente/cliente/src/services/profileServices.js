@@ -1,3 +1,5 @@
+
+
 async function getProfileInfo(username, token){
 
     const settings = {
@@ -22,6 +24,7 @@ async function getProfileInfo(username, token){
         console.log(error);
     }
 }
+
 async function getAvailableCommissions(token, refreshToken){
 
     const settings = {
@@ -46,5 +49,37 @@ async function getAvailableCommissions(token, refreshToken){
     }
 }
 
+async function editProfile(token, refreshToken, username, description, twitter, facebook, instagram, youtube, profilePictureURL){
 
-export { getProfileInfo, getAvailableCommissions }
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+            'refreshtoken': 'Bearer ' + refreshToken
+        }),
+
+        body: JSON.stringify({
+            'description': description,
+            'twitter': twitter,
+            'facebook': facebook,
+            'instagram': instagram,
+            'youtube': youtube,
+            'username': username,
+            'profilePictureURL': profilePictureURL
+        })
+    }
+
+    try {
+        console.log(username)
+        const response = await fetch('http://localhost:4000/updateProfile', settings);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export { getProfileInfo, getAvailableCommissions, editProfile }

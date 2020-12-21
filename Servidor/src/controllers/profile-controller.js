@@ -8,7 +8,8 @@ const { options } = require('../routes/routes');
 const getUserInfo = async(req, res) => {
     try {      
             const {username} = req.body;
-            const profile = await Profiles.findOne({username});
+            const user = await Users.findOne({username});
+            const profile = await Profiles.findOne({user: user._id})
             if(profile){            
                 const tokenCode = req.headers.authorization;
                 const token = tokenCode.split(' ')[1];
@@ -19,16 +20,16 @@ const getUserInfo = async(req, res) => {
                         isOwned = true
                     }
                 }
-                res.status(200).send({status:'USER_FOUND', isOwn: isOwned, data: profile})
+                res.status(200).send({status:'USER_FOUND', username: user.username, isOwn: isOwned, data: profile})
             }else{
-                res.status(401).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
+                res.status(404).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
             }
         } catch (error) {
-            console.log(error);
             res.status(500).send({status:'ERROR', message: 'error'});
         }
 }
 const updateProfile = async(req, res) =>{
+    console.log(req.body)
     const session = await mongoose.startSession()
     session.startTransaction()
     try{
@@ -40,10 +41,11 @@ const updateProfile = async(req, res) =>{
 
         let user = await Users.findOne({username: tokenUsername})
         let profile = await Profiles.findOne({user: user._id})
+        let profileImage = profilePictureURL === undefined ? profile.profilePictureURL: profilePictureURL
 
         let profileUpdate = await profile.update({
             description,
-            profilePictureURL,
+            profileImage,
             twitter,
             facebook,
             instagram,
@@ -54,12 +56,14 @@ const updateProfile = async(req, res) =>{
             username: username
         }, options)
 
-        if (profileUpdate.ok && userUpdate.ok){
+        if (profileUpdate.ok && userUpdate.ok && username != undefined){
             await session.commitTransaction()
             session.endSession()
 
             res.status(200).send({status:'ok', message: 'Perfil Actualizado!'});
         }else{
+            await session.abortTransaction()
+            session.endSession()
             res.status(500).send({status:'Error', message: 'Error en el servidor'});
         }
     }catch(ERROR){
