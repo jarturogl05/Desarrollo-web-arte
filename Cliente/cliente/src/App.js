@@ -6,6 +6,7 @@ import UserProfile from './pages/userprofile/userprofile'
 import commissionAdmin from './pages/commissionAdmin/commissionAdmin'
 import PrivateRoute from './utils/auth'
 import UserContext from "./utils/userContext"
+import ScrollToTop from "./utils/scroll"
 import checkToken from './services/tokenServices'
 
 
@@ -13,7 +14,7 @@ import {setLocalStorage, getLocalStorage} from './utils/localStorage'
 
 import React, { useState, useEffect } from "react";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useLocation, withRouter } from "react-router-dom";
 
 
 function App() {
@@ -58,6 +59,8 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop>
+
       <UserContext.Provider value={{token,refreshToken, setToken, setRefreshToken}}>
         <header/>
         <div className="App">
@@ -66,13 +69,18 @@ function App() {
             <Route excat path='/hometest' component={Home}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
-            <Route exact path="/post/:id" component={Post}></Route>
+            <Route exact path="/post/:id" component={Post} ></Route>
             <Route exact path="/profile/:username" component={UserProfile}></Route>
             <Route exact path="/myavailablecommission" component={commissionAdmin}></Route>
           </Switch>
         </div>
       </UserContext.Provider>
+      </ScrollToTop>
     </BrowserRouter>
   );
 }
+
+
+
+
 export default  App;

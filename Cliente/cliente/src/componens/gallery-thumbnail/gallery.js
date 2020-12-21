@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react"
+import { useHistory, Link } from "react-router-dom";
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
+
 
 
 const thumbnailsList = [
@@ -19,12 +21,19 @@ const thumbnailsList = [
 function Gallery() {
   const [thumbnails, setThumbnails] = useState(thumbnailsList);
   const [hasMore, setHasMore] = useState();
+  const history = useHistory();
 
   const fetchMoreData = () => {
     setTimeout(() => {
       setThumbnails(thumbnails.concat(thumbnailsList));
     }, 1500);
   };
+
+
+ const handleImageclick = (id) => {
+   
+   history.push('/post/'+ id )
+ }
 
   return (
     <div>
@@ -43,7 +52,8 @@ function Gallery() {
           {thumbnails &&
             thumbnails.map((thumbnails) => (
               <div className="img-wrap" key={thumbnails.id}>
-                <img src={thumbnails.URLThumbnail} alt="pic"></img>
+                <img src={thumbnails.URLThumbnail} onClick={() => handleImageclick(thumbnails.id)} alt="pic"></img>
+   
               </div>
             ))}
         </div>
