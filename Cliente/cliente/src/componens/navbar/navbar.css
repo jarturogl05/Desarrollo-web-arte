@@ -45,7 +45,15 @@
     padding: 0.5rem 1em;
     cursor: pointer;
     border-radius: 10px;
+    background: #212121;
+    color: white;
+    outline:none;
+    border-color: none;
+    border: 1px solid;
 }
+
+
+
 
 .nav-bar li {
     display: contents;
