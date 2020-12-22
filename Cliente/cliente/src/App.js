@@ -71,7 +71,7 @@ function App() {
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/post/:id" component={Post} ></Route>
             <Route exact path="/profile/:username" component={UserProfile}></Route>
-            <Route exact path="/myavailablecommission" component={commissionAdmin}></Route>
+            <Route exact path="/mycommmisions" component={commissionAdmin}></Route>
           </Switch>
         </div>
       </UserContext.Provider>

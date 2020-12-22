@@ -1,56 +1,36 @@
 import React, { useContext, useState } from 'react'
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 import {  useParams } from "react-router-dom";
 import NavBar from '../../componens/navbar/navbar'
-import Commission from '../../componens/commission/commission'
 import UserContext from '../../utils/userContext'
-import { getAvailableCommissions } from '../../services/profileServices'
+
+import './commissionAdmin.css';
 
 function CommissionAdmin(){    
     const {token, refreshToken}  = useContext(UserContext);
-    var [dataIsReturned, setDataIsReturned] = React.useState(false)
-    var [commissionList, setComissionList] = React.useState()
-    async function getCommissionList(){
-        try {
-            setComissionList(await getAvailableCommissions(token, refreshToken))
-            setDataIsReturned(true)
-        }catch(err){
-            console.log('Error')
-        }
-    }
-    React.useEffect(() => {
-        getCommissionList()
-    }, [])        
-    if(dataIsReturned){
-        if (commissionList.data){
-            const commissionComponentList = commissionList.map(tempCommission => <Commission commissionInfo = {tempCommission}></Commission>)
-            return (
-                <div>
-                    <NavBar></NavBar>
-                    <div>
-                        {commissionComponentList}
-                    </div>
-                </div>
-            )
-        }else{
-            return(
-                <div>
-                    <NavBar></NavBar>
-                    <div>
-                        <h1>No se encuentran comisiones</h1>
-                    </div>
-                </div>
-            )
-        }
-    }else{
-        return(
-            <div>
-                <NavBar></NavBar>
-                <div>
-                    <h1>Error desconocido</h1>
-                </div>
-            </div>
-        )
-    }
+
+    return (
+        <div>
+            <NavBar></NavBar>
+            <Tabs>
+                <TabList>
+                    <Tab>My Commissions</Tab>
+                    <Tab>Commissions to Others</Tab>
+                    <Tab>Comissions administrator</Tab>
+                </TabList>
+
+                <TabPanel>
+                    <h2>Mis comissiones</h2>
+                </TabPanel>
+                <TabPanel>
+                    <h2>Otras comisiones</h2>
+                </TabPanel>
+                <TabPanel>
+                    <h2>Administrar mis comissioness</h2>
+                </TabPanel>
+            </Tabs>
+        </div>
+    )
 }
 
 export default CommissionAdmin
