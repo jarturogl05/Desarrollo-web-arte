@@ -68,14 +68,14 @@ const editCommission = async(req, res) => {
 
 
 
-        if (createCommissionType && updateProfile){
+        if (updateCommissionType){
             await session.commitTransaction()
             session.endSession()
-            send.status(200).send({message: 'Registered Commission!'})
+            send.status(200).send({message: 'Commission Updated!'})
         }else{
             await session.abortTransaction()
             session.endSession()
-            send.status(500).send({message: 'Error at registering the commission'})
+            send.status(500).send({message: 'Error at updating the commission'})
         }
 
     }catch(error){
