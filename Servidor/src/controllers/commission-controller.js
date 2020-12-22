@@ -47,7 +47,41 @@ const createCommission = async(req, res) => {
     }
 }
 const editCommission = async(req, res) => {
+    const { commissionTypeId, title, description, price, picture } = req.body
+    const session = await mongoose.startSession()
+    session.startTransaction();
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        const options = {session, new: true}
+        username = await tokenService.decodeToken(token)
+        // user = await Users.findOne({username})
+        // profile = await Profiles.findOne({_id: user._id})
+        commissionType = await CommissionTypes.findOne({_id: commissionTypeId})
+        let pictureURL = picture === undefined ? commissionType.picture : picture
+        let updateCommissionType = await Commissions.update({
+            title: title,
+            description: description, 
+            price: price,
+            picture: pictureURL
+        }, options)
 
+
+
+        if (createCommissionType && updateProfile){
+            await session.commitTransaction()
+            session.endSession()
+            send.status(200).send({message: 'Registered Commission!'})
+        }else{
+            await session.abortTransaction()
+            session.endSession()
+            send.status(500).send({message: 'Error at registering the commission'})
+        }
+
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
 }
 const deleteCommission = async(req, res) => {
     const { commissionTypeId } = req.body 
