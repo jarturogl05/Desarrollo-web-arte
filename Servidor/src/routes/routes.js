@@ -16,11 +16,14 @@ router.post('/authenticateToken', userController.authenticateToken);
 router.post('/updateProfile' , profileController.updateProfile);
 router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
 
-router.post('/createCommission', commissionController.createCommission);
+router.post('/createCommissionType', commissionController.createCommission);
+router.post('/EditCommissionType', commissionController.editCommissionType);
+router.post('/DeleteCommissionType', commissionController.deleteCommissionType);
 router.post('/askCommission', commissionController.askCommission);
 router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
+router.post('/getAllMyCommissionTypes', commissionController.getAllMyCommissionTypes);
 
 router.get('/confirm/:token', userController.confirmUser);
 

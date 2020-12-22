@@ -46,7 +46,7 @@ const createCommission = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-const editCommission = async(req, res) => {
+const editCommissionType = async(req, res) => {
     const { commissionTypeId, title, description, price, picture } = req.body
     const session = await mongoose.startSession()
     session.startTransaction();
@@ -83,7 +83,7 @@ const editCommission = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-const deleteCommission = async(req, res) => {
+const deleteCommissionType = async(req, res) => {
     const { commissionTypeId } = req.body 
     const session = await mongoose.startSession()
     session.startTransaction();
@@ -212,4 +212,31 @@ const getAllMyCommission = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+
+const getAllMyCommissionTypes = async(req, res) => {
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        username = await tokenService.decodeToken(token)
+        user = await Users.findOne({username})
+        profile = await Profiles.findOne({user: user._id})
+        var CommissionTypesArray = [];
+        array.forEach({
+
+        })
+
+        await profile.CommissionTypes.forEach((value) => {
+            CommissionTypesArray.push(commissionTypes.findById(value))
+        })
+
+        if (CommissionTypesArray.any()){
+            send.status(200).send({message: 'Sucessfully retracted', data: CommissionTypesArray})
+        }else{
+            send.status(404).send({message: 'Commissions not found, try adding one'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
