@@ -3,7 +3,7 @@ import {  useParams } from "react-router-dom";
 import NavBar from '../../componens/navbar/navbar'
 import Profile from '../../componens/profile/profile'
 import UserContext from '../../utils/userContext'
-import { getProfileInfo} from '../../services/profileServices'
+import { getProfileInfo } from '../../services/profileServices'
 
 function UserProfile(){
     const {token}  = useContext(UserContext);

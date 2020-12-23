@@ -17,7 +17,8 @@ function MyCommissionTypes() {
 
       React.useEffect(() => {
           getCommissionTypelist()
-  }, [])    
+  }, []) 
+
   async function getCommissionTypelist(){
       try {
           setCommissionTypeList(await getCommissionTypes(username, token))
@@ -26,11 +27,16 @@ function MyCommissionTypes() {
           console.log('Error')
       }
   }
+
  const handleImageclick = (id) => {
    history.push('/post/'+ id )
  }
+ console.log(dataIsReturned)
+
     if (dataIsReturned && commissionTypeList && commissionTypeList.data){
         return (
+            <div className='mycommissionytypes-container'>
+                <button className='addcommissiontype-addbutton'>Add new one</button>
             <div className='table-wrapper'>
                 <table className='table-myCommissionTypes'>
                     <thead>
@@ -51,11 +57,17 @@ function MyCommissionTypes() {
                     </tbody>
                 </table>
             </div>
-        );
+            </div>
+        )
     }else{
-        <div>
-            Not yet added commissions, add one
-        </div>
+        return (
+            <div className='mycommissionytypes-container'>
+            <button className='addcommissiontype-addbutton'>Add new one</button>
+            <div>
+                <h1>Not yet added commissions, add one</h1>
+            </div>
+            </div>
+        )
     }
     
 }

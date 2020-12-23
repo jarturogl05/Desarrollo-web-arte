@@ -215,6 +215,7 @@ const getAllMyCommission = async(req, res) => {
 
 const getAllMyCommissionTypes = async(req, res) => {
     try {        
+        console.log(req.headers)
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         username = await tokenService.decodeToken(token)

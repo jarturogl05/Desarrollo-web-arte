@@ -33,3 +33,15 @@
 .table-headers {
     margin-left: 15rem;
 }
+.addcommissiontype-addbutton {
+    margin-top: 2em;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    border-radius: .5rem;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: .3s;
+    color:white;
+    font-weight: 800;
+    background-color: rgb(31, 206, 98);
+  }
