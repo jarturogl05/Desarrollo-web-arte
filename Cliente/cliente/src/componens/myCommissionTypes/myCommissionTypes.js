@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react"
 import { useHistory, Link } from "react-router-dom";
-import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import './myComissionTypes.css'
 
-function CommissionManager() {
+function MyCommissionTypes() {
   const [thumbnails, setThumbnails] = useState(thumbnailsList);
   const [hasMore, setHasMore] = useState();
   const history = useHistory();
@@ -48,4 +48,4 @@ function CommissionManager() {
   );
 }
 
-export default CommissionManager
+export default MyCommissionTypes
