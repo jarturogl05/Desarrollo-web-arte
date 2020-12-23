@@ -19,12 +19,12 @@ const createCommission = async(req, res) => {
         user = await Users.findOne({username})
         profile = await Profiles.findOne({_id: user._id})
 
-        let createCommissionType = await CommissionTypes.create({
+        let createCommissionType = await CommissionTypes.create([{
             title,
             description,
             price,
             picture
-        }, options)
+        }], options)
 
         let updateProfile = await Profiles.update(
             { user: user._id},
@@ -34,11 +34,11 @@ const createCommission = async(req, res) => {
         if (createCommissionType && updateProfile){
             await session.commitTransaction()
             session.endSession()
-            send.status(200).send({message: 'Registered Commission!'})
+            res.status(200).send({status: 'ok', message: 'Registered Commission!'})
         }else{
             await session.abortTransaction()
             session.endSession()
-            send.status(500).send({message: 'Error at registering the commission'})
+            res.status(500).send({status: 'Error', message: 'Error at registering the commission'})
         }
 
     }catch(error){
@@ -215,7 +215,6 @@ const getAllMyCommission = async(req, res) => {
 
 const getAllMyCommissionTypes = async(req, res) => {
     try {        
-        console.log(req.headers)
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         username = await tokenService.decodeToken(token)
@@ -231,9 +230,9 @@ const getAllMyCommissionTypes = async(req, res) => {
         })
 
         if (CommissionTypesArray.any()){
-            send.status(200).send({message: 'Sucessfully retracted', data: CommissionTypesArray})
+            res.status(200).send({message: 'Sucessfully retracted', data: CommissionTypesArray})
         }else{
-            send.status(404).send({message: 'Commissions not found, try adding one'})
+            res.status(404).send({message: 'Commissions not found, try adding one'})
         }
     }catch(error){
         console.log(error);

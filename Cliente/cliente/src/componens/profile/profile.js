@@ -2,11 +2,6 @@ import React from "react";
 import EditProfile from "../editProfile-form/editProfile-form"
 import "./profile.css";
 
-function updateProfile(user){
-  return (
-    <EditProfile userInfo={user}></EditProfile>
-  )
-}
 
 function UserProfile(props) {
   var [showPopup, setShowPopup] = React.useState(false)

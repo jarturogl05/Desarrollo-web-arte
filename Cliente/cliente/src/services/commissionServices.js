@@ -1,4 +1,4 @@
-async function getCommissionTypes(token, refreshToken){
+async function getCommissionTypes(token){
 
     const settings = {
         method: 'POST',
@@ -20,6 +20,30 @@ async function getCommissionTypes(token, refreshToken){
         console.log(error);
     }
 }
+async function addCommissionType(token, title, price, description){
 
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }),
 
-export { getCommissionTypes }
+        body: JSON.stringify({
+            "title": title,
+            "price": price,
+            "description": description
+        })
+    }
+    console.log(token, title, price, description)
+    try {
+        const response = await fetch('http://localhost:4000/createCommissionType', settings);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getCommissionTypes, addCommissionType }
