@@ -4,6 +4,8 @@ import {  useParams } from "react-router-dom";
 import NavBar from '../../componens/navbar/navbar'
 import UserContext from '../../utils/userContext'
 
+import MyComissionTypes from '../../componens/myCommissionTypes/myCommissionTypes'
+
 import './commissionAdmin.css';
 
 function CommissionAdmin(){    
@@ -18,7 +20,6 @@ function CommissionAdmin(){
                     <Tab>Commissions to Others</Tab>
                     <Tab>Comissions administrator</Tab>
                 </TabList>
-
                 <TabPanel>
                     <h2>Mis comissiones</h2>
                 </TabPanel>
@@ -27,6 +28,7 @@ function CommissionAdmin(){
                 </TabPanel>
                 <TabPanel>
                     <h2>Administrar mis comissioness</h2>
+                    <MyComissionTypes></MyComissionTypes>
                 </TabPanel>
             </Tabs>
         </div>

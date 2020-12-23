@@ -1,0 +1,35 @@
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+.table-myCommissionTypes {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.table-myCommissionTypes td, .table-myCommissionTypes th {
+    text-align: center;
+    padding: 8px;
+}
+
+.table-myCommissionTypes td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 14px;
+}
+
+.table-myCommissionTypes thead th {
+    color: #ffffff;
+    background: #000000;
+    font-size: 21px;
+}
+
+.table-headers {
+    margin-left: 15rem;
+}

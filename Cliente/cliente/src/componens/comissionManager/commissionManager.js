@@ -21,31 +21,6 @@ function CommissionManager() {
    history.push('/post/'+ id )
  }
 
-  return (
-    <div>
-      <InfiniteScroll
-        dataLength={thumbnails.length}
-        next={fetchMoreData}
-        hasMore={!hasMore}
-        loader={<h4>Loading..</h4>}
-        endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-      >
-        <div className="img-grid">
-          {thumbnails &&
-            thumbnails.map((thumbnails) => (
-              <div className="img-wrap" key={thumbnails.id}>
-                <img src={thumbnails.URLThumbnail} onClick={() => handleImageclick(thumbnails.id)} alt="pic"></img>
-   
-              </div>
-            ))}
-        </div>
-      </InfiniteScroll>
-    </div>
-  );
 }
 
 export default CommissionManager

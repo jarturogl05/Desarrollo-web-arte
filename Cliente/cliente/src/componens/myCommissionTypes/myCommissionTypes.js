@@ -1,51 +1,63 @@
 import React, { useState, useContext } from "react"
-import { useHistory, Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useHistory, useParams} from "react-router-dom";
 
-import './myComissionTypes.css'
+import { getCommissionTypes } from '../../services/commissionServices'
+
+import UserContext from '../../utils/userContext'
+import './myCommissionType.css'
 
 function MyCommissionTypes() {
-  const [thumbnails, setThumbnails] = useState(thumbnailsList);
-  const [hasMore, setHasMore] = useState();
+
   const history = useHistory();
+  const {token}  = useContext(UserContext);
+  let { username } = useParams();
 
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setThumbnails(thumbnails.concat(thumbnailsList));
-    }, 1500);
-  };
+  var [dataIsReturned, setDataIsReturned] = React.useState(false)
+  var [commissionTypeList, setCommissionTypeList] = React.useState()
 
-
+      React.useEffect(() => {
+          getCommissionTypelist()
+  }, [])    
+  async function getCommissionTypelist(){
+      try {
+          setCommissionTypeList(await getCommissionTypes(username, token))
+          setDataIsReturned(true)
+      }catch(err){
+          console.log('Error')
+      }
+  }
  const handleImageclick = (id) => {
-   
    history.push('/post/'+ id )
  }
-
-  return (
-    <div>
-      <InfiniteScroll
-        dataLength={thumbnails.length}
-        next={fetchMoreData}
-        hasMore={!hasMore}
-        loader={<h4>Loading..</h4>}
-        endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-      >
-        <div className="img-grid">
-          {thumbnails &&
-            thumbnails.map((thumbnails) => (
-              <div className="img-wrap" key={thumbnails.id}>
-                <img src={thumbnails.URLThumbnail} onClick={() => handleImageclick(thumbnails.id)} alt="pic"></img>
-   
-              </div>
-            ))}
+    if (dataIsReturned && commissionTypeList && commissionTypeList.data){
+        return (
+            <div className='table-wrapper'>
+                <table className='table-myCommissionTypes'>
+                    <thead>
+                        <tr className='table-headers'>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {commissionTypeList.map(commissionType => {
+                            <tr>
+                                <td>commissionType.Title</td>
+                                <td>commissionType.Price</td>
+                                <td>commissionType.Description</td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }else{
+        <div>
+            Not yet added commissions, add one
         </div>
-      </InfiniteScroll>
-    </div>
-  );
+    }
+    
 }
 
 export default MyCommissionTypes
