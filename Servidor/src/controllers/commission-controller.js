@@ -54,8 +54,7 @@ const editCommissionType = async(req, res) => {
         const token = tokenCode.split(' ')[1];
         const options = {session, new: true}
         username = await tokenService.decodeToken(token)
-        // user = await Users.findOne({username})
-        // profile = await Profiles.findOne({_id: user._id})
+        
         commissionType = await CommissionTypes.findOne({_id: commissionTypeId})
         let pictureURL = picture === undefined ? commissionType.picture : picture
         let updateCommissionType = await Commissions.update({
@@ -93,24 +92,22 @@ const deleteCommissionType = async(req, res) => {
         username = await tokenService.decodeToken(token)
         user = await Users.findOne({username})
         profile = await Profiles.findOne({_id: user._id})
-
-        let deleteCommissionType = await CommissionTypes.deleteOne({
-            _id: commissionTypeId
-        }, options)
-
         let updateProfile = await Profiles.update(
             { user: user._id},
-            { $pop: {commission: commissionTypeId}}
+            { $pull: {'commission': commissionTypeId }}
         , options)
+        let deleteCommissionType = await CommissionTypes.deleteOne({
+            '_id': commissionTypeId
+        }, options)
 
-        if (deleteCommission && updateProfile){
+        if (deleteCommissionType && updateProfile){
             await session.commitTransaction()
             session.endSession()
-            send.status(200).send({message: 'Deleted Commission!'})
+            res.status(200).send({message: 'Deleted Commission!'})
         }else{
             await session.abortTransaction()
             session.endSession()
-            send.status(500).send({message: 'Error at deleting the commission'})
+            res.status(500).send({message: 'Error at deleting the commission'})
         }
 
     }catch(error){

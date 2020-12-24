@@ -14,8 +14,6 @@ function AddCommissionTypeForm(props) {
     const [price, setPrice] = useState();
     const [error, setError] = useState();
 
-    const history = useHistory();
-
     const submit = async (e) =>{
         e.preventDefault();
         
@@ -37,7 +35,7 @@ function AddCommissionTypeForm(props) {
       function addResponseStatus(editResponse){
         switch(editResponse.status){
           case "ok":
-            alert('Data changed! \n Redirecting to login')
+            alert('Data changed!')
             break;
           case "Error":
             alert('Server problem, check the data and try again')

@@ -37,6 +37,7 @@ async function addCommissionType(token, title, price, description){
         })
     }
     try {
+        console.log(token, title, price, description)
         const response = await fetch('http://localhost:4000/createCommissionType', settings);
         const json = await response.json();
         return json;

@@ -63,7 +63,7 @@ function UserProfileEdit(props) {
                 <form className='editProfileForm' onSubmit={submit}>
                     <h1>Actualizar perfil</h1>
 
-                    <img src={userProfileInfo.data.profilePictureURL} alt="User Profile Picture"></img>
+                    <img src={userProfileInfo.data.profilePictureURL} alt="User Profile"></img>
 
                     <p>
                         <label>Username</label>

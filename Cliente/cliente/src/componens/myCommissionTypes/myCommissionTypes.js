@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react"
-import { useHistory, useParams} from "react-router-dom";
+import React, {useContext } from "react"
 import Popup from 'reactjs-popup'
 
 import { getCommissionTypes, deleteCommissionType } from '../../services/commissionServices'
@@ -10,38 +9,43 @@ import AddCommissionType from '../addCommissionType-form/addCommissionType-form'
 
 function MyCommissionTypes() {
 
-  const history = useHistory();
   const {token}  = useContext(UserContext);
-  let { username } = useParams();
 
   var [dataIsReturned, setDataIsReturned] = React.useState(false)
   var [commissionTypeList, setCommissionTypeList] = React.useState()
   var [showAddPopup, setShowAddPopup] = React.useState(false)
+  var [didChange, setDidChange] = React.useState(true)
 
   function toggleAddPopup(){
     setShowAddPopup(!showAddPopup)
   }
-  
       React.useEffect(() => {
-          getCommissionTypelist()
-  }, []) 
+          if(didChange){
+            getCommissionTypelist()
+            console.log('execute')
+          }
+  }) 
 
   function deleteDefined(e) {
-    console.log(e.currentTarget.value)
     deleteCommissionType(token, e.currentTarget.value)
-    getCommissionTypelist()
+    .then((value) => {
+        setDidChange(true);
+        //Comprobar regreso
+    })
   }
 
   function editDefined(e) {
-
+    
   }
 
   async function getCommissionTypelist(){
       try {
           setCommissionTypeList(await getCommissionTypes(token))
           setDataIsReturned(true)
+          setDidChange(false)
       }catch(err){
           console.log('Error')
+          setDidChange(false)
       }
   }
 
@@ -77,7 +81,7 @@ function MyCommissionTypes() {
                                                         Are you sure you want to delete this commission type?
                                             </p>
                                                     <p>
-                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} onClick={(e) => deleteDefined(e)}>Yes</button>
+                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} binding= {close} onClick={(e) => deleteDefined(e)}>Yes</button>
                                                         <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                                     </p>
                                                 </div>
@@ -91,6 +95,7 @@ function MyCommissionTypes() {
                     </tbody>
                 </table>
             </div>
+            {showAddPopup ? <AddCommissionType binding={toggleAddPopup}></AddCommissionType> : null}
             </div>
         )
     }else{

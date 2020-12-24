@@ -17,8 +17,8 @@ router.post('/updateProfile' , profileController.updateProfile);
 router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
 
 router.post('/createCommissionType', commissionController.createCommission);
-router.post('/EditCommissionType', commissionController.editCommissionType);
-router.post('/DeleteCommissionType', commissionController.deleteCommissionType);
+router.post('/editCommissionType', commissionController.editCommissionType);
+router.post('/deleteCommissionType', commissionController.deleteCommissionType);
 router.post('/askCommission', commissionController.askCommission);
 router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
