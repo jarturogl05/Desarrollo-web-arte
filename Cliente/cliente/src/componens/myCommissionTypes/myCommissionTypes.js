@@ -27,7 +27,7 @@ function MyCommissionTypes() {
 
   async function getCommissionTypelist(){
       try {
-          setCommissionTypeList(await getCommissionTypes(username, token))
+          setCommissionTypeList(await getCommissionTypes(token))
           setDataIsReturned(true)
       }catch(err){
           console.log('Error')

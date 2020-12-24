@@ -6,6 +6,7 @@ const Users = require('./../mongo/models/user')
 const Profiles = require('../mongo/models/profileInfo')
 
 const tokenService = require('./token-service');
+const { options } = require('../routes/routes');
 
 const createCommission = async(req, res) => {
     const { title, description, price, picture } = req.body
@@ -17,7 +18,6 @@ const createCommission = async(req, res) => {
         const options = {session, new: true}
         username = await tokenService.decodeToken(token)
         user = await Users.findOne({username})
-        profile = await Profiles.findOne({_id: user._id})
 
         let createCommissionType = await CommissionTypes.create([{
             title,
@@ -28,9 +28,8 @@ const createCommission = async(req, res) => {
 
         let updateProfile = await Profiles.update(
             { user: user._id},
-            { $push: {commission: createCommission._id}}
+            { $push: {'commission': createCommissionType[0]._id}}
         , options)
-
         if (createCommissionType && updateProfile){
             await session.commitTransaction()
             session.endSession()
@@ -220,17 +219,12 @@ const getAllMyCommissionTypes = async(req, res) => {
         username = await tokenService.decodeToken(token)
         user = await Users.findOne({username})
         profile = await Profiles.findOne({user: user._id})
-        var CommissionTypesArray = [];
-        array.forEach({
-
+        let myCommissionArray = await CommissionTypes.find({
+            '_id': { $in: profile.commission}
         })
-
-        await profile.CommissionTypes.forEach((value) => {
-            CommissionTypesArray.push(commissionTypes.findById(value))
-        })
-
-        if (CommissionTypesArray.any()){
-            res.status(200).send({message: 'Sucessfully retracted', data: CommissionTypesArray})
+        console.log(myCommissionArray.length, myCommissionArray)
+        if (myCommissionArray.length){
+            res.status(200).send({message: 'Sucessfully retracted', data: myCommissionArray})
         }else{
             res.status(404).send({message: 'Commissions not found, try adding one'})
         }
