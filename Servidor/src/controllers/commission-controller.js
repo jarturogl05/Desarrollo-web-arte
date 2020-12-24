@@ -222,7 +222,6 @@ const getAllMyCommissionTypes = async(req, res) => {
         let myCommissionArray = await CommissionTypes.find({
             '_id': { $in: profile.commission}
         })
-        console.log(myCommissionArray.length, myCommissionArray)
         if (myCommissionArray.length){
             res.status(200).send({message: 'Sucessfully retracted', data: myCommissionArray})
         }else{
