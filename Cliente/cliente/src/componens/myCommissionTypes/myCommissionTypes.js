@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react"
 import { useHistory, useParams} from "react-router-dom";
+import Popup from 'reactjs-popup'
 
-import { getCommissionTypes } from '../../services/commissionServices'
+import { getCommissionTypes, deleteCommissionType } from '../../services/commissionServices'
 
 import UserContext from '../../utils/userContext'
 import './myCommissionType.css'
@@ -25,6 +26,16 @@ function MyCommissionTypes() {
           getCommissionTypelist()
   }, []) 
 
+  function deleteDefined(e) {
+    console.log(e.currentTarget.value)
+    deleteCommissionType(token, e.currentTarget.value)
+    getCommissionTypelist()
+  }
+
+  function editDefined(e) {
+
+  }
+
   async function getCommissionTypelist(){
       try {
           setCommissionTypeList(await getCommissionTypes(token))
@@ -34,11 +45,8 @@ function MyCommissionTypes() {
       }
   }
 
- const handleImageclick = (id) => {
-   history.push('/post/'+ id )
- }
-
     if (dataIsReturned && commissionTypeList && commissionTypeList.data){
+        console.log(commissionTypeList)
         return (
             <div className='mycommissionytypes-container'>
                 <button className='addcommissiontype-addbutton' onClick={toggleAddPopup}>Add new one</button>
@@ -49,16 +57,37 @@ function MyCommissionTypes() {
                             <th>Title</th>
                             <th>Price</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {commissionTypeList.map(commissionType => {
+                        {commissionTypeList.data.map((commissionType) => (
                             <tr>
-                                <td>commissionType.Title</td>
-                                <td>commissionType.Price</td>
-                                <td>commissionType.Description</td>
+                                <td>{commissionType.title}</td>
+                                <td>{commissionType.price}</td>
+                                <td>{commissionType.description}</td>
+                                <td>
+                                    <button className='commissiontype-editButton' onClick={(e) => editDefined(e)}>Editar</button>
+                                    <Popup trigger={<button className='commissiontype-deleteButton'>Eliminar</button>} modal nested>
+                                        {close => (
+                                            <div className='popupconfirm'>
+                                                <div className='popupconfirm-inner'>
+                                                    <h1>Confirmation</h1>
+                                                    <p>
+                                                        Are you sure you want to delete this commission type?
+                                            </p>
+                                                    <p>
+                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} onClick={(e) => deleteDefined(e)}>Yes</button>
+                                                        <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        )}
+                                        
+                                    </Popup>
+                                </td>
                             </tr>
-                        })}
+                        ))}
                     </tbody>
                 </table>
             </div>
