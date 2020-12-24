@@ -36,13 +36,14 @@ function AddCommissionTypeForm(props) {
         switch(editResponse.status){
           case "ok":
             alert('Data changed!')
+            props.binding()
             break;
           case "Error":
             alert('Server problem, check the data and try again')
             break;
           default:
             setError("Server error");
-            console.log(error);
+            console.log(editResponse);
         }
       }
 
@@ -59,7 +60,6 @@ function AddCommissionTypeForm(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste="return false"
                             onChange = {(e) => setTitle(e.target.value)}
                         ></input>
                     </p>
@@ -69,7 +69,6 @@ function AddCommissionTypeForm(props) {
                         <input
                             type="number"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setPrice(e.target.value)}
                         ></input>
                     </p>
@@ -79,7 +78,6 @@ function AddCommissionTypeForm(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setDescription(e.target.value)}
                         ></input>
                     </p>

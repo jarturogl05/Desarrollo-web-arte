@@ -18,21 +18,22 @@ function MyCommissionTypes() {
 
   function toggleAddPopup(){
     setShowAddPopup(!showAddPopup)
+    setDidChange(!didChange)
   }
       React.useEffect(() => {
           if(didChange){
             getCommissionTypelist()
-            console.log('execute')
           }
   }) 
 
-  function deleteDefined(e) {
-    deleteCommissionType(token, e.currentTarget.value)
-    .then((value) => {
-        setDidChange(true);
-        //Comprobar regreso
-    })
-  }
+    function deleteDefined(e) {
+        console.log(e)
+        console.log(e.currentTarget)
+        deleteCommissionType(token, e.currentTarget.value)
+            .then((value) => {
+                setDidChange(true);
+            })
+    }
 
   function editDefined(e) {
     
@@ -50,7 +51,6 @@ function MyCommissionTypes() {
   }
 
     if (dataIsReturned && commissionTypeList && commissionTypeList.data){
-        console.log(commissionTypeList)
         return (
             <div className='mycommissionytypes-container'>
                 <button className='addcommissiontype-addbutton' onClick={toggleAddPopup}>Add new one</button>
@@ -81,7 +81,7 @@ function MyCommissionTypes() {
                                                         Are you sure you want to delete this commission type?
                                             </p>
                                                     <p>
-                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} binding= {close} onClick={(e) => deleteDefined(e)}>Yes</button>
+                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} onClick={(e) => deleteDefined(e)}>Yes</button>
                                                         <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                                     </p>
                                                 </div>
