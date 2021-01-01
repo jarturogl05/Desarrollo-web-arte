@@ -4,6 +4,7 @@ import Register from './pages/register/register'
 import Post from './pages/post/post'
 import UserProfile from './pages/userprofile/userprofile'
 import commissionAdmin from './pages/commissionAdmin/commissionAdmin'
+import Createpost from './pages/createPost/createpost'
 import PrivateRoute from './utils/auth'
 import UserContext from "./utils/userContext"
 import ScrollToTop from "./utils/scroll"
@@ -66,6 +67,7 @@ function App() {
         <div className="App">
           <Switch>
             <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
+            <Route excat path='/createpost' component={Createpost}></Route>
             <Route excat path='/hometest' component={Home}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
