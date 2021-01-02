@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from '../../componens/navbar/navbar'
+import CreatepostForm from '../../componens/createpost-form/CreatepostForm'
 import './createpost.css'
 
 function Createpost() {
@@ -7,7 +8,7 @@ function Createpost() {
         <div>
             <NavBar></NavBar>
             <div className='createpost-container'>
-            <h2>Create new post</h2>
+                <CreatepostForm></CreatepostForm>
             </div>
         </div>
     )

@@ -1,0 +1,103 @@
+.postform{
+    text-align: center;
+    align-items: center;
+    display: grid;
+    width: 1400px;
+    height: 700px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    
+}
+
+.postform h2{
+    padding: 30px 0 0 0 ;
+    font-size: 2.5rem;
+}
+
+.titlemessage{
+    padding: 0 0 30px 0;
+    font-size: 1.2rem;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+    z-index: -1;
+    
+}
+
+.inputfile + label {
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 20px 35px 20px 35px;
+    color: white;
+    background-color: #aabb97;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #7da453;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.postform-filecontainer{
+    background-color:#dcedc8;
+    padding: 50px ;
+    max-width: 100%;
+    margin-top: 70px;
+ }
+ 
+.postform-labelscontainer{
+    width: 70%;
+    align-self: start;
+    text-align: justify;
+    display: inline;
+}
+
+.postform ul{
+    list-style: none; 
+}
+
+.postform li{
+    margin: 40px;
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width: 601px){
+    .postform{
+
+        width: 601px;
+        height: 600px;
+    }
+}
+
+@media only screen and (max-width: 1399px) and (min-width: 1201px){
+    .postform{
+
+        width: 601px;
+        height: 600px;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .postform{
+
+        width: 100%;
+        height: 60%;
+    }
+    
+}
