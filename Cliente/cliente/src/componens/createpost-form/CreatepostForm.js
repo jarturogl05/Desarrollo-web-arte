@@ -1,4 +1,5 @@
 import React from "react";
+import Dropzone from '../createpost-dropzone/Dropzone.js'
 import "./createpostForm.css";
 
 function CreatepostForm() {
@@ -7,15 +8,22 @@ function CreatepostForm() {
       <h2>Create new post</h2>
       <label className="titlemessage">Share your art</label>
       <form>
+        
+
         <div className="postform-filecontainer">
-          <input
+
+          <Dropzone></Dropzone>
+          {/* <input
             id="file"
             type="file"
             accept="image/*"
             className="inputfile"
-          ></input>
-          <label for="file">Select a Image</label>
+          >
+          </input>
+          <label for="file">Select a Image</label> */}
+
         </div>
+
         <div className='postform-formcontainer'>
         <div className="postform-labelscontainer">
           <ul>
