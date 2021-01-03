@@ -2,12 +2,7 @@
     text-align: center;
     align-items: center;
     display: grid;
-    width: 1400px;
-    height: 700px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
-    
 }
 
 .postform h2{
@@ -45,7 +40,7 @@
 }
 
 .inputfile + label {
-	cursor: pointer; /* "hand" cursor */
+	cursor: pointer; 
 }
 
 .inputfile:focus + label {
@@ -53,18 +48,64 @@
 	outline: -webkit-focus-ring-color auto 5px;
 }
 
+
+.postform-formcontainer{
+    padding: 20px;
+    margin: 50px;
+}
+
 .postform-filecontainer{
     background-color:#dcedc8;
     padding: 50px ;
     max-width: 100%;
     margin-top: 70px;
+    margin-bottom: 70px;
+    
  }
  
 .postform-labelscontainer{
-    width: 70%;
-    align-self: start;
-    text-align: justify;
-    display: inline;
+    height: auto;
+    border: black;
+    margin: 50px;
+    
+}
+
+.postform-labelscontainer label{
+    width: 200px;
+    text-align: left;
+    display:inline-block; 
+}
+
+.postform-labelscontainer input{
+    width: 50%;
+}
+
+.postform-labelscontainer textarea{
+    width: 50%;
+    resize: none
+}
+
+.postform-buttoncontainer {
+    text-align: center;
+}
+
+.postform-buttoncontainer button{
+
+    margin-top: 2em;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
+    color:white;
+    font-weight: 800;
+    width: 20%;
+    background-color:  #aabb97;
+}
+
+.postform-buttoncontainer button:hover{
+    background-color: #7da453;
 }
 
 .postform ul{
@@ -76,28 +117,65 @@
 }
 
 
-@media only screen and (max-width: 1200px) and (min-width: 601px){
-    .postform{
-
-        width: 601px;
-        height: 600px;
-    }
-}
-
-@media only screen and (max-width: 1399px) and (min-width: 1201px){
-    .postform{
-
-        width: 601px;
-        height: 600px;
-    }
-}
-
-
 @media only screen and (max-width: 600px) {
-    .postform{
-
+    .postform-labelscontainer{
+        height: auto;
+        border: black;
+        margin: 0;
+        
+    }
+    
+    .postform-labelscontainer label{
         width: 100%;
-        height: 60%;
+        text-align: left;
+        display:inline-block; 
+        padding-bottom: 10px;
+
+    }
+    
+    .postform-labelscontainer input{
+        width: 100%;
+    }
+    
+    .postform-labelscontainer textarea{
+        width: 100%;
+        resize: none
+    }
+
+    .postform-buttoncontainer button{
+        width: 80%;
+    }
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width: 601px){
+    .postform-labelscontainer{
+        height: auto;
+        border: black;
+        margin: 0;
+        
+    }
+    
+    .postform-labelscontainer label{
+        width: 100%;
+        text-align: left;
+        display:inline-block; 
+        padding-bottom: 10px;
+
+    }
+    
+    .postform-labelscontainer input{
+        width: 100%;
+    }
+    
+    .postform-labelscontainer textarea{
+        width: 100%;
+        resize: none
+    }
+
+    .postform-buttoncontainer button{
+        width: 40%;
     }
     
 }
+
