@@ -11,7 +11,6 @@
     top: 0;
     z-index: 99;
     
-    
 }
 
 .nav-bar_logo{
@@ -73,6 +72,12 @@
     max-width: 50px; 
     max-height: 50px;
     object-fit: contain;
+}
 
+
+@media only screen and (max-width: 600px) {
+    .nav-bar_logo{
+        display: none;
+    }
     
 }
