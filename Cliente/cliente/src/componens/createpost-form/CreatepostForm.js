@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropzone from '../createpost-dropzone/Dropzone.js'
 import "./createpostForm.css";
 
 function CreatepostForm() {
+ const [selectedFile, setSelectedFile] = useState();
+
+
+
   return (
     <div className="postform">
       <h2>Create new post</h2>
@@ -11,8 +15,7 @@ function CreatepostForm() {
         
 
         <div className="postform-filecontainer">
-
-          <Dropzone></Dropzone>
+          <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
           {/* <input
             id="file"
             type="file"
@@ -28,17 +31,17 @@ function CreatepostForm() {
         <div className="postform-labelscontainer">
           <ul>
             <li>
-              <label for="name">Title</label>
+              <label htmlFor="name">Title</label>
               <input id="name" type="text" autoComplete="off"></input>
             </li>
 
             <li>
-              <label for="tags">Tags </label>
+              <label htmlFor="tags">Tags </label>
               <input id="tags" type="text"></input>
             </li>
 
             <li>
-              <label for="description">Description </label>
+              <label htmlFor="description">Description </label>
               <textarea id="description"></textarea>
             </li>
           </ul>
@@ -47,7 +50,6 @@ function CreatepostForm() {
           <button type="submit">Create Post</button>
         </div>
         </div>
-        
       </form>
     </div>
   );
