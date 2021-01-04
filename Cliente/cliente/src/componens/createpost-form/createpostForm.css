@@ -15,38 +15,7 @@
     font-size: 1.2rem;
 }
 
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-    z-index: -1;
-    
-}
 
-.inputfile + label {
-    font-size: 1.5em;
-    font-weight: 700;
-    padding: 20px 35px 20px 35px;
-    color: white;
-    background-color: #aabb97;
-    display: inline-block;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: #7da453;
-}
-
-.inputfile + label {
-	cursor: pointer; 
-}
-
-.inputfile:focus + label {
-	outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
-}
 
 
 .postform-formcontainer{
@@ -69,6 +38,7 @@
     height: auto;
     border: black;
     margin: 50px;
+
     
 }
 
@@ -80,16 +50,49 @@
 
 .postform-labelscontainer input{
     width: 50%;
+    height: 30px;
+
+    font-size: 1.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.normalinput{
+    
+    border: 1px solid #e1e1e1;
+    outline: none;
+
 }
 
 .postform-labelscontainer textarea{
     width: 50%;
-    resize: none
+    resize: none;
+    border: 1px solid #e1e1e1;
+    outline: none;
+
+    font-size: 1.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.react-tag-input {
+    width: 50%;
+    height: 30px;
+    display:inline-flex; 
+
+}
+
+.react-tag-input__input {
+    width: 100%;
+    border: none;
+
 }
 
 .postform-buttoncontainer {
     text-align: center;
+    
 }
+
+
 
 .postform-buttoncontainer button{
 

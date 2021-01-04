@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Dropzone from '../createpost-dropzone/Dropzone.js'
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 import "./createpostForm.css";
 
 function CreatepostForm() {
  const [selectedFile, setSelectedFile] = useState();
+ const [tags, setTags] = useState([]);
 
 
 
@@ -12,7 +15,6 @@ function CreatepostForm() {
       <h2>Create new post</h2>
       <label className="titlemessage">Share your art</label>
       <form>
-        
 
         <div className="postform-filecontainer">
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
@@ -32,12 +34,18 @@ function CreatepostForm() {
           <ul>
             <li>
               <label htmlFor="name">Title</label>
-              <input id="name" type="text" autoComplete="off"></input>
+              <input id="name" type="text" autoComplete="off" className='normalinput'></input>
             </li>
 
             <li>
               <label htmlFor="tags">Tags </label>
-              <input id="tags" type="text"></input>
+                <ReactTagInput 
+                placeholder="Type and press enter"
+                tags={tags} 
+                maxTags={4}
+                removeOnBackspace={true}
+                onChange={(newTags) => setTags(newTags)}
+                />
             </li>
 
             <li>
