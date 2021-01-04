@@ -1,36 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
+import Dropzone from '../createpost-dropzone/Dropzone.js'
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 import "./createpostForm.css";
 
 function CreatepostForm() {
+ const [selectedFile, setSelectedFile] = useState();
+ const [tags, setTags] = useState([]);
+
+
+
   return (
     <div className="postform">
       <h2>Create new post</h2>
       <label className="titlemessage">Share your art</label>
       <form>
+
         <div className="postform-filecontainer">
-          <input
+          <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
+          {/* <input
             id="file"
             type="file"
             accept="image/*"
             className="inputfile"
-          ></input>
-          <label for="file">Select a Image</label>
+          >
+          </input>
+          <label for="file">Select a Image</label> */}
+
         </div>
+
         <div className='postform-formcontainer'>
         <div className="postform-labelscontainer">
           <ul>
             <li>
-              <label for="name">Title</label>
-              <input id="name" type="text" autoComplete="off"></input>
+              <label htmlFor="name">Title</label>
+              <input id="name" type="text" autoComplete="off" className='normalinput'></input>
             </li>
 
             <li>
-              <label for="tags">Tags </label>
-              <input id="tags" type="text"></input>
+              <label htmlFor="tags">Tags </label>
+                <ReactTagInput 
+                placeholder="Type and press enter"
+                tags={tags} 
+                maxTags={4}
+                removeOnBackspace={true}
+                onChange={(newTags) => setTags(newTags)}
+                />
             </li>
 
             <li>
-              <label for="description">Description </label>
+              <label htmlFor="description">Description </label>
               <textarea id="description"></textarea>
             </li>
           </ul>
@@ -39,7 +58,6 @@ function CreatepostForm() {
           <button type="submit">Create Post</button>
         </div>
         </div>
-        
       </form>
     </div>
   );
