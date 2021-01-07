@@ -13,6 +13,7 @@
     "react-elastic-carousel": "^0.9.5",
     "react-infinite-scroll-component": "^5.1.0",
     "react-loader-spinner": "^3.1.14",
+    "react-loading-overlay": "^1.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-spinners": "^0.10.4",
