@@ -18,15 +18,6 @@ function CreatepostForm() {
 
         <div className="postform-filecontainer">
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
-          {/* <input
-            id="file"
-            type="file"
-            accept="image/*"
-            className="inputfile"
-          >
-          </input>
-          <label for="file">Select a Image</label> */}
-
         </div>
 
         <div className='postform-formcontainer'>

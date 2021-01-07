@@ -21,7 +21,7 @@
 }
 
 .postform-filecontainer{
-    background-color:#dcedc8;
+    background-color:#333333;
     padding: 50px ;
     max-width: 100%;
     margin-top: 70px;
@@ -103,11 +103,11 @@
     color:white;
     font-weight: 800;
     width: 20%;
-    background-color: #212121;
+    background-color: #0000ff;
 }
 
 .postform-buttoncontainer button:hover{
-    background-color: #7da453;
+    background-color: #0000b3;
 }
 
 .postform ul{
