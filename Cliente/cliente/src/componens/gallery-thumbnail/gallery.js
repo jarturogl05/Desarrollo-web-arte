@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react"
 import { useHistory, Link } from "react-router-dom";
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import LoadSpinner from '../LoadSpinner-home/LoadSpinner'
 
 
 const thumbnailsList = [
@@ -41,7 +41,7 @@ function Gallery() {
         dataLength={thumbnails.length}
         next={fetchMoreData}
         hasMore={!hasMore}
-        loader={<h4>Loading..</h4>}
+        loader={<LoadSpinner></LoadSpinner>}
         endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Yay! You have seen it all</b>

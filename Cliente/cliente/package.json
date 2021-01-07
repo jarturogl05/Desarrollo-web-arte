@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.1.4",
     "@pathofdev/react-tag-input": "^1.0.7",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.1",
@@ -11,8 +12,10 @@
     "react-dom": "^17.0.1",
     "react-elastic-carousel": "^0.9.5",
     "react-infinite-scroll-component": "^5.1.0",
+    "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-spinners": "^0.10.4",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },

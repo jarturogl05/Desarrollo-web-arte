@@ -15,9 +15,6 @@
     font-size: 1.2rem;
 }
 
-
-
-
 .postform-formcontainer{
     padding: 20px;
     margin: 50px;
@@ -106,7 +103,7 @@
     color:white;
     font-weight: 800;
     width: 20%;
-    background-color:  #aabb97;
+    background-color: #212121;
 }
 
 .postform-buttoncontainer button:hover{
