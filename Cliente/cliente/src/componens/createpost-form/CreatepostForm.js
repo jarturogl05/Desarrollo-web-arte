@@ -8,15 +8,29 @@ import "./createpostForm.css";
 function CreatepostForm() {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
   const [tags, setTags] = useState([]);
 
 
- const hanldeSumbit = (e) =>{
-  e.preventDefault();
-  setLoading(true);
-  console.log('aaa')
+  function handleFile(){
+    var result = false
+    if(selectedFile[0]){
+      console.log(selectedFile[0], 'aaaa');
+      result = true;
+    }
+    return result;
   }
 
+ const hanldeSumbit = (e) =>{
+  e.preventDefault();
+  var result = handleFile();
+  console.log(result)
+  if(result){
+    setLoading(true);
+  }
+
+  }
 
 
   return (
@@ -44,12 +58,16 @@ function CreatepostForm() {
                   type="text"
                   autoComplete="off"
                   className="normalinput"
+                  maxLength='50' 
+                  required
+                  onChange={(e) => setTitle(e.target.value) }
                 ></input>
               </li>
 
               <li>
                 <label htmlFor="tags">Tags </label>
                 <ReactTagInput
+                  required={true}
                   placeholder="Type and press enter"
                   tags={tags}
                   maxTags={4}
@@ -60,7 +78,12 @@ function CreatepostForm() {
 
               <li>
                 <label htmlFor="description">Description </label>
-                <textarea id="description"></textarea>
+                <textarea 
+                  id="description"
+                  maxLength='' 
+                   onChange={(e) => setDescription(e.target.value) }
+                   required
+                ></textarea>
               </li>
             </ul>
           </div>

@@ -49,22 +49,22 @@ const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     setSelectedFiles([]);
     setUnsupportedFiles([]);
 
-    for (let i = 0; i < files.length; i++) {
-      if (validateFile(files[i])) {
+      if (validateFile(files[0])) {
         // add to an array so we can display the name of file
-        setSelectedFiles((prevArray) => [...prevArray, files[i]]);
+        setSelectedFiles((prevArray) => [...prevArray, files[0]]);
+        
       } else {
         // add a new property called invalid
-        files[i]["invalid"] = true;
+        files[0]["invalid"] = true;
 
         // add to the same array so we can display the name of the file
         //setSelectedFiles((prevArray) => [...prevArray, files[i]]);
-        setUnsupportedFiles(prevArray => [...prevArray, files[i]]);
+        setUnsupportedFiles(prevArray => [...prevArray, files[0]]);
 
         // set error message
         setErrorMessage("File type not permitted");
       }
-    }
+    
   };
 
 
@@ -127,7 +127,7 @@ const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 
   return (
     <div>
-    {unsupportedFiles.length ? <p>Please remove all unsupported files.</p> : ''}
+    {unsupportedFiles.length ? <p className='errorMessage'>Unsupported file</p> : ''}
 
       <div
         className="drop-container"
