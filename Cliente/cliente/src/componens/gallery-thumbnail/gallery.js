@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react"
 import { useHistory, Link } from "react-router-dom";
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadSpinner from '../LoadSpinner-home/LoadSpinner'
+import LoadSpinner from '../LoadSpinner/LoadSpinner'
 
 
 const thumbnailsList = [

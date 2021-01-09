@@ -1,62 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropzone from '../createpost-dropzone/Dropzone.js'
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
+import LoadingOverlayContainer from '../LoadingOverlay/LoadingOverlayContainer';
+import createPost from '../../services/uploadServices'
 import "./createpostForm.css";
 
 function CreatepostForm() {
- const [selectedFile, setSelectedFile] = useState();
- const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [tags, setTags] = useState([]);
 
+
+  function handleFile(){
+    var result = false
+    if(selectedFile[0]){
+      console.log(selectedFile[0], 'aaaa');
+      result = true;
+    }
+    return result;
+  }
+
+ const hanldeSumbit = async(e) =>{
+  e.preventDefault();
+  var result = handleFile();
+  console.log(result)
+  if(result){
+    setLoading(true);
+    await createPost(selectedFile, title, tags, description);
+
+  }
+
+  }
 
 
   return (
     <div className="postform">
+
+      {loading  &&
+              <LoadingOverlayContainer>
+              </LoadingOverlayContainer>
+      }
+
       <h2>Create new post</h2>
       <label className="titlemessage">Share your art</label>
-      <form>
-
+      <form onSubmit={hanldeSumbit}>
         <div className="postform-filecontainer">
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
-          {/* <input
-            id="file"
-            type="file"
-            accept="image/*"
-            className="inputfile"
-          >
-          </input>
-          <label for="file">Select a Image</label> */}
-
         </div>
 
-        <div className='postform-formcontainer'>
-        <div className="postform-labelscontainer">
-          <ul>
-            <li>
-              <label htmlFor="name">Title</label>
-              <input id="name" type="text" autoComplete="off" className='normalinput'></input>
-            </li>
+        <div className="postform-formcontainer">
+          <div className="postform-labelscontainer">
+            <ul>
+              <li>
+                <label htmlFor="name">Title</label>
+                <input
+                  id="name"
+                  type="text"
+                  autoComplete="off"
+                  className="normalinput"
+                  maxLength='50' 
+                  required
+                  onChange={(e) => setTitle(e.target.value) }
+                ></input>
+              </li>
 
-            <li>
-              <label htmlFor="tags">Tags </label>
-                <ReactTagInput 
-                placeholder="Type and press enter"
-                tags={tags} 
-                maxTags={4}
-                removeOnBackspace={true}
-                onChange={(newTags) => setTags(newTags)}
+              <li>
+                <label htmlFor="tags">Tags </label>
+                <ReactTagInput
+                  required={true}
+                  placeholder="Type and press enter"
+                  tags={tags}
+                  maxTags={4}
+                  removeOnBackspace={true}
+                  onChange={(newTags) => setTags(newTags)}
                 />
-            </li>
+              </li>
 
-            <li>
-              <label htmlFor="description">Description </label>
-              <textarea id="description"></textarea>
-            </li>
-          </ul>
-        </div>
-        <div className="postform-buttoncontainer ">
-          <button type="submit">Create Post</button>
-        </div>
+              <li>
+                <label htmlFor="description">Description </label>
+                <textarea 
+                  id="description"
+                  maxLength='' 
+                   onChange={(e) => setDescription(e.target.value) }
+                   required
+                ></textarea>
+              </li>
+            </ul>
+          </div>
+          <div className="postform-buttoncontainer ">
+            <button type="submit" >Create Post</button>
+          </div>
         </div>
       </form>
     </div>
