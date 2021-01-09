@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Dropzone from '../createpost-dropzone/Dropzone.js'
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-import LoadingOverlayContainer from '../LoadingOverlay/LoadingOverlayContainer'
+import LoadingOverlayContainer from '../LoadingOverlay/LoadingOverlayContainer';
+import createPost from '../../services/uploadServices'
 import "./createpostForm.css";
 
 function CreatepostForm() {
@@ -22,12 +23,14 @@ function CreatepostForm() {
     return result;
   }
 
- const hanldeSumbit = (e) =>{
+ const hanldeSumbit = async(e) =>{
   e.preventDefault();
   var result = handleFile();
   console.log(result)
   if(result){
     setLoading(true);
+    await createPost(selectedFile, title, tags, description);
+
   }
 
   }
