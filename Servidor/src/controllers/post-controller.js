@@ -6,6 +6,7 @@ const URLBlob = 'https://imageswebart.blob.core.windows.net/'
 
 const createPost = async(req, res) =>{
     const{autorId, description, name, workType, tags} = req.body;
+    const newtags = tags.replace(/\s/g, '').split(",");
     const blobImageName = createImageName(name);
     const blobThumbnailName = 'thumbnail' + createImageName(name);
     const URLImage = URLBlob + 'imagenes/' + blobImageName;
@@ -17,7 +18,7 @@ const createPost = async(req, res) =>{
             name,
             description,
             workType,
-            tags,
+            tags:newtags,
             URLImage,
             URLThumbnail,
         })
@@ -34,9 +35,10 @@ const createPost = async(req, res) =>{
 }
 
 const getPost = async (req, res) =>{
-    const postId = req.params.post
+    const postId = req.params.id
+    const post = await Post.findById(postId);
+    res.status(200).send({status:'OK', post});
     
-    console.log(postId);
 }
 
 

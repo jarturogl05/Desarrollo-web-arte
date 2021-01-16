@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadSpinner from '../LoadSpinner/LoadSpinner'
-import getHomePosts  from '../../services/postsServices';
+import {getHomePosts}  from '../../services/postsServices';
 
  function Gallery() {
 
@@ -25,14 +25,8 @@ import getHomePosts  from '../../services/postsServices';
   const fetchMoreData = async () => {
     setPage(page + 1);
     const postsFetched = await getHomePosts(page);
-    console.log(postsFetched);
     setThumbnails(thumbnails.concat(postsFetched.docs));
     setHasMore(postsFetched.hasNextPage);
-
-    // setTimeout(() => {
-    //   setThumbnails(thumbnails.concat(thumbnailsList));
-    // }, 1500);
-
   };
 
 
