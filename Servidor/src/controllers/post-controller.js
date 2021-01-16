@@ -34,9 +34,10 @@ const createPost = async(req, res) =>{
 }
 
 const getPost = async (req, res) =>{
-    const postId = req.params.post
+    const postId = req.params.id
+    const post = await Post.findById(postId);
+    res.status(200).send({status:'OK', post});
     
-    console.log(postId);
 }
 
 
