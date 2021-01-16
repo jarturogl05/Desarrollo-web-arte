@@ -35,10 +35,17 @@ const createPost = async(req, res) =>{
 }
 
 const getPost = async (req, res) =>{
-    const postId = req.params.id
+    const postId = req.params.id;
     const post = await Post.findById(postId);
     res.status(200).send({status:'OK', post});
     
+}
+
+const getPostsByAutor = async (req, res) => {
+    const ID = req.params.autorID;
+    const numberPage = req.params.page;
+    const posts = await Post.paginate({autorId : ID},{limit:6, page:numberPage});
+    res.status(200).send(posts);
 }
 
 
@@ -46,12 +53,10 @@ const getPostsList = async(req, res) =>{
     const numberPage = req.params.page
     const posts = await Post.paginate({},{limit:6, page:numberPage});
     res.status(200).send(posts);
-
 }
 
 
 const UploadProfile = async(req, res) =>{
-    //var bufferResize = await resizeImageBuffer(req.file.buffer);
     var bufferMiniature = await applySmartCrop(req.file.buffer, '', 512, 512);
     var result = await uploadImageProfile(bufferMiniature);
     console.log(result);
@@ -62,4 +67,4 @@ const UploadProfile = async(req, res) =>{
 
 
 
-module.exports = {createPost, UploadProfile, getPost, getPostsList}
+module.exports = {createPost, UploadProfile, getPost, getPostsList, getPostsByAutor }

@@ -1,20 +1,34 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import SocialButtons from "../social-buttons/social-buttons";
 import UserInfo from "../userInfo-publication/userInfo";
 import "./publication.css";
 import Carousel from "../userInfo-Image-carousel/carousel";
-import {getPostById}  from '../../services/postsServices'
+import { getPostById, getPostByUser } from "../../services/postsServices";
 
 function Publication(props) {
-
   const [postInfo, setPostInfo] = useState([]);
+  const [autorWorks, setAutorWorks] = useState([]);
+  const [autorId, setAutorId] = useState('');
 
- 
-  useEffect(async () => {
-    const getPost = await getPostById(props.postID);
-    console.log(getPost.post.tags);
-    setPostInfo(getPost.post);
-  },[])
+  useEffect(() => {
+
+    async function fetchPost(){
+      const getPost = await getPostById(props.postID);
+      setPostInfo(getPost.post);
+      setAutorId(getPost.autorId);
+    }
+     fetchPost();
+  }, []);
+
+  useEffect(() => {
+      async function fetchAutorWorks(){
+      if(autorId !== ''){
+        const postsFetched = await getPostByUser(postInfo.autorId,1);
+        setAutorWorks(postsFetched.docs);
+      }
+    }
+     fetchAutorWorks();
+  }, [autorId]);
 
 
   return (
@@ -25,16 +39,18 @@ function Publication(props) {
         <div className="publication_info_metadata">
           <h2>{postInfo.name}</h2>
           <div className="publication_info_tags">
-            { postInfo.tags && postInfo.tags.map((tag) => {
-              return <a>{tag}</a>;
-            })}
+            {postInfo.tags &&
+              postInfo.tags.map((tag) => {
+                return <a>{tag}</a>;
+              })}
           </div>
+            <p>{postInfo.description}</p>
         </div>
 
         <SocialButtons></SocialButtons>
       </div>
       <UserInfo></UserInfo>
-      <Carousel></Carousel>
+       <Carousel autorWorks={autorWorks}></Carousel>
     </div>
   );
 }
