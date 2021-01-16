@@ -20,9 +20,14 @@
     float: left;
 }
 
-
+.publication_info_metadata p{
+    padding-top: 10px;
+}
 .publication_info_metadata h2{
     padding-top: 10px;
+    font-size: 2rem;
+    text-align: left;
+
 }
 
 
