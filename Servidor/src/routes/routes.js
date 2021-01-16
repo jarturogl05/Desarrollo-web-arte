@@ -23,8 +23,9 @@ router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
 
 router.get('/confirm/:token', userController.confirmUser);
-
 router.post('/upload', uploadStrategy, postService.UploadProfile);
 router.post('/createpost', uploadStrategy, postService.createPost);
+
+router.get('/postList/:page',postService.getPostsList );
 
 module.exports = router;

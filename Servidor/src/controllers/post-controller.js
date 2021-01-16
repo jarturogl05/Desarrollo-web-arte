@@ -35,9 +35,17 @@ const createPost = async(req, res) =>{
 
 const getPost = async (req, res) =>{
     const postId = req.params.post
+    
     console.log(postId);
 }
 
+
+const getPostsList = async(req, res) =>{
+    const numberPage = req.params.page
+    const posts = await Post.paginate({},{limit:12, page:numberPage});
+    res.status(200).send(posts);
+
+}
 
 
 const UploadProfile = async(req, res) =>{
@@ -50,4 +58,6 @@ const UploadProfile = async(req, res) =>{
     }
 }
 
-module.exports = {createPost, UploadProfile, getPost}
+
+
+module.exports = {createPost, UploadProfile, getPost, getPostsList}
