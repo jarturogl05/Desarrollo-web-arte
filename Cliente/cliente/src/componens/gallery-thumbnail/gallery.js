@@ -25,7 +25,6 @@ import {getHomePosts}  from '../../services/postsServices';
   const fetchMoreData = async () => {
     setPage(page + 1);
     const postsFetched = await getHomePosts(page);
-    console.log(postsFetched);
     setThumbnails(thumbnails.concat(postsFetched.docs));
     setHasMore(postsFetched.hasNextPage);
   };

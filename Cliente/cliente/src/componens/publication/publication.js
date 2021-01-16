@@ -25,9 +25,9 @@ function Publication(props) {
         <div className="publication_info_metadata">
           <h2>{postInfo.name}</h2>
           <div className="publication_info_tags">
-            {/* {postInfo.tags.map((tag) => {
+            { postInfo.tags && postInfo.tags.map((tag) => {
               return <a>{tag}</a>;
-            })} */}
+            })}
           </div>
         </div>
 
