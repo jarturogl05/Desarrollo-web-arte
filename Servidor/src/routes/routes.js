@@ -27,5 +27,6 @@ router.post('/upload', uploadStrategy, postService.UploadProfile);
 router.post('/createpost', uploadStrategy, postService.createPost);
 router.get('/post/:id',postService.getPost );
 router.get('/postList/:page',postService.getPostsList );
+router.get('/autorPosts/:autorID/:page', postService.getPostsByAutor);
 
 module.exports = router;
