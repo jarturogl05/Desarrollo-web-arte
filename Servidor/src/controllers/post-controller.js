@@ -5,7 +5,7 @@ const {uploadImageMiniature, uploadImagePost, uploadImageProfile, createImageNam
 const URLBlob = 'https://imageswebart.blob.core.windows.net/'
 
 const createPost = async(req, res) =>{
-    const{autorId, date, name, workType, tags} = req.body;
+    const{autorId, description, name, workType, tags} = req.body;
     const blobImageName = createImageName(name);
     const blobThumbnailName = 'thumbnail' + createImageName(name);
     const URLImage = URLBlob + 'imagenes/' + blobImageName;
@@ -14,8 +14,8 @@ const createPost = async(req, res) =>{
     try{
         await Post.create({
             autorId,
-            date,
             name,
+            description,
             workType,
             tags,
             URLImage,
@@ -42,7 +42,7 @@ const getPost = async (req, res) =>{
 
 const getPostsList = async(req, res) =>{
     const numberPage = req.params.page
-    const posts = await Post.paginate({},{limit:12, page:numberPage});
+    const posts = await Post.paginate({},{limit:6, page:numberPage});
     res.status(200).send(posts);
 
 }

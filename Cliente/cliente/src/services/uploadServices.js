@@ -2,7 +2,7 @@ async function createPost(file, title, tags, description) {
   let data = new FormData();
   data.append("image", file[0]);
   data.append("autorId", "5faeebeddd260e0469e46b6c");
-  data.append("date", "now");
+  data.append("description", description);
   data.append("name", title);
   data.append("workType", "Ilustracion");
   data.append("tags", tags);
