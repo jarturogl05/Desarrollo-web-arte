@@ -15,7 +15,6 @@ function UserInfo() {
         <div className="userInfo-container">
             <img src={user} alt="user" onClick={handleUserClick}></img>
             <h3 onClick={handleUserClick}>Muterk</h3>
-            <button className="userInfo__followButton">Follow</button>
 
         </div>
     )
