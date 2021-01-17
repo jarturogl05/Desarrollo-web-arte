@@ -1,5 +1,4 @@
 import React, {useState, useContext } from "react";
-import { useHistory } from 'react-router-dom'
 import "./addCommissionType-form.css";
 import { addCommissionType } from '../../services/commissionServices'
 import UserContext from '../../utils/userContext'
