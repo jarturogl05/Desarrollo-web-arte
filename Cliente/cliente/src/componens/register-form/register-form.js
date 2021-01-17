@@ -42,7 +42,7 @@ function Form() {
   
   function isValidEmail(){
     var result = false
-    const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9]+[A-Za-z]+$")
+    const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9].\+[A-Za-z]+$")
     if (emailRegex.test(email)){
       result = true
     }else{
