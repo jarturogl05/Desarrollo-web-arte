@@ -63,7 +63,6 @@ function Form() {
           <input
             type="text"
             autoFocus
-            autoComplete="username"
             maxLength="150"
             required
             onChange = {(e) => setUsername(e.target.value)}
@@ -73,7 +72,6 @@ function Form() {
           <label>Password</label>
           <input
             type="password"
-            autoComplete="current-password"
             autoFocus
             required
             onChange = {(e) => setPassword(e.target.value)}
