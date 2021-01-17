@@ -15,9 +15,11 @@ import {getHomePosts}  from '../../services/postsServices';
 
   useEffect(async () =>{
     const postsFetched = await getHomePosts(page);
-    setThumbnails(postsFetched.docs);
-    setPage(page + 1);
-    setHasMore(postsFetched.hasNextPage);
+    if (postsFetched !== undefined){
+      setThumbnails(postsFetched.docs);
+      setPage(page + 1);
+      setHasMore(postsFetched.hasNextPage);
+    }
   },[])
 
  

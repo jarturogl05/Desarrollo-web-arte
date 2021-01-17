@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
+import { useHistory } from "react-router-dom";
+
 import Dropzone from '../createpost-dropzone/Dropzone.js'
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
@@ -12,6 +14,7 @@ function CreatepostForm() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [tags, setTags] = useState([]);
+  const history = useHistory();
 
 
   function handleFile(){
@@ -29,8 +32,9 @@ function CreatepostForm() {
   console.log(result)
   if(result){
     setLoading(true);
-    await createPost(selectedFile, title, tags, description);
-
+    //const result = await createPost(selectedFile, title, tags, description);
+    setLoading(false);
+    history.push('/hometest');
   }
 
   }
@@ -50,7 +54,7 @@ function CreatepostForm() {
         <div className="postform-filecontainer">
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
         </div>
-
+        <p className='errorMessage'>Server error, Please try again later</p>
         <div className="postform-formcontainer">
           <div className="postform-labelscontainer">
             <ul>

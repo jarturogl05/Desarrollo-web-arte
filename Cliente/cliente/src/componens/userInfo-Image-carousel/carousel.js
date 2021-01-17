@@ -13,6 +13,7 @@ const breakPoints = [
 
 function CarouselUser(props) {
 const [userPublications, setUserPublications] = useState([]);
+
 useEffect(  () =>{
   async function getUserPublications(){
     if(userPublications !== [])

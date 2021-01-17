@@ -14,8 +14,10 @@ function Publication(props) {
 
     async function fetchPost(){
       const getPost = await getPostById(props.postID);
-      setPostInfo(getPost.post);
-      setAutorId(getPost.autorId);
+      if(getPost !== undefined){
+        setPostInfo(getPost.post);
+        setAutorId(getPost.autorId);
+      }
     }
      fetchPost();
   }, []);
