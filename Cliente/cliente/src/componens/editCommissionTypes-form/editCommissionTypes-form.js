@@ -37,6 +37,7 @@ function EditCommissionTypeForm(props) {
           case "ok":
             alert('Data changed!')
             props.binding()
+            props.changeData(true)
             break;
           case "Error":
             alert('Server problem, check the data and try again')

@@ -70,11 +70,11 @@ const editCommissionType = async(req, res) => {
         if (updateCommissionType.ok){
             await session.commitTransaction()
             session.endSession()
-            res.status(200).send({message: 'Commission Updated!'})
+            res.status(200).send({status: 'ok', message: 'Commission Updated!'})
         }else{
             await session.abortTransaction()
             session.endSession()
-            res.status(500).send({message: 'Error at updating the commission'})
+            res.status(500).send({status: 'Error', message: 'Error at updating the commission'})
         }
 
     }catch(error){

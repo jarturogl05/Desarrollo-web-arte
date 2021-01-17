@@ -72,9 +72,7 @@ function MyCommissionTypes() {
                                     <Popup trigger={<button className='commissiontype-editButton'>Editar</button>} modal nested>
                                         {
                                             close => (
-                                                <div className='editPopup'>
-                                                    <EditCommissionTypeForm value={commissionType._id}></EditCommissionTypeForm>
-                                                </div>
+                                                <EditCommissionTypeForm value={commissionType._id} binding={close} changeData={setDidChange}></EditCommissionTypeForm>
                                             )
                                         }
                                     </Popup>
