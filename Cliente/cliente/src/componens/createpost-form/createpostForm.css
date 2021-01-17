@@ -121,6 +121,7 @@
 .errorMessage{
     color: red;
     font-size: 2rem;
+    padding-top: 100px;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,11 +1,11 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import Dropzone from '../createpost-dropzone/Dropzone.js'
+import Dropzone from "../createpost-dropzone/Dropzone.js";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-import LoadingOverlayContainer from '../LoadingOverlay/LoadingOverlayContainer';
-import createPost from '../../services/uploadServices'
+import LoadingOverlayContainer from "../LoadingOverlay/LoadingOverlayContainer";
+import createPost from "../../services/uploadServices";
 import "./createpostForm.css";
 
 function CreatepostForm() {
@@ -14,39 +14,45 @@ function CreatepostForm() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [tags, setTags] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(false);
   const history = useHistory();
 
-
-  function handleFile(){
-    var result = false
-    if(selectedFile[0]){
-      console.log(selectedFile[0], 'aaaa');
+  function handleFile() {
+    var result = false;
+    if (selectedFile[0]) {
+      console.log(selectedFile[0], "aaaa");
       result = true;
     }
     return result;
   }
 
- const hanldeSumbit = async(e) =>{
-  e.preventDefault();
-  var result = handleFile();
-  console.log(result)
-  if(result){
-    setLoading(true);
-    //const result = await createPost(selectedFile, title, tags, description);
-    setLoading(false);
-    history.push('/hometest');
-  }
+  const hanldeSumbit = async (e) => {
+    e.preventDefault();
+    var result = handleFile();
+    if (result) {
+      setLoading(true);
+      const result = await createPost(selectedFile, title, tags, description);
 
-  }
+      checkResult(result);
+      //setLoading(false);
+      // history.push('/hometest');
+    }
+  };
 
+  const checkResult = (result) => {
+    console.log(result);
+    if (result !== undefined) {
+      setLoading(false);
+      history.push("/hometest");
+    } else {
+      setErrorMessage(true);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="postform">
-
-      {loading  &&
-              <LoadingOverlayContainer>
-              </LoadingOverlayContainer>
-      }
+      {loading && <LoadingOverlayContainer></LoadingOverlayContainer>}
 
       <h2>Create new post</h2>
       <label className="titlemessage">Share your art</label>
@@ -54,7 +60,9 @@ function CreatepostForm() {
         <div className="postform-filecontainer">
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
         </div>
-        <p className='errorMessage'>Server error, Please try again later</p>
+        {errorMessage && (
+          <p className="errorMessage">Server error, Please try again later</p>
+        )}
         <div className="postform-formcontainer">
           <div className="postform-labelscontainer">
             <ul>
@@ -65,37 +73,38 @@ function CreatepostForm() {
                   type="text"
                   autoComplete="off"
                   className="normalinput"
-                  maxLength='50' 
+                  maxLength="50"
                   required
-                  onChange={(e) => setTitle(e.target.value) }
+                  onChange={(e) => setTitle(e.target.value)}
                 ></input>
               </li>
 
               <li>
                 <label htmlFor="tags">Tags </label>
                 <ReactTagInput
-                  required={true}
+                  required="required"
                   placeholder="Type and press enter"
                   tags={tags}
                   maxTags={4}
                   removeOnBackspace={true}
                   onChange={(newTags) => setTags(newTags)}
-                />
+                >
+                </ReactTagInput>
               </li>
 
               <li>
                 <label htmlFor="description">Description </label>
-                <textarea 
+                <textarea
                   id="description"
-                  maxLength='' 
-                   onChange={(e) => setDescription(e.target.value) }
-                   required
+                  maxLength=""
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
                 ></textarea>
               </li>
             </ul>
           </div>
           <div className="postform-buttoncontainer ">
-            <button type="submit" >Create Post</button>
+            <button type="submit">Create Post</button>
           </div>
         </div>
       </form>
@@ -103,4 +112,4 @@ function CreatepostForm() {
   );
 }
 
-export default CreatepostForm
+export default CreatepostForm;
