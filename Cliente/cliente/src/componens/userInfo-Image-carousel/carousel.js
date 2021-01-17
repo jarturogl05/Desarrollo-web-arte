@@ -2,7 +2,7 @@ import React,{useState, useEffect} from "react";
 import Carousel from "react-elastic-carousel";
 import Item from './Item'
 import "./carousel.css";
-import {getPostByUser} from '../../services/postsServices'
+import { useHistory } from "react-router-dom";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -13,6 +13,7 @@ const breakPoints = [
 
 function CarouselUser(props) {
 const [userPublications, setUserPublications] = useState([]);
+const history = useHistory();
 
 useEffect(  () =>{
   async function getUserPublications(){
@@ -22,12 +23,20 @@ useEffect(  () =>{
   getUserPublications()
 },[props.autorWorks])
 
+const handleImageclick = (id) => {
+  
+  history.push('/post/'+ id );
+  history.go(0)
+
+
+}
+
   return (
     <div className='carousel-container' >
       <Carousel breakPoints={breakPoints}>
         {userPublications && userPublications.map((publication) =>{
           return <Item>
-            <img src={publication.URLThumbnail}></img>
+            <img src={publication.URLThumbnail} onClick={() => handleImageclick(publication._id)}></img>
           </Item>
         })}
       </Carousel>
