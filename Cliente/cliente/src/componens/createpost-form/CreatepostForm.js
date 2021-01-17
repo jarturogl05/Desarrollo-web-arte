@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Dropzone from "../createpost-dropzone/Dropzone.js";
@@ -6,6 +6,7 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import LoadingOverlayContainer from "../LoadingOverlay/LoadingOverlayContainer";
 import createPost from "../../services/uploadServices";
+import UserContext from '../../utils/userContext';
 import "./createpostForm.css";
 
 function CreatepostForm() {
@@ -15,6 +16,7 @@ function CreatepostForm() {
   const [description, setDescription] = useState();
   const [tags, setTags] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
+  const {token}  = useContext(UserContext);
   const history = useHistory();
 
   function handleFile() {
@@ -31,7 +33,7 @@ function CreatepostForm() {
     var result = handleFile();
     if (result) {
       setLoading(true);
-      const result = await createPost(selectedFile, title, tags, description);
+      const result = await createPost(selectedFile, title, tags, description, token);
 
       checkResult(result);
       //setLoading(false);
