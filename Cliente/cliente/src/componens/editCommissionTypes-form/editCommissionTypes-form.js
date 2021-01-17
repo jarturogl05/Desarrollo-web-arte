@@ -1,14 +1,14 @@
 import React, {useState, useContext } from "react";
-import { useHistory } from 'react-router-dom'
-import "./addCommissionType-form.css";
-import { addCommissionType } from '../../services/commissionServices'
+import "./editCommissionTypes-form.css";
+import { editCommissionType } from '../../services/commissionServices'
 import UserContext from '../../utils/userContext'
 
 
 
-function AddCommissionTypeForm(props) {
+function EditCommissionTypeForm(props) {
 
     const {token} = useContext(UserContext);
+    const commissionTypeId = props.value 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [price, setPrice] = useState();
@@ -18,9 +18,9 @@ function AddCommissionTypeForm(props) {
         e.preventDefault();
         
         if (checkFields()){
-            const addResponse = await addCommissionType(token, title, price, description)
-            if (addResponse) {
-                addResponseStatus(addResponse);
+            const editResponse = await editCommissionType(token, commissionTypeId, title, price, description)
+            if (editResponse) {
+                editResponseStatus(editResponse);
             } else {
                 setError("Server Error")
                 console.log(error);
@@ -32,8 +32,8 @@ function AddCommissionTypeForm(props) {
           return true
       }
     
-      function addResponseStatus(addResponse){
-        switch(addResponse.status){
+      function editResponseStatus(editResponse){
+        switch(editResponse.status){
           case "ok":
             alert('Data changed!')
             props.binding()
@@ -43,7 +43,7 @@ function AddCommissionTypeForm(props) {
             break;
           default:
             setError("Server error");
-            console.log(addResponse);
+            console.log(editResponse);
         }
       }
 
@@ -51,8 +51,8 @@ function AddCommissionTypeForm(props) {
     return (
         <div className='popup'>
             <div className='popup_inner'>
-                <form className='addNewCommissionTypeForm' onSubmit={submit}>
-                    <h1>Add a new commission type</h1>
+                <form className='editCommissionTypeForm' onSubmit={submit}>
+                    <h1>Edit commission</h1>
 
                     <p>
                         <label>Title</label>
@@ -82,8 +82,8 @@ function AddCommissionTypeForm(props) {
                         ></input>
                     </p>
                     <p>
-                        <button className="addcommission-savebutton" type='submit'>Save Changes</button>
-                        <button onClick={props.binding} className="addcommission-cancelbutton">Cancel</button>
+                        <button className="editcommission-savebutton" type='submit'>Save Changes</button>
+                        <button onClick={props.binding} className="editcommission-cancelbutton">Cancel</button>
                     </p>
                 </form>
             </div>
@@ -92,4 +92,4 @@ function AddCommissionTypeForm(props) {
 }
 
 
-export default AddCommissionTypeForm;
+export default EditCommissionTypeForm;

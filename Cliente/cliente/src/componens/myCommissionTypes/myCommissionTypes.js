@@ -6,6 +6,7 @@ import { getCommissionTypes, deleteCommissionType } from '../../services/commiss
 import UserContext from '../../utils/userContext'
 import './myCommissionType.css'
 import AddCommissionType from '../addCommissionType-form/addCommissionType-form'
+import EditCommissionTypeForm from '../editCommissionTypes-form/editCommissionTypes-form'
 
 function MyCommissionTypes() {
 
@@ -28,6 +29,7 @@ function MyCommissionTypes() {
 
     async function deleteDefined(e) {
         await deleteCommissionType(token, e.currentTarget.value)
+        // check response
         setDidChange(true)
     }
 
@@ -67,7 +69,16 @@ function MyCommissionTypes() {
                                 <td>{commissionType.price}</td>
                                 <td>{commissionType.description}</td>
                                 <td>
-                                    <button className='commissiontype-editButton' onClick={(e) => editDefined(e)}>Editar</button>
+                                    <Popup trigger={<button className='commissiontype-editButton'>Editar</button>} modal nested>
+                                        {
+                                            close => (
+                                                <div className='editPopup'>
+                                                    <EditCommissionTypeForm value={commissionType._id}></EditCommissionTypeForm>
+                                                </div>
+                                            )
+                                        }
+                                    </Popup>
+                                    
                                     <Popup trigger={<button className='commissiontype-deleteButton'>Eliminar</button>} modal nested>
                                         {close => (
                                             <div className='popupconfirm'>
@@ -85,8 +96,7 @@ function MyCommissionTypes() {
                                                     </p>
                                                 </div>
                                             </div>
-                                        )}
-                                        
+                                        )}                                        
                                     </Popup>
                                 </td>
                             </tr>

@@ -57,7 +57,8 @@ const editCommissionType = async(req, res) => {
         
         commissionType = await CommissionTypes.findOne({_id: commissionTypeId})
         let pictureURL = picture === undefined ? commissionType.picture : picture
-        let updateCommissionType = await Commissions.update({
+        let updateCommissionType = await commissionType.update({
+
             title: title,
             description: description, 
             price: price,
@@ -65,15 +66,15 @@ const editCommissionType = async(req, res) => {
         }, options)
 
 
-
-        if (updateCommissionType){
+        console.log(updateCommissionType.ok)
+        if (updateCommissionType.ok){
             await session.commitTransaction()
             session.endSession()
-            send.status(200).send({message: 'Commission Updated!'})
+            res.status(200).send({message: 'Commission Updated!'})
         }else{
             await session.abortTransaction()
             session.endSession()
-            send.status(500).send({message: 'Error at updating the commission'})
+            res.status(500).send({message: 'Error at updating the commission'})
         }
 
     }catch(error){

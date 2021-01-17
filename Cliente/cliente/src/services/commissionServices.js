@@ -67,5 +67,30 @@ async function deleteCommissionType(token, id){
         console.log(error);
     }
 }
+async function editCommissionType(token, id, title, price, description){
 
-export { getCommissionTypes, addCommissionType, deleteCommissionType }
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }),
+
+        body: JSON.stringify({
+            "commissionTypeId": id,
+            "title": title,
+            "price": price,
+            "description": description
+        })
+    }
+    try {
+        const response = await fetch('http://localhost:4000/editCommissionType', settings);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getCommissionTypes, addCommissionType, deleteCommissionType, editCommissionType }
