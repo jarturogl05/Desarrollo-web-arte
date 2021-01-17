@@ -10,6 +10,7 @@
 
 .carousel-container img {
     max-width: 200%;
+    cursor: pointer;
 }
 
 button.rec-dot{

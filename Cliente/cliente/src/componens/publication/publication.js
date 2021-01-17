@@ -36,7 +36,6 @@ function Publication(props) {
   return (
     <div className="publication">
       <img src={postInfo.URLImage} alt="art"></img>
-
       <div className="publication_info">
         <div className="publication_info_metadata">
           <h2>{postInfo.name}</h2>

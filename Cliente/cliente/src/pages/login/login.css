@@ -8,7 +8,7 @@
 
 
 .container_page::before{
-    background-image: url('../images/background.jpg');
+    background-image: url('../../utils/images/background.jpg');
     background-size: cover; 
     height: 100vh;
     content: "";

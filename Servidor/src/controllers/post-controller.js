@@ -73,14 +73,14 @@ const getPost = async (req, res) =>{
 const getPostsByAutor = async (req, res) => {
     const ID = req.params.autorID;
     const numberPage = req.params.page;
-    const posts = await Post.paginate({autorId : ID},{limit:6, page:numberPage});
+    const posts = await Post.paginate({autorId : ID},{select:'URLThumbnail', limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}});
     res.status(200).send(posts);
 }
 
 
 const getPostsList = async(req, res) =>{
     const numberPage = req.params.page
-    const posts = await Post.paginate({},{limit:6, page:numberPage});
+    const posts = await Post.paginate({},{ select:'URLThumbnail',  limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}  });
     res.status(200).send(posts);
 }
 

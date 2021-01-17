@@ -67,11 +67,11 @@ function App() {
         <div className="App">
           <Switch>
             <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
-            <Route excat path='/createpost' component={Createpost}></Route>
+            <PrivateRoute excat path='/createpost' component={Createpost}></PrivateRoute>
             <Route excat path='/hometest' component={Home}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
-            <Route exact path="/post/:id" component={Post} ></Route>
+            <PrivateRoute exact path="/post/:id" component={Post} ></PrivateRoute>
             <Route exact path="/profile/:username" component={UserProfile}></Route>
             <Route exact path="/myavailablecommission" component={commissionAdmin}></Route>
           </Switch>
