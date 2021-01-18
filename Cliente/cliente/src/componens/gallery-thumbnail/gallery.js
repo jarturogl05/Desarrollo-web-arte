@@ -43,7 +43,7 @@ import {getHomePosts}  from '../../services/postsServices';
         loader={<LoadSpinner></LoadSpinner>}
         endMessage={
             <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
+              <b>End of list</b>
             </p>
           }
       >

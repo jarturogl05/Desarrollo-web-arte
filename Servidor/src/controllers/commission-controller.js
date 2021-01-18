@@ -236,7 +236,6 @@ const getCommissionTypesByUsername = async(req, res) => {
         user = await Users.findOne({username: contractedUsername})
         profile = await Profiles.findOne({user: user._id})
         const commissionArray = await CommissionTypes.paginate({'_id': { $in: profile.commission}},{limit:10, page:numberPage})
-        console.log(commissionArray)
         if (commissionArray.docs.length){
             res.status(200).send({message: 'Sucessfully retracted', data: commissionArray})
         }else{

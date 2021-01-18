@@ -1,9 +1,10 @@
 .commission-Container {
     text-align: center;
     align-items: start;
-    display: flex;
     position: relative;
-    background-color: rgb(245, 245, 245);
+    padding-top: 1rem;
+    background-color: rgb(247, 241, 241);
+    border: 2px solid rgb(134, 77, 77); 
 }
 .commissionInfo-Container {
     text-align: center;
@@ -15,17 +16,34 @@
     height: 140px;
     margin-top: 5px;
     margin: auto;
-    border-radius: 50%;
     border: 2px solid rgb(0, 0, 0); 
 }
 .commissionInfo-Container h2{
     font-size: 1.5rem;
-    padding-top: 60px;
     text-align: left;
+    margin: auto;
 }
 .commissionInfo-Container h3{
     font-size: 1rem;
     text-align: left;
     padding-top: 10px;
     margin: auto;
+}
+.commissionInfo-askButton {
+    position: relative;
+
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    background-color:rgb(0, 133, 11) ;
 }

@@ -3,6 +3,9 @@ import "./commission.css";
 
 function Commission(props) {
   const commissionInfo = props.commissionInfo;
+  function askCommission(){
+    alert('Commission created')
+  }
   if (commissionInfo){
     return(
       <div className="commission-Container">
@@ -11,6 +14,7 @@ function Commission(props) {
           <h2>{commissionInfo.title}</h2>
           <h3>{commissionInfo.price}</h3>
           <h3>{commissionInfo.description}</h3>
+          <button className="commissionInfo-askButton" onClick={askCommission}>Ask for this commission</button>
         </div>
       </div>
     )
