@@ -28,7 +28,11 @@ function UserProfile(props) {
         <div className="userProfileButton-Container">
           <button className="userProfile-followButton">Follow</button>
           <Popup trigger={<button className="userProfile-commissionButton">Commission</button>} modal nested>
-            <CommissionManager username={props.userProfileInfo.username}></CommissionManager>
+            {
+              close => (
+                <CommissionManager username={props.userProfileInfo.username} closeBinding={close}></CommissionManager>
+              )
+            }
             </Popup>
           <button className="userProfile-donationButton">Donate</button>
         </div>

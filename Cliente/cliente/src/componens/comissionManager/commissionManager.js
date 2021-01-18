@@ -12,7 +12,6 @@ function CommissionManager(props) {
   const [page, setPage] = useState(1);
 
   useEffect(async () =>{
-    console.log(username, page)
     const commissionsFetched = await getCommissionTypes(username, page);
     setCommissions(commissionsFetched.data.docs)
     setHasMore(commissionsFetched.data.hasNextPage)
@@ -29,8 +28,8 @@ function CommissionManager(props) {
 
   return (
     <div className='popup'>
-            <div className='popup_inner'>
-                <h1>User's Commissions</h1>
+      <div className='popup_inner'>
+        <h1>User's Commissions</h1>
         <InfiniteScroll
           dataLength={commissions}
           next={fetchCommissions}
@@ -38,16 +37,17 @@ function CommissionManager(props) {
           loader={<h4>Loading...</h4>}
           endMessage={
             <p style={{ textAlign: 'center' }}>
-              <b>Yay! You have seen it all</b>
+              <b>End of list</b>
             </p>
           }
         >
           {commissions && commissions.map((commission) => (
-            <Commission commissionInfo={commission}></Commission>
+            <Commission commissionInfo={commission} closeBinding={props.closeBinding}></Commission>
           ))}
         </InfiniteScroll>
-            </div>
-        </div>
+        <button className='cancelButton' onClick={props.closeBinding}>Cancelar</button>
+      </div>
+    </div>
   )
 }
 

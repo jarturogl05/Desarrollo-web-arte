@@ -47,3 +47,86 @@
     overflow: hidden;
     background-color:rgb(0, 133, 11) ;
 }
+
+.askCommission-Container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+.askCommission-Inner{
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    top: 10%;
+    bottom: 25%;
+    margin: auto;
+    border-radius: 20px;
+    background: white;
+    overflow: scroll;
+}
+
+.askCommission-Inner h1{
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.askCommission-Inner label{
+    text-align: left;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1rem;
+}
+
+.askCommission-Inner input {
+    position: relative;
+    
+    outline: none;
+    background:none;
+    border-radius: 1em;
+    padding: 1em;
+    font-size: 1rem;
+    height: 2rem;
+}
+.askCommission-Confirm {
+    position: relative;
+
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    background-color:rgb(0, 131, 11) ;
+}
+.askCommission-Cancel{
+    position: relative;
+
+    padding: 10px;
+    margin: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+
+    display: inline-block;
+    border-radius: 10rem;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .15rem;
+    overflow: hidden;
+    background-color:rgb(255, 0, 0) ;
+}

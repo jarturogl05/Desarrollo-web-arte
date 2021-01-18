@@ -71,7 +71,6 @@ function UserProfileEdit(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste="return false"
                             onChange = {(e) => setUsername(e.target.value)}
                             defaultValue={userProfileInfo.username}
                         ></input>
@@ -82,7 +81,6 @@ function UserProfileEdit(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setTwitter(e.target.value)}
                             defaultValue={userProfileInfo.data.twitter === undefined ? "" : userProfileInfo.data.twitter}
                         ></input>
@@ -93,7 +91,6 @@ function UserProfileEdit(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setFacebook(e.target.value)}
                             defaultValue={userProfileInfo.data.facebook === undefined ? "" : userProfileInfo.data.facebook}
                         ></input>
@@ -104,7 +101,6 @@ function UserProfileEdit(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setInstagram(e.target.value)}
                             defaultValue={userProfileInfo.data.instagram === undefined ? "" : userProfileInfo.data.instagram}
                         ></input>
@@ -115,7 +111,6 @@ function UserProfileEdit(props) {
                         <input
                             type="text"
                             autoFocus
-                            onPaste='return false'
                             onChange = {(e) => setDescription(e.target.value)}
                             defaultValue={userProfileInfo.data.description === undefined ? "" : userProfileInfo.data.description}
                         ></input>
