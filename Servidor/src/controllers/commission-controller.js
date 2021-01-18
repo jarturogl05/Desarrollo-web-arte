@@ -229,13 +229,13 @@ const getAllMyCommissionTypes = async(req, res) => {
     }
 }
 
-const getCommissionTypes = async(req, res) => {
+const getCommissionTypesByUsername = async(req, res) => {
     try {        
-        contractedUsername = req.contractedUser
-        page = req.page
+        const contractedUsername = req.params.contractedUser
+        const numberPage = req.params.page
         user = await Users.findOne({contractedUsername})
         profile = await Profiles.findOne({user: user._id})
-        const commissionArray = await commissionType.paginate({'_id': { $in: profile.commission}},{ select:'URLThumbnail',  limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}  })
+        const commissionArray = await commissionType.paginate({'_id': { $in: profile.commission}},{limit:10, page:numberPage})
         if (commissionArray.length){
             res.status(200).send({message: 'Sucessfully retracted', data: commissionArray})
         }else{
@@ -246,4 +246,4 @@ const getCommissionTypes = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypes, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypesByUsername, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}

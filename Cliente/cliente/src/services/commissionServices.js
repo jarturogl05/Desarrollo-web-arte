@@ -29,15 +29,10 @@ async function getCommissionTypes(contractedUser, page){
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         }),
-
-        body: JSON.stringify({
-            'contractedUser': contractedUser,
-            'page': page
-        })
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getCommissionTypes', settings);
+        const response = await fetch('http://localhost:4000/getCommissionTypes' + contractedUser + '/' + page, settings);
         const json = await response.json();
         return json;
     } catch (error) {
