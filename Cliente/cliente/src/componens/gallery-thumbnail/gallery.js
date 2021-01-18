@@ -1,47 +1,46 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { useHistory, Link } from "react-router-dom";
 import './gallery.css'
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadSpinner from '../LoadSpinner/LoadSpinner'
+import {getHomePosts}  from '../../services/postsServices';
 
+ function Gallery() {
 
-
-const thumbnailsList = [
-    {id:5, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail32177871207411823prueba3.jpg'},
-    {id:6, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail4211998531744643prueba5.jpg'},
-    {id:7, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail5973210479235325prueba5.jpg'},
-    {id:8, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail7181510374887301prueba3.jpg'},
-    {id:9, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail93614924120428prueba5.jpg'},
-    {id:1, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail022135760539019556prueba2.jpg'},
-    {id:2, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail026945652180220048gatoreloco.jpg'},
-    {id:3, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail0988100385361208cosa.jpg'},
-    {id:4, URLThumbnail: 'https://imageswebart.blob.core.windows.net/miniaturas/thumbnail20453032571843033prueba1.jpg'},
-    
-]
-
-function Gallery() {
-  const [thumbnails, setThumbnails] = useState(thumbnailsList);
+  const [thumbnails, setThumbnails] = useState([]);
   const [hasMore, setHasMore] = useState();
+  const [page, setPage] = useState(1);
   const history = useHistory();
+ 
 
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setThumbnails(thumbnails.concat(thumbnailsList));
-    }, 1500);
+  useEffect(async () =>{
+    const postsFetched = await getHomePosts(page);
+    setThumbnails(postsFetched.docs);
+    setPage(page + 1);
+    setHasMore(postsFetched.hasNextPage);
+  },[])
+
+ 
+  const fetchMoreData = async () => {
+    setPage(page + 1);
+    const postsFetched = await getHomePosts(page);
+    setThumbnails(thumbnails.concat(postsFetched.docs));
+    setHasMore(postsFetched.hasNextPage);
   };
 
 
  const handleImageclick = (id) => {
-   
+  
    history.push('/post/'+ id )
  }
 
   return (
     <div>
       <InfiniteScroll
-        dataLength={thumbnails.length}
+        dataLength={thumbnails}
         next={fetchMoreData}
-        hasMore={!hasMore}
-        loader={<h4>Loading..</h4>}
+        hasMore={hasMore}
+        loader={<LoadSpinner></LoadSpinner>}
         endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Yay! You have seen it all</b>
@@ -51,9 +50,8 @@ function Gallery() {
         <div className="img-grid">
           {thumbnails &&
             thumbnails.map((thumbnails) => (
-              <div className="img-wrap" key={thumbnails.id}>
-                <img src={thumbnails.URLThumbnail} onClick={() => handleImageclick(thumbnails.id)} alt="pic"></img>
-   
+              <div className="img-wrap" key={thumbnails._id}>
+                <img src={thumbnails.URLThumbnail[0]} onClick={() => handleImageclick(thumbnails._id)} alt="pic"></img>
               </div>
             ))}
         </div>
