@@ -42,7 +42,7 @@ function CommissionManager(props) {
           }
         >
           {commissions && commissions.map((commission) => (
-            <Commission commissionInfo={commission} closeBinding={props.closeBinding}></Commission>
+            <Commission commissionInfo={commission} username={username} closeBinding={props.closeBinding}></Commission>
           ))}
         </InfiniteScroll>
         <button className='cancelButton' onClick={props.closeBinding}>Cancelar</button>

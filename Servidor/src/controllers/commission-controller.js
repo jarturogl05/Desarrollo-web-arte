@@ -126,7 +126,7 @@ const askCommission = async(req, res) => {
     const session = await mongoose.startSession()
     session.startTransaction();
     try {        
-        const { contracted, commissiontypeId } = req.body
+        const { contractedUsername, commissiontypeId, comments } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         contractorUsername = await tokenService.decodeToken(token)
@@ -134,13 +134,14 @@ const askCommission = async(req, res) => {
         const options = {session, new: true}
 
         contractorUser = await Users.findOne(contractorUsername)
-        contractedUser = await Users.findOne(contracted)
+        contractedUser = await Users.findOne(contractedUsername)
         commissiontype = await CommissionTypes.findById(commissiontypeId)
 
         let askCommission = await Commissions.create({
             contractorUser,
             contractedUser,
-            commissiontype
+            commissiontype,
+            comments
         }, options)
         if (askCommission){
                 const confirmationToken = tokenService.createConfirmationToken(username, email)
@@ -149,7 +150,7 @@ const askCommission = async(req, res) => {
                 await transporter.sendMail({
                     to: contractedUser.email,
                     subject: 'A new commission!',
-                    html: `A new commission from ${contractorUsername} has been added, log into your profile to see it`,
+                    html: `A new commission from ${contractedUsername} has been added, log into your profile to see it`,
                 });
                 
                 await session.commitTransaction();
