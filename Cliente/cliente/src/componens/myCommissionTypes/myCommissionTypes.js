@@ -1,7 +1,7 @@
 import React, {useContext } from "react"
 import Popup from 'reactjs-popup'
 
-import { getCommissionTypes, deleteCommissionType } from '../../services/commissionServices'
+import { getMyCommissionTypes, deleteCommissionType } from '../../services/commissionServices'
 
 import UserContext from '../../utils/userContext'
 import './myCommissionType.css'
@@ -39,7 +39,7 @@ function MyCommissionTypes() {
 
   async function getCommissionTypelist(){
       try {
-          setCommissionTypeList(await getCommissionTypes(token))
+          setCommissionTypeList(await getMyCommissionTypes(token))
           setDataIsReturned(true)
           setDidChange(false)
       }catch(err){

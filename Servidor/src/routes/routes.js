@@ -24,7 +24,7 @@ router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
 router.post('/getAllMyCommissionTypes', commissionController.getAllMyCommissionTypes);
-router.post('/getCommissionTypes', commissionController.getCommissionTypesByUsername);
+router.post('/getCommissionTypes/:contractedUser/:page', commissionController.getCommissionTypesByUsername);
 
 router.get('/confirm/:token', userController.confirmUser);
 router.post('/upload', uploadStrategy, postService.UploadProfile);

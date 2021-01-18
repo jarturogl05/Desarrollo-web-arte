@@ -28,7 +28,7 @@ function UserProfile(props) {
         <div className="userProfileButton-Container">
           <button className="userProfile-followButton">Follow</button>
           <Popup trigger={<button className="userProfile-commissionButton">Commission</button>} modal nested>
-            <Commission commissionInfo={commissionTest}></Commission>
+            <CommissionManager username={props.userProfileInfo.username}></CommissionManager>
             </Popup>
           <button className="userProfile-donationButton">Donate</button>
         </div>
