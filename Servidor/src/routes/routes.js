@@ -24,6 +24,7 @@ router.post('/responseCommission', commissionController.ResponseCommission);
 router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
 router.post('/getAllMyCommissionTypes', commissionController.getAllMyCommissionTypes);
+router.post('/getCommissionTypes', commissionController.getCommissionTypes);
 
 router.get('/confirm/:token', userController.confirmUser);
 

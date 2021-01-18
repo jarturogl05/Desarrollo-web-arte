@@ -1,4 +1,4 @@
-async function getCommissionTypes(token){
+async function getMyCommissionTypes(token){
 
     const settings = {
         method: 'POST',
@@ -14,6 +14,30 @@ async function getCommissionTypes(token){
 
     try {
         const response = await fetch('http://localhost:4000/getAllMyCommissionTypes', settings);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function getCommissionTypes(contractedUser, page){
+
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }),
+
+        body: JSON.stringify({
+            'contractedUser': contractedUser,
+            'page': page
+        })
+    }
+
+    try {
+        const response = await fetch('http://localhost:4000/getCommissionTypes', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -93,4 +117,4 @@ async function editCommissionType(token, id, title, price, description){
     }
 }
 
-export { getCommissionTypes, addCommissionType, deleteCommissionType, editCommissionType }
+export { getMyCommissionTypes, getCommissionTypes, addCommissionType, deleteCommissionType, editCommissionType }

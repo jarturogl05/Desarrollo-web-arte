@@ -228,4 +228,22 @@ const getAllMyCommissionTypes = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+
+const getCommissionTypes = async(req, res) => {
+    try {        
+        contractedUsername = req.contractedUser
+        page = req.page
+        user = await Users.findOne({contractedUsername})
+        profile = await Profiles.findOne({user: user._id})
+        const commissionArray = await commissionType.paginate({'_id': { $in: profile.commission}},{ select:'URLThumbnail',  limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}  })
+        if (commissionArray.length){
+            res.status(200).send({message: 'Sucessfully retracted', data: commissionArray})
+        }else{
+            res.status(404).send({message: 'Commissions not found, try adding one'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypes, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
