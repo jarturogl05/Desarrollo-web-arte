@@ -126,41 +126,42 @@ const askCommission = async(req, res) => {
     const session = await mongoose.startSession()
     session.startTransaction();
     try {        
-        const { contractedUsername, commissiontypeId, comments } = req.body
+        const { contractedUsername, commissionTypeId, comments } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         contractorUsername = await tokenService.decodeToken(token)
         
         const options = {session, new: true}
 
-        contractorUser = await Users.findOne(contractorUsername)
-        contractedUser = await Users.findOne(contractedUsername)
-        commissiontype = await CommissionTypes.findById(commissiontypeId)
+        contractorUser = await Users.findOne({username: contractorUsername})
+        contractedUser = await Users.findOne({username: contractedUsername})
 
-        let askCommission = await Commissions.create({
-            contractorUser,
-            contractedUser,
-            commissiontype,
+        let askCommission = await Commissions.create([{
+            contractorUserId: contractorUser._id,
+            contractedUserId: contractedUser._id,
+            commissionType: commissionTypeId,
             comments
-        }, options)
+        }], options)
         if (askCommission){
-                const confirmationToken = tokenService.createConfirmationToken(username, email)
-                const url = `http://localhost:4000/confirm/${confirmationToken}`;
 
                 await transporter.sendMail({
                     to: contractedUser.email,
                     subject: 'A new commission!',
-                    html: `A new commission from ${contractedUsername} has been added, log into your profile to see it`,
+                    html: `A new commission from ${contractorUsername} has been added, log into your profile to see it`,
                 });
                 
                 await session.commitTransaction();
                 session.endSession();
 
-                send.status(200).send({message: 'Registered Commission!'})
+                res.status(200).send({status: 'ok', message: 'Registered Commission!'})
+        }else{
+            res.status(500).send({status: 'Error', message:'Server error'})
         }
     }catch(error){
-        console.log(error);
-        res.status(500).send({status:'ERROR', message: 'error'});
+        await session.abortTransaction();
+        session.endSession()
+        console.log(error)
+        res.status(500).send({status:'Error', message: 'error'});
     }
 } 
 

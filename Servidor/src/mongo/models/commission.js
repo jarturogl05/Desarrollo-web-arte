@@ -6,7 +6,7 @@ const commissionSchema = new Schema({
     contractorUserId : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
     contractedUserId : {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
     comments : {type: String, required: true},
-    commisionType: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'commissionType'},
+    commissionType: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'commissionType'},
     accepted : {type: Boolean, required: true, default: false},
     paid: {type: Boolean, required: true, default : false}
 });

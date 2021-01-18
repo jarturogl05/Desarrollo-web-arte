@@ -130,7 +130,7 @@ async function askCommission(token, contractedUser, commissionId, comments){
         })
     }
     try {
-        const response = await fetch('http://localhost:4000/editCommissionType', settings);
+        const response = await fetch('http://localhost:4000/askCommission', settings);
         const json = await response.json();
         return json;
     } catch (error) {
