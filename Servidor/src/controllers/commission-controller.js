@@ -4,10 +4,18 @@ const Commissions = require('./../mongo/models/commission')
 const CommissionTypes = require('../mongo/models/commissionType')
 const Users = require('./../mongo/models/user')
 const Profiles = require('../mongo/models/profileInfo')
+const nodemailer = require('nodemailer')
+
 
 const tokenService = require('./token-service');
 const { options } = require('../routes/routes');
-
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
 const createCommission = async(req, res) => {
     const { title, description, price, picture } = req.body
     const session = await mongoose.startSession()
@@ -115,22 +123,40 @@ const deleteCommissionType = async(req, res) => {
     }
 }
 const askCommission = async(req, res) => {
+    const session = await mongoose.startSession()
+    session.startTransaction();
     try {        
-        const { contracted, commissiontype } = req.body
+        const { contracted, commissiontypeId } = req.body
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         contractorUsername = await tokenService.decodeToken(token)
+        
+        const options = {session, new: true}
 
         contractorUser = await Users.findOne(contractorUsername)
         contractedUser = await Users.findOne(contracted)
+        commissiontype = await CommissionTypes.findById(commissiontypeId)
 
-        await Commissions.create({
+        let askCommission = await Commissions.create({
             contractorUser,
             contractedUser,
             commissiontype
-        })
-        
-        send.status(200).send({message: 'Registered Commission!'})
+        }, options)
+        if (askCommission){
+                const confirmationToken = tokenService.createConfirmationToken(username, email)
+                const url = `http://localhost:4000/confirm/${confirmationToken}`;
+
+                await transporter.sendMail({
+                    to: contractedUser.email,
+                    subject: 'A new commission!',
+                    html: `A new commission from ${contractorUsername} has been added, log into your profile to see it`,
+                });
+                
+                await session.commitTransaction();
+                session.endSession();
+
+                send.status(200).send({message: 'Registered Commission!'})
+        }
     }catch(error){
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});

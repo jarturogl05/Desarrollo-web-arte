@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./commission.css";
 import Popup from 'reactjs-popup'
 
+
 function Commission(props) {
   const commissionInfo = props.commissionInfo;
   const [extraComments, setExtraComments] = useState()
