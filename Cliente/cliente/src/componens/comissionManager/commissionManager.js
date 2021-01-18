@@ -14,8 +14,8 @@ function CommissionManager(props) {
   useEffect(async () =>{
     console.log(username, page)
     const commissionsFetched = await getCommissionTypes(username, page);
-    setCommissions(commissionsFetched)
     console.log(commissionsFetched)
+    setCommissions(commissionsFetched)
     setPage(page+1)
   },[])
 

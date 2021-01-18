@@ -233,13 +233,14 @@ const getCommissionTypesByUsername = async(req, res) => {
     try {        
         const contractedUsername = req.params.contractedUser
         const numberPage = req.params.page
-        user = await Users.findOne({contractedUsername})
+        user = await Users.findOne({username: contractedUsername})
         profile = await Profiles.findOne({user: user._id})
-        const commissionArray = await commissionType.paginate({'_id': { $in: profile.commission}},{limit:10, page:numberPage})
-        if (commissionArray.length){
+        const commissionArray = await CommissionTypes.paginate({'_id': { $in: profile.commission}},{limit:10, page:numberPage})
+        console.log(commissionArray)
+        if (commissionArray.docs.length){
             res.status(200).send({message: 'Sucessfully retracted', data: commissionArray})
         }else{
-            res.status(404).send({message: 'Commissions not found, try adding one'})
+            res.status(404).send({message: 'Commissions not found'})
         }
     }catch(error){
         console.log(error);
