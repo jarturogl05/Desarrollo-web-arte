@@ -65,8 +65,6 @@ const editCommissionType = async(req, res) => {
             picture: pictureURL
         }, options)
 
-
-        console.log(updateCommissionType.ok)
         if (updateCommissionType.ok){
             await session.commitTransaction()
             session.endSession()

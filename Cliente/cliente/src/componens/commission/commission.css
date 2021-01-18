@@ -1,0 +1,31 @@
+.commission-Container {
+    text-align: center;
+    align-items: start;
+    display: flex;
+    position: relative;
+    background-color: rgb(245, 245, 245);
+}
+.commissionInfo-Container {
+    text-align: center;
+    align-items: center;
+    display: grid;
+}
+.commissionInfo-Container img{
+    width: 140px;
+    height: 140px;
+    margin-top: 5px;
+    margin: auto;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0); 
+}
+.commissionInfo-Container h2{
+    font-size: 1.5rem;
+    padding-top: 60px;
+    text-align: left;
+}
+.commissionInfo-Container h3{
+    font-size: 1rem;
+    text-align: left;
+    padding-top: 10px;
+    margin: auto;
+}

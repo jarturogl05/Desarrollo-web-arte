@@ -19,7 +19,6 @@ function Form() {
 
   const submit = async (e) =>{
     e.preventDefault();
-    
     if (checkFields()){
       const registerResponse = await doRegister(username, email, password)
       if (registerResponse){
@@ -42,8 +41,10 @@ function Form() {
   
   function isValidEmail(){
     var result = false
-    const emailRegex = new RegExp("^[-.]+@([-]+.)+[-]{2,4}$")
+    const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9].\+[A-Za-z]+$")
     if (emailRegex.test(email)){
+      result = true
+    }else{
       alert('La dirección de email es invalida')
     }
     return result

@@ -1,6 +1,9 @@
 import React from "react";
+import Popup from 'reactjs-popup'
 import EditProfile from "../editProfile-form/editProfile-form"
+import CommissionManager from "../comissionManager/commissionManager"
 import "./profile.css";
+
 
 
 function UserProfile(props) {
@@ -13,6 +16,7 @@ function UserProfile(props) {
   
 
   function renderButtons(){
+    const commissionTest = {title:'Una pintura', price:25, description: 'jdfbkjdbfdkjf', picture: 'https://escanos.org/wp-content/uploads/sites/2/2015/11/Abstencion1.png'}
     if (userProfileInfo.isOwn){
       return (
         <div className="userProfileButton-Container">
@@ -23,7 +27,9 @@ function UserProfile(props) {
       return (
         <div className="userProfileButton-Container">
           <button className="userProfile-followButton">Follow</button>
-          <button className="userProfile-commissionButton">Commission</button>
+          <Popup trigger={<button className="userProfile-commissionButton">Commission</button>} modal nested>
+            <Commission commissionInfo={commissionTest}></Commission>
+            </Popup>
           <button className="userProfile-donationButton">Donate</button>
         </div>
       )
