@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useHistory} from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Commission from '../commission/commission'
 import './commissionManager.css'
 import { getCommissionTypes } from '../../services/commissionServices'
 
@@ -8,22 +8,22 @@ import { getCommissionTypes } from '../../services/commissionServices'
 function CommissionManager(props) {
   const [commissions, setCommissions] = useState([]);
   const [username, setUsername] = useState(props.username)
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState();
   const [page, setPage] = useState(1);
 
   useEffect(async () =>{
     console.log(username, page)
     const commissionsFetched = await getCommissionTypes(username, page);
-    console.log(commissionsFetched)
-    setCommissions(commissionsFetched)
+    setCommissions(commissionsFetched.data.docs)
+    setHasMore(commissionsFetched.data.hasNextPage)
     setPage(page+1)
   },[])
 
-  const fetchCommissions = () => {
+  const fetchCommissions = async () => {
+    const commissionsFetched = await getCommissionTypes(username, page);
+    setCommissions(commissions.concat(commissionsFetched.data.docs))
+    setHasMore(commissionsFetched.data.hasNextPage)
     setPage(page+1)
-    this.setCommissions({
-      commissions: commissions.concat(getCommissionTypes(username, page))
-    });
   }
 
 
@@ -42,7 +42,9 @@ function CommissionManager(props) {
             </p>
           }
         >
-          {commissions}
+          {commissions && commissions.map((commission) => (
+            <Commission commissionInfo={commission}></Commission>
+          ))}
         </InfiniteScroll>
             </div>
         </div>
