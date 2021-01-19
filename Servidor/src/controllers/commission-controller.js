@@ -217,24 +217,6 @@ const getMyAvailableCommission = async(req, res) => {
     }
 }
 
-const getAllMyCommission = async(req, res) => {
-    try {        
-        const tokenCode = req.headers.authorization;
-        const token = tokenCode.split(' ')[1];
-        username = await tokenService.decodeToken(token)
-
-        commissions = await Commissions.find({contractedUser: username})
-        
-        if (commissions.any()){
-            send.status(200).send({message: 'Sucessfully retracted', data: commissions})
-        }else{
-            send.status(404).send({message: 'Commissions not found, try adding one'})
-        }
-    }catch(error){
-        console.log(error);
-        res.status(500).send({status:'ERROR', message: 'error'});
-    }
-}
 
 const getAllMyCommissionTypes = async(req, res) => {
     try {        
@@ -274,4 +256,41 @@ const getCommissionTypesByUsername = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypesByUsername, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+
+const getMyAskedCommissions = async(req, res) => {
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        username = await tokenService.decodeToken(token)
+        user = await Users.findOne({username})
+
+        const askedCommissions = await Commissions.find({contractorUser: user._id})
+        if (askedCommissions.length){
+            res.status(200).send({message: 'Sucessfully retracted', data: askedCommissions})
+        }else{
+            res.status(404).send({message: 'Commissions not found'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+const getMyAsignedCommissions = async(req, res) => {
+    try {        
+        const tokenCode = req.headers.authorization;
+        const token = tokenCode.split(' ')[1];
+        username = await tokenService.decodeToken(token)
+        user = await Users.findOne({username})
+
+        const asignedCommissions = await Commissions.find({contractedUser: user._id}).sort('updatedAt');
+        if (asignedCommissions.length){
+            res.status(200).send({message: 'Sucessfully retracted', data: asignedCommissions})
+        }else{
+            res.status(404).send({message: 'Commissions not found'})
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:'ERROR', message: 'error'});
+    }
+}
+module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypesByUsername, getMyAsignedCommissions, getMyAskedCommissions, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
