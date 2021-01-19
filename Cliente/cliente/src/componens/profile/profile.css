@@ -23,7 +23,7 @@
     text-align: center;
     align-items: center;
     display: grid;
-    position: fixed;
+    position: absolute;
 }
 .userInfo-Container img{
     position: absolute;
