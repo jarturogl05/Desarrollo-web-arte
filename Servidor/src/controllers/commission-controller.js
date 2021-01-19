@@ -122,6 +122,15 @@ const deleteCommissionType = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
+const statusEnumeration = {
+    asked: 'Asked',
+    accepted: 'Accepted',
+    paid: 'Paid',
+    delivered: 'Delievered',
+    rejected: 'Rejected',
+    canceled: 'Canceled',
+    inProgress: 'InProgress'
+}
 const askCommission = async(req, res) => {
     const session = await mongoose.startSession()
     session.startTransaction();
@@ -140,6 +149,7 @@ const askCommission = async(req, res) => {
             contractorUserId: contractorUser._id,
             contractedUserId: contractedUser._id,
             commissionType: commissionTypeId,
+            status: statusEnumeration.asked,
             comments
         }], options)
         if (askCommission){
@@ -270,6 +280,7 @@ const getMyAskedCommissions = async(req, res) => {
             let contractedUser = await Users.findById(commission.contractedUserId);
             let contractorUser = await Users.findById(commission.contractorUserId);
             let tempCommission = {
+                id: commission._id,
                 title: commissionType.title,
                 comments: commission.comments,
                 status: commission.status,
@@ -301,6 +312,7 @@ const getMyAsignedCommissions = async(req, res) => {
             let contractedUser = await Users.findById(commission.contractedUserId);
             let contractorUser = await Users.findById(commission.contractorUserId);
             let tempCommission = {
+                id: commission._id,
                 title: commissionType.title,
                 comments: commission.comments,
                 status: commission.status,

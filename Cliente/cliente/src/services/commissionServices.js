@@ -151,7 +151,6 @@ async function getMyAskedCommissions(token){
     try {
         const response = await fetch('http://localhost:4000/getMyAskedCommissions', settings);
         const json = await response.json();
-        
         return json;
     } catch (error) {
         console.log(error);
@@ -171,7 +170,6 @@ async function getMyAsignedCommissions(token){
     try {
         const response = await fetch('http://localhost:4000/getMyAsignedCommissions', settings);
         const json = await response.json();
-        console.log(json)
         return json;
     } catch (error) {
         console.log(error);

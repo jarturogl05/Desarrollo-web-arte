@@ -26,7 +26,7 @@ function CommissionAdmin(){
                     <MyAsignedCommissions></MyAsignedCommissions>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Otras comisiones</h2>
+                    <h2>My asked commissions</h2>
                 </TabPanel>
                 <TabPanel>
                     <h2>Administrar mis comissioness</h2>
