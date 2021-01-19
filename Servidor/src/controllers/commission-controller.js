@@ -266,7 +266,6 @@ const getMyAskedCommissions = async(req, res) => {
         const asignedCommissions = await Commissions.find({contractorUserId: user._id}).sort('createdAt')
         const formattedCommissions = []
         for (const commission of asignedCommissions) {
-            console.log(commission)
             let commissionType = await CommissionTypes.findById(commission.commissionType);
             let contractedUser = await Users.findById(commission.contractedUserId);
             let contractorUser = await Users.findById(commission.contractorUserId);
@@ -298,7 +297,6 @@ const getMyAsignedCommissions = async(req, res) => {
         const asignedCommissions = await Commissions.find({contractedUserId: user._id}).sort('createdAt')
         const formattedCommissions = []
         for (const commission of asignedCommissions) {
-            console.log(commission)
             let commissionType = await CommissionTypes.findById(commission.commissionType);
             let contractedUser = await Users.findById(commission.contractedUserId);
             let contractorUser = await Users.findById(commission.contractorUserId);
