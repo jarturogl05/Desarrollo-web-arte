@@ -1,7 +1,6 @@
 .userNotFound-container{
     padding-top: 10px;
     text-align: center;
-    align-items: start;
     display: flex-start;
     position: absolute;
 }
@@ -14,8 +13,7 @@
     margin-left: 50px;
     margin-right: 50px;
     text-align: center;
-    align-items: start;
-    display: flex;
+    display: flex-start;
     position: relative;
     background-color: rgb(245, 245, 245);
 }

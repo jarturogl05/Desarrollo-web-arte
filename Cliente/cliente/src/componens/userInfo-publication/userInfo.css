@@ -2,8 +2,7 @@
 .userInfo-container{
     padding-top: 140px;
     text-align: center;
-    align-items: start;
-    display: flex;
+    display: flex-start;
     position: absolute;
 
 }
