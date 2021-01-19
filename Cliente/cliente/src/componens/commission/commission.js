@@ -9,6 +9,7 @@ function Commission(props) {
   const {token}  = useContext(UserContext);
   const commissionInfo = props.commissionInfo;
   const [extraComments, setExtraComments] = useState()
+  const [Error, setError] = useState()
 
   const handleClick = async() => {
     const askResponse = await askCommission(token, props.username, commissionInfo._id, extraComments)
@@ -24,7 +25,8 @@ function Commission(props) {
         alert('Server problem, check the data and try again')
         break;
       default:
-        console.log(response);
+        setError("Server error")
+        console.log(Error);
     }
   }
   if (commissionInfo){
