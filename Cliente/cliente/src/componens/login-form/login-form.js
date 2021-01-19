@@ -59,8 +59,9 @@ function Form() {
       <h2>Login</h2>
       <form className="form-grup" onSubmit={submit}>
         <p>
-          <label>Username</label>
+          <label htmlFor='username'>Username</label>
           <input
+            id='username'
             type="text"
             autoFocus
             maxLength="150"
@@ -69,8 +70,9 @@ function Form() {
           ></input>
         </p>
         <p>
-          <label>Password</label>
+          <label htmlFor='password'>Password</label>
           <input
+            id='password'
             type="password"
             autoFocus
             required

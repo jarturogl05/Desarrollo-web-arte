@@ -67,9 +67,10 @@ function AddCommissionTypeForm(props) {
                 <form className='addNewCommissionTypeForm' onSubmit={submit}>
                     <h1>Add a new commission type</h1>
                     <p>
-                        <label>Title</label>
+                        <label htmlFor='title'>Title</label>
                         <br></br>
                         <input
+                            id='title'
                             type="text"
                             autoFocus
                             maxLength = '32'
@@ -77,9 +78,10 @@ function AddCommissionTypeForm(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Price</label>
+                        <label htmlFor='price'>Price</label>
                         <br></br>
                         <input
+                            id='price'
                             type="number"
                             autoFocus
                             min='1'
@@ -88,9 +90,10 @@ function AddCommissionTypeForm(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Description</label>
+                        <label htmlFor='description'>Description</label>
                         <br></br>
                         <input
+                            id='description'
                             type="text"
                             autoFocus
                             maxLength='500'

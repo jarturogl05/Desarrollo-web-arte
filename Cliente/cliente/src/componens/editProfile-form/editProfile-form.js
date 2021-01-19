@@ -66,9 +66,10 @@ function UserProfileEdit(props) {
                     <img src={userProfileInfo.data.profilePictureURL} alt="User Profile"></img>
 
                     <p>
-                        <label>Username</label>
+                        <label htmlFor='username'>Username</label>
                         <br></br>
                         <input
+                            id='username'
                             type="text"
                             autoFocus
                             onChange = {(e) => setUsername(e.target.value)}
@@ -76,9 +77,10 @@ function UserProfileEdit(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Twitter</label>
+                        <label htmlFor='twitter'>Twitter</label>
                         <br></br>
                         <input
+                            htmlFor='twitter'
                             type="text"
                             autoFocus
                             onChange = {(e) => setTwitter(e.target.value)}
@@ -86,9 +88,10 @@ function UserProfileEdit(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Facebook</label>
+                        <label htmlFor='facebook'>Facebook</label>
                         <br></br>
                         <input
+                            id='facebook'
                             type="text"
                             autoFocus
                             onChange = {(e) => setFacebook(e.target.value)}
@@ -96,9 +99,10 @@ function UserProfileEdit(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Instagram</label>
+                        <label htmlFor='instagram'>Instagram</label>
                         <br></br>
                         <input
+                            id='instagram'
                             type="text"
                             autoFocus
                             onChange = {(e) => setInstagram(e.target.value)}
@@ -106,9 +110,10 @@ function UserProfileEdit(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Profile Description</label>
+                        <label htmlFor='description'>Profile Description</label>
                         <br></br>
                         <input
+                            id='description'
                             type="text"
                             autoFocus
                             onChange = {(e) => setDescription(e.target.value)}

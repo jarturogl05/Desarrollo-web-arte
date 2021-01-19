@@ -66,9 +66,10 @@ function EditCommissionTypeForm(props) {
                 <form className='editCommissionTypeForm' onSubmit={submit}>
                     <h1>Edit commission</h1>
                     <p>
-                    <label>Title</label>
+                    <label htmlFor='title'>Title</label>
                         <br></br>
                         <input
+                            id='title'
                             type="text"
                             autoFocus
                             maxLength = '32'
@@ -77,9 +78,10 @@ function EditCommissionTypeForm(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Price</label>
+                        <label htmlFor='price'>Price</label>
                         <br></br>
                         <input
+                            id='price'
                             type="number"
                             autoFocus
                             min='1'
@@ -89,9 +91,10 @@ function EditCommissionTypeForm(props) {
                         ></input>
                     </p>
                     <p>
-                        <label>Description</label>
+                        <label htmlFor='description'>Description</label>
                         <br></br>
                         <input
+                            id='description'
                             type="text"
                             autoFocus
                             maxLength='500'
