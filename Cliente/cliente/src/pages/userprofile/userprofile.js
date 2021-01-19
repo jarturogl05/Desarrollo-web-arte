@@ -4,6 +4,7 @@ import NavBar from '../../componens/navbar/navbar'
 import Profile from '../../componens/profile/profile'
 import UserContext from '../../utils/userContext'
 import { getProfileInfo } from '../../services/profileServices'
+import GalleryUser from '../../componens/galleryUser/GalleryUser'
 
 function UserProfile(){
     const {token}  = useContext(UserContext);
@@ -22,10 +23,15 @@ function UserProfile(){
             console.log('Error')
         }
     }
+
+
+
     return (
         <div>
             <NavBar></NavBar>
-            <Profile userProfileInfo = {dataIsReturned && profileInfo.data ? profileInfo : undefined} ></Profile> 
+            <Profile userProfileInfo = {dataIsReturned && profileInfo.data ? profileInfo : undefined} ></Profile>
+            <h1>Publications</h1>
+            <GalleryUser ></GalleryUser>
         </div>
     )
 }

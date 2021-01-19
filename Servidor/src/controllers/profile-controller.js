@@ -28,6 +28,25 @@ const getUserInfo = async(req, res) => {
             res.status(500).send({status:'ERROR', message: 'error'});
         }
 }
+
+
+const getUserInfoById = async(req, res) => {
+    try {      
+            const autorId = req.params.autorId;
+            const user = await Users.findOne({_id: autorId});
+            const profile = await Profiles.findOne({user: user._id})
+            if(profile){
+                res.status(200).send({status:'USER_FOUND', username: user.username, image: profile.profilePictureURL})
+            }else{
+                res.status(404).send({status:'USER_NOT_FOUND', message: 'usuario no encontrado'});
+            }
+        } catch (error) {
+            console.log(error)
+            res.status(500).send({status:'ERROR', message: 'error'});
+        }
+}
+
+
 const updateProfile = async(req, res) =>{
     const session = await mongoose.startSession()
     session.startTransaction()
@@ -78,4 +97,4 @@ const updateProfile = async(req, res) =>{
 
 };
 
-module.exports = {getUserInfo, updateProfile}
+module.exports = {getUserInfo, updateProfile, getUserInfoById}

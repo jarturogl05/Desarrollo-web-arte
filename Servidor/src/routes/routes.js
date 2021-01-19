@@ -16,6 +16,8 @@ router.post('/authenticateToken', userController.authenticateToken);
 router.post('/updateProfile' , profileController.updateProfile);
 router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
 
+router.get('/getUserProfileInfoById/:autorId' , profileController.getUserInfoById);
+
 router.post('/createCommissionType', commissionController.createCommission);
 router.post('/editCommissionType', commissionController.editCommissionType);
 router.post('/deleteCommissionType', commissionController.deleteCommissionType);
@@ -33,5 +35,7 @@ router.post('/createpost', uploadStrategy, postService.createPost);
 router.get('/post/:id',postService.getPost );
 router.get('/postList/:page',postService.getPostsList );
 router.get('/autorPosts/:autorID/:page', postService.getPostsByAutor);
+router.get('/autorPostsName/:autorName/:page', postService.getPostsByAutorName);
+
 
 module.exports = router;

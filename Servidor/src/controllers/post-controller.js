@@ -76,6 +76,14 @@ const getPostsByAutor = async (req, res) => {
     res.status(200).send(posts);
 }
 
+const getPostsByAutorName = async (req, res) => {
+  const name = req.params.autorName;
+  const numberPage = req.params.page;
+  const user = await Users.findOne({username:name});
+  const posts = await Post.paginate({autorId : user._id},{select:'URLThumbnail', limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}});
+  res.status(200).send(posts);
+}
+
 
 const getPostsList = async(req, res) =>{
     const numberPage = req.params.page
@@ -95,4 +103,4 @@ const UploadProfile = async(req, res) =>{
 
 
 
-module.exports = {createPost, UploadProfile, getPost, getPostsList, getPostsByAutor }
+module.exports = {createPost, UploadProfile, getPost, getPostsList, getPostsByAutor,getPostsByAutorName }
