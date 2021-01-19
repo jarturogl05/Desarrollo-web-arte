@@ -137,5 +137,45 @@ async function askCommission(token, contractedUser, commissionId, comments){
         console.log(error);
     }
 }
+async function getMyAskedCommissions(token){
 
-export { getMyCommissionTypes, getCommissionTypes, addCommissionType, deleteCommissionType, editCommissionType, askCommission }
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }),
+    }
+
+    try {
+        const response = await fetch('http://localhost:4000/getMyAskedCommissions', settings);
+        const json = await response.json();
+        
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function getMyAsignedCommissions(token){
+
+    const settings = {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
+    }
+
+    try {
+        const response = await fetch('http://localhost:4000/getMyAsignedCommissions', settings);
+        const json = await response.json();
+        console.log(json)
+        return json;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getMyCommissionTypes, getCommissionTypes, getMyAskedCommissions, getMyAsignedCommissions, addCommissionType, deleteCommissionType, editCommissionType, askCommission }

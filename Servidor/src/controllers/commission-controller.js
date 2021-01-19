@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer')
 
 
 const tokenService = require('./token-service');
-const { options } = require('../routes/routes');
+const { options, use } = require('../routes/routes');
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -258,15 +258,29 @@ const getCommissionTypesByUsername = async(req, res) => {
 }
 
 const getMyAskedCommissions = async(req, res) => {
-    try {        
+    try {      
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         username = await tokenService.decodeToken(token)
         user = await Users.findOne({username})
-
-        const askedCommissions = await Commissions.find({contractorUser: user._id})
-        if (askedCommissions.length){
-            res.status(200).send({message: 'Sucessfully retracted', data: askedCommissions})
+        const asignedCommissions = await Commissions.find({contractorUserId: user._id}).sort('createdAt')
+        const formattedCommissions = []
+        for (const commission of asignedCommissions) {
+            console.log(commission)
+            let commissionType = await CommissionTypes.findById(commission.commissionType);
+            let contractedUser = await Users.findById(commission.contractedUserId);
+            let contractorUser = await Users.findById(commission.contractorUserId);
+            let tempCommission = {
+                title: commissionType.title,
+                comments: commission.comments,
+                status: commission.status,
+                contractedUser: contractedUser.username,
+                contractorUser: contractorUser.username
+            }
+            formattedCommissions.push(tempCommission)
+        }
+        if (asignedCommissions.length){
+            res.status(200).send({message: 'Sucessfully retracted', data: formattedCommissions})
         }else{
             res.status(404).send({message: 'Commissions not found'})
         }
@@ -276,15 +290,29 @@ const getMyAskedCommissions = async(req, res) => {
     }
 }
 const getMyAsignedCommissions = async(req, res) => {
-    try {        
+    try {      
         const tokenCode = req.headers.authorization;
         const token = tokenCode.split(' ')[1];
         username = await tokenService.decodeToken(token)
         user = await Users.findOne({username})
-
-        const asignedCommissions = await Commissions.find({contractedUser: user._id}).sort('updatedAt');
+        const asignedCommissions = await Commissions.find({contractedUserId: user._id}).sort('createdAt')
+        const formattedCommissions = []
+        for (const commission of asignedCommissions) {
+            console.log(commission)
+            let commissionType = await CommissionTypes.findById(commission.commissionType);
+            let contractedUser = await Users.findById(commission.contractedUserId);
+            let contractorUser = await Users.findById(commission.contractorUserId);
+            let tempCommission = {
+                title: commissionType.title,
+                comments: commission.comments,
+                status: commission.status,
+                contractedUser: contractedUser.username,
+                contractorUser: contractorUser.username
+            }
+            formattedCommissions.push(tempCommission)
+        }
         if (asignedCommissions.length){
-            res.status(200).send({message: 'Sucessfully retracted', data: asignedCommissions})
+            res.status(200).send({message: 'Sucessfully retracted', data: formattedCommissions})
         }else{
             res.status(404).send({message: 'Commissions not found'})
         }
