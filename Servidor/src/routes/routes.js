@@ -16,6 +16,8 @@ router.post('/authenticateToken', userController.authenticateToken);
 router.post('/updateProfile' , profileController.updateProfile);
 router.post('/getUserProfileInfoByUsername' , profileController.getUserInfo);
 
+router.get('/getUserProfileInfoById/:autorId' , profileController.getUserInfoById);
+
 router.post('/createCommissionType', commissionController.createCommission);
 router.post('/editCommissionType', commissionController.editCommissionType);
 router.post('/deleteCommissionType', commissionController.deleteCommissionType);
