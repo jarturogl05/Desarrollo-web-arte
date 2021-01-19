@@ -2,6 +2,7 @@ import React, {useState, useContext } from "react";
 import "./addCommissionType-form.css";
 import { addCommissionType } from '../../services/commissionServices'
 import UserContext from '../../utils/userContext'
+import GenericLoadingOverlay from '../GenericLoadingOverlay/GenericLoadingOverlayContainer'
 
 
 
@@ -12,23 +13,35 @@ function AddCommissionTypeForm(props) {
     const [description, setDescription] = useState();
     const [price, setPrice] = useState();
     const [error, setError] = useState();
+    const [isLoading, setIsLoading] = useState();
 
     const submit = async (e) =>{
         e.preventDefault();
-        
         if (checkFields()){
+            setIsLoading(true)
             const addResponse = await addCommissionType(token, title, price, description)
+            setIsLoading(false)
             if (addResponse) {
                 addResponseStatus(addResponse);
             } else {
                 setError("Server Error")
                 console.log(error);
             }
+        }else{
+            alert('Empty fields, fill all the fields before continuing')
         }
     }
     
       function checkFields(){
-          return true
+          var result = false;
+          if (checkEmptyString(title) && checkEmptyString(description) && checkEmptyString(price)){
+            result = true;
+          }
+          return result;
+      }
+
+      function checkEmptyString(testString){
+        return !(!testString || testString.length === 0 || !testString.trim());
       }
     
       function addResponseStatus(addResponse){
@@ -50,33 +63,40 @@ function AddCommissionTypeForm(props) {
     return (
         <div className='popup'>
             <div className='popup_inner'>
+            {isLoading && <GenericLoadingOverlay message="Creating a new commission type"></GenericLoadingOverlay>}
                 <form className='addNewCommissionTypeForm' onSubmit={submit}>
                     <h1>Add a new commission type</h1>
-
                     <p>
-                        <label>Title</label>
+                        <label htmlFor='title'>Title</label>
                         <br></br>
                         <input
+                            id='title'
                             type="text"
                             autoFocus
+                            maxLength = '32'
                             onChange = {(e) => setTitle(e.target.value)}
                         ></input>
                     </p>
                     <p>
-                        <label>Price</label>
+                        <label htmlFor='price'>Price</label>
                         <br></br>
                         <input
+                            id='price'
                             type="number"
                             autoFocus
+                            min='1'
+                            max='500'
                             onChange = {(e) => setPrice(e.target.value)}
                         ></input>
                     </p>
                     <p>
-                        <label>Description</label>
+                        <label htmlFor='description'>Description</label>
                         <br></br>
                         <input
+                            id='description'
                             type="text"
                             autoFocus
+                            maxLength='500'
                             onChange = {(e) => setDescription(e.target.value)}
                         ></input>
                     </p>

@@ -116,8 +116,9 @@ function Form() {
         <h2>Register</h2>
         <form className="form-grup" onSubmit={submit}>
           <p>
-            <label>Username</label>
+            <label htmlFor='username'>Username</label>
             <input
+              id='username'
               type="text"
               autoFocus
               maxLength="150"
@@ -126,8 +127,9 @@ function Form() {
             ></input>
           </p>
           <p>
-            <label>Email</label>
+            <label htmlFor='email'>Email</label>
             <input
+              id='email'
               type="email"
               autoFocus
               maxLength = "120"
@@ -136,10 +138,11 @@ function Form() {
             ></input>
           </p>
           <p>
-            <label>Password</label>
+            <label htmlFor='password'>Password</label>
             <Popup
               trigger={open => (
                 <input
+                  id='password'
                   type="password"
                   autoFocus
                   required
@@ -155,8 +158,9 @@ function Form() {
             </Popup>
           </p>
           <p>
-            <label>Confirm password</label>
+            <label htmlFor='confirmPassword'>Confirm password</label>
             <input
+              id='confirmPassword'
               type="password"
               autoFocus
               required
