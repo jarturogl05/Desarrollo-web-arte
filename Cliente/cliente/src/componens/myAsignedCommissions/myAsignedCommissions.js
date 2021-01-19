@@ -1,7 +1,7 @@
 import React, {useContext } from "react"
 import Popup from 'reactjs-popup'
 
-import { getMyAsignedCommissions } from '../../services/commissionServices'
+import { getMyAsignedCommissions, ResponseCommission } from '../../services/commissionServices'
 
 import UserContext from '../../utils/userContext'
 import './myAsignedCommissions.css'
@@ -25,22 +25,36 @@ function MyAsignedCommissions() {
           }
   }) 
 
-  async function rejectCommission(){
-      alert('Si jala')
+  async function rejectCommission(commissionId){
+    const response = await ResponseCommission(commissionId, 'Rejected')
+    checkResponse(response);
   }
 
-  async function acceptCommission(){
-      alert('Si Jala')
+  async function acceptCommission(commissionId){  
+    const response = await ResponseCommission(commissionId, 'Accepted')
+    checkResponse(response);
   }
 
-  async function markAsInProgress(){
-
+  async function markAsInProgress(commissionId){
+    const response = await ResponseCommission(commissionId, 'InProgress')
+    checkResponse(response);
   }
 
-  async function markAsDelievered(){
-
+  async function markAsDelievered(commissionId){
+    const response = await ResponseCommission(commissionId, 'Delievered')
+    checkResponse(response);
   }
 
+  function checkResponse(response){
+    switch (response.status){
+        case 'ok':
+            alert('Commission Updated!')
+            break;
+        default:
+            alert('Error at the server')
+            break;
+    }
+  }
   async function getCommissionlist(){
       try {
           setCommissionList(await getMyAsignedCommissions(token))
@@ -69,7 +83,7 @@ function MyAsignedCommissions() {
                                     Are you sure you want to accept this commission
                 </p>
                                 <p>
-                                    <button className='popupconfirm-acceptbutton' onClick={() => { acceptCommission().then(close) }}>Accept</button>
+                                    <button className='popupconfirm-acceptbutton' onClick={() => { acceptCommission(commissionid).then(close) }}>Accept</button>
                                     <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                 </p>
                             </div>
@@ -85,7 +99,7 @@ function MyAsignedCommissions() {
                                     Are you sure you want to reject this
                 </p>
                                 <p>
-                                    <button className='popupconfirm-acceptbutton' onClick={() => { rejectCommission().then(close) }}>Reject</button>
+                                    <button className='popupconfirm-acceptbutton' onClick={() => { rejectCommission(commissionid).then(close)}}>Reject</button>
                                     <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                 </p>
                             </div>
@@ -106,7 +120,7 @@ function MyAsignedCommissions() {
                                         Mark as 'In Progress'?
                     </p>
                                     <p>
-                                        <button className='popupconfirm-acceptbutton' onClick={() => { markAsInProgress().then(close) }}>Yes</button>
+                                        <button className='popupconfirm-acceptbutton' onClick={() => { markAsInProgress(commissionid).then(close) }}>Yes</button>
                                         <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                     </p>
                                 </div>
@@ -127,7 +141,7 @@ function MyAsignedCommissions() {
                                         Mark as 'Delievered'?
                     </p>
                                     <p>
-                                        <button className='popupconfirm-acceptbutton' onClick={() => { markAsDelievered().then(close) }}>Yes</button>
+                                        <button className='popupconfirm-acceptbutton' onClick={() => { markAsDelievered(commissionid).then(close) }}>Yes</button>
                                         <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
                                     </p>
                                 </div>
@@ -136,6 +150,10 @@ function MyAsignedCommissions() {
                     </Popup>
                 </div>
                 )
+        default:
+            return(
+                <label>You must wait to interact</label>
+            )
     }
   }
 

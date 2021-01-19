@@ -177,34 +177,17 @@ const askCommission = async(req, res) => {
 
 const ResponseCommission = async(req, res) => {
     try {        
-        const { response, commissionid } = req.body
-        const tokenCode = req.headers.authorization;
-        const token = tokenCode.split(' ')[1];
-        contractedUsername = await tokenService.decodeToken(token)
-
-        contractedUser = await Users.findOne(contractedUsername)
-        commission = await Commissions.findById(commissionid)
-
-        if (contractedUser == commission.contractedUser){
-            commission.accepted = response
-            commission.save()
-            if (response){
-                send.status(200).message('Accepted Commission!')
-            }else{
-                send.status(200).message('Rejected Commission :(')
-            }
-        }else{
-            send.status(403).message('You cannot modify other users commissions')
-        }
+        const { response, commissionId } = req.body
+        commission = await Commissions.findById(commissionId)
+        commission.status = response
+        commission.save();
+        res.status(200).send({status: 'ok', message: 'Commission updated!'})
     }catch(error){
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 } 
 
-const PayCommission = async(req, res) => {      
-
-}
 
 
 const getMyAvailableCommission = async(req, res) => {
@@ -331,4 +314,4 @@ const getMyAsignedCommissions = async(req, res) => {
         res.status(500).send({status:'ERROR', message: 'error'});
     }
 }
-module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypesByUsername, getMyAsignedCommissions, getMyAskedCommissions, askCommission, ResponseCommission, PayCommission, getMyAvailableCommission}
+module.exports = {createCommission, editCommissionType, deleteCommissionType, getAllMyCommissionTypes, getCommissionTypesByUsername, getMyAsignedCommissions, getMyAskedCommissions, askCommission, ResponseCommission,  getMyAvailableCommission}

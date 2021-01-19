@@ -21,7 +21,6 @@ router.post('/editCommissionType', commissionController.editCommissionType);
 router.post('/deleteCommissionType', commissionController.deleteCommissionType);
 router.post('/askCommission', commissionController.askCommission);
 router.post('/responseCommission', commissionController.ResponseCommission);
-router.post('/payCommission', commissionController.PayCommission);
 router.post('/getAvailableCommissions', commissionController.getMyAvailableCommission);
 router.post('/getAllMyCommissionTypes', commissionController.getAllMyCommissionTypes);
 router.post('/getCommissionTypes/:contractedUser/:page', commissionController.getCommissionTypesByUsername);
