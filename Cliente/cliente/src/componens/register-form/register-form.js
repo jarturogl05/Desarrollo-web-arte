@@ -15,7 +15,7 @@ function Form() {
   const [passwordCheck, setPasswordCheck] = useState();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
-  const [passwordStrength, setPasswordStrength] = useState();
+  const [passwordStrength, setPasswordStrength] = useState('A secure password includes numbers, symbols and capital letters');
 
   const history = useHistory();
 
@@ -48,7 +48,7 @@ function Form() {
   
   function isValidEmail(){
     var result = false
-    const emailRegex = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9].\+[A-Za-z]+$")
+    const emailRegex = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
     if (emailRegex.test(email)){
       result = true
     }else{
@@ -58,8 +58,13 @@ function Form() {
   }
   function isValidPassword(){
     var result = false;
-
-    result = true;
+    const passwordRegex = new RegExp('^(?=.*[0-9,a-z,A-Z]).{8,64}$')
+    const blankSpace = new RegExp('/\s/')
+    if (passwordRegex.test(password) && !blankSpace.test(password)){
+      result = true
+    }else{
+      alert('Invalid password, a password has to contain 8 or more characters and cant contain blank spaces')
+    }
     return result
   }
   function areMatchingPasswords(){
@@ -73,6 +78,7 @@ function Form() {
   }
 
   function checkPasswordStrength(event){
+    setPassword(event.target.value)
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})");
     const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     if (strongRegex.test(event.target.value)) {
@@ -137,6 +143,7 @@ function Form() {
                   type="password"
                   autoFocus
                   required
+                  maxLength='64'
                   onClick={open}
                   onChange={(e) => checkPasswordStrength(e)}
                 ></input>
@@ -144,7 +151,7 @@ function Form() {
               position="right center"
               closeOnDocumentClick
             >
-              <span> A secure password includes numbers, symbols and capital letters </span>
+              <span> {passwordStrength} </span>
             </Popup>
           </p>
           <p>
@@ -153,6 +160,7 @@ function Form() {
               type="password"
               autoFocus
               required
+              maxLength='64'
               onChange={(e) => setPasswordCheck(e.target.value)}
             ></input>
           </p>
