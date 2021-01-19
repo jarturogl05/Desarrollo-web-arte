@@ -1,0 +1,22 @@
+
+
+._loading_overlay_content{
+    padding: 20%;
+}
+
+
+.GenericLoadingOverlay-container{
+    z-index: 999;
+    font-size: 2rem;  
+
+}
+
+.GenericLoadingOverlay-container .overlay{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.66);
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-content: center;
+}

@@ -15,10 +15,7 @@ function MyAsignedCommissions() {
   var [showAddPopup, setShowAddPopup] = React.useState(false)
   var [didChange, setDidChange] = React.useState(true)
 
-  function toggleAddPopup(){
-    setShowAddPopup(!showAddPopup)
-    setDidChange(!didChange)
-  }
+
       React.useEffect(() => {
           if(didChange){
             getCommissionlist()
@@ -49,6 +46,7 @@ function MyAsignedCommissions() {
     switch (response.status){
         case 'ok':
             alert('Commission Updated!')
+            setDidChange(true)
             break;
         default:
             alert('Error at the server')

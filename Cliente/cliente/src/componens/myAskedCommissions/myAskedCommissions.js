@@ -40,6 +40,7 @@ function MyAskedCommissions() {
     switch (response.status){
         case 'ok':
             alert('Commission Updated!')
+            setDidChange(true)
             break;
         default:
             alert('Error at the server')
