@@ -23,7 +23,7 @@ function UserInfo(props) {
 
 
     const handleUserClick = () =>{
-        history.push('/user');
+        history.push('/profile/' + user);
     }
 
     return (
