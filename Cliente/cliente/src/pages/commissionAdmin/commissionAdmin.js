@@ -6,6 +6,7 @@ import UserContext from '../../utils/userContext'
 
 import MyComissionTypes from '../../componens/myCommissionTypes/myCommissionTypes'
 import MyAsignedCommissions from '../../componens/myAsignedCommissions/myAsignedCommissions'
+import MyAskedCommissions from '../../componens/myAskedCommissions/myAskedCommissions'
 
 import './commissionAdmin.css';
 
@@ -27,6 +28,7 @@ function CommissionAdmin(){
                 </TabPanel>
                 <TabPanel>
                     <h2>My asked commissions</h2>
+                    <MyAskedCommissions></MyAskedCommissions>
                 </TabPanel>
                 <TabPanel>
                     <h2>Administrar mis comissioness</h2>

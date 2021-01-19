@@ -1,100 +1,89 @@
 .table-wrapper{
-    margin: 10px 70px 70px;
-    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+  margin: 10px 70px 70px;
+  box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 }
-.table-myCommissionTypes {
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: normal;
-    border: none;
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 100%;
-    white-space: nowrap;
-    background-color: white;
-}
-
-.table-myCommissionTypes td, .table-myCommissionTypes th {
-    text-align: center;
-    padding: 8px;
+.table-myAskedCommissions {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
 }
 
-.table-myCommissionTypes td {
-    border-right: 1px solid #f8f8f8;
-    font-size: 14px;
+.table-myAskedCommissions td, .table-myAskedCommissions th {
+  text-align: center;
+  padding: 8px;
 }
 
-.table-myCommissionTypes thead th {
-    color: #ffffff;
-    background: #000000;
-    font-size: 21px;
+.table-myAskedCommissions td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 14px;
+}
+
+.table-myAskedCommissions thead th {
+  color: #ffffff;
+  background: #000000;
+  font-size: 21px;
 }
 
 .table-headers {
-    margin-left: 15rem;
+  margin-left: 15rem;
 }
-.addcommissiontype-addbutton {
-    margin-top: 2em;
-    padding: 1rem;
-    margin-bottom: 3rem;
-    border-radius: .5rem;
-    margin-left: 5px;
-    cursor: pointer;
-    transition: .3s;
-    color:white;
-    font-weight: 800;
-    background-color: rgb(31, 206, 98);
-  }
-  .popupconfirm {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    text-align: center;
-  }
-  .popupconfirm-inner {
-    position: absolute;
-    left: 25%;
-    right: 25%;
-    top: 25%;
-    bottom: 25%;
-    margin: auto;
-    border-radius: 20px;
-    background: white;
-  }
 
-  .popupconfirm-inner h1 {
-      margin-top: 1rem;
-      font-size: xx-large ;
-  }
-  .popupconfirm p {
-    font-size: x-large;
-  }  
-  .popupconfirm-acceptbutton {
-    margin-top: 2em;
-    padding: 1rem;
-    margin-bottom: 3rem;
-    margin-right: 3rem;
-    border-radius: .5rem;
-    cursor: pointer;
-    transition: .3s;
-    color:white;
-    font-weight: 800;
-    background-color: rgb(8, 241, 27);
-  }
-  .popupconfirm-cancelbutton {
-    margin-top: 2em;
-    padding: 1rem;
-    margin-bottom: 3rem;
-    border-radius: .5rem;
-    cursor: pointer;
-    transition: .3s;
-    color:white;
-    font-weight: 800;
-    background-color: rgb(255, 0, 0);
-  }
+.popupconfirm {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.popupconfirm-inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  margin: auto;
+  border-radius: 20px;
+  background: white;
+}
+
+.popupconfirm-inner h1 {
+    margin-top: 1rem;
+    font-size: xx-large ;
+}
+.popupconfirm p {
+  font-size: x-large;
+}  
+.popupconfirm-acceptbutton {
+  margin-top: 2em;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  margin-right: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(8, 241, 27);
+}
+.popupconfirm-cancelbutton {
+  margin-top: 2em;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(255, 0, 0);
+}

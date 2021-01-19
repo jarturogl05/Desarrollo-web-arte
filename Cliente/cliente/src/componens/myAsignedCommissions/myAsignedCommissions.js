@@ -69,7 +69,6 @@ function MyAsignedCommissions() {
 
 
   function renderContextualButtons(status, commissionid){
-      console.log('entra')
     switch(status){
         case 'Asked':
             return(
@@ -191,7 +190,6 @@ function MyAsignedCommissions() {
     }else{
         return (
             <div className='myAsignedCommissions-container'>
-                <button className='addcommissiontype-addbutton' onClick={toggleAddPopup}>Add new one</button>
                 <div>
                     <h1>Not yet added commissions, add one</h1>
                 </div>

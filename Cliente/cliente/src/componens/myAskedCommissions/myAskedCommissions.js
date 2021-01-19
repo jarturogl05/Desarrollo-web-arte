@@ -1,19 +1,17 @@
 import React, {useContext } from "react"
 import Popup from 'reactjs-popup'
 
-import { getMyCommissionTypes, deleteCommissionType } from '../../services/commissionServices'
+import { getMyAskedCommissions, ResponseCommission } from '../../services/commissionServices'
 
 import UserContext from '../../utils/userContext'
-import './myCommissionType.css'
-import AddCommissionType from '../addCommissionType-form/addCommissionType-form'
-import EditCommissionTypeForm from '../editCommissionTypes-form/editCommissionTypes-form'
+import './myAskedCommissions.css'
 
-function MyCommissionTypes() {
+function MyAskedCommissions() {
 
   const {token}  = useContext(UserContext);
 
   var [dataIsReturned, setDataIsReturned] = React.useState(false)
-  var [commissionTypeList, setCommissionTypeList] = React.useState()
+  var [commissionList, setCommissionList] = React.useState()
   var [showAddPopup, setShowAddPopup] = React.useState(false)
   var [didChange, setDidChange] = React.useState(true)
 
@@ -23,23 +21,34 @@ function MyCommissionTypes() {
   }
       React.useEffect(() => {
           if(didChange){
-            getCommissionTypelist()
+            getCommissionlist()
           }
   }) 
 
-    async function deleteDefined(e) {
-        await deleteCommissionType(token, e.currentTarget.value)
-        // check response
-        setDidChange(true)
-    }
-
-  function editDefined(e) {
-    
+  async function cancelCommission(commissionId){
+    const response = await ResponseCommission(commissionId, 'Canceled')
+    checkResponse(response);
   }
 
-  async function getCommissionTypelist(){
+  async function payCommission(commissionId){  
+    const response = await ResponseCommission(commissionId, 'Accepted')
+    checkResponse(response);
+  }
+
+
+  function checkResponse(response){
+    switch (response.status){
+        case 'ok':
+            alert('Commission Updated!')
+            break;
+        default:
+            alert('Error at the server')
+            break;
+    }
+  }
+  async function getCommissionlist(){
       try {
-          setCommissionTypeList(await getMyCommissionTypes(token))
+          setCommissionList(await getMyAskedCommissions(token))
           setDataIsReturned(true)
           setDidChange(false)
       }catch(err){
@@ -48,75 +57,118 @@ function MyCommissionTypes() {
       }
   }
 
-    if (dataIsReturned && commissionTypeList && commissionTypeList.data){
+
+
+  function renderContextualButtons(status, commissionid){
+
+    switch(status){
+
+        case 'Asked':
+            return(
+                <div className='contextButtons-Container'>
+                    <Popup trigger={<button className='commission-CancelButton'>Cancel</button>} modal nested>
+                        {close => (
+                            <div className='popupconfirm'>
+                                <div className='popupconfirm-inner'>
+                                    <h1>Confirmation</h1>
+                                    <p>
+                                        Cancel the commision?
+                    </p>
+                                    <p>
+                                        <button className='popupconfirm-acceptbutton' onClick={() => { cancelCommission(commissionid).then(close) }}>Yes</button>
+                                        <button className='popupconfirm-cancelbutton' onClick={close}>No</button>
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </Popup>
+                </div>
+                )
+                case 'Accepted':
+                    return(
+                    <div className='contextButtons-Container'>
+                        <Popup trigger={<button className='commissiontype-payButton'>Pay commission</button>} modal nested>
+                            {close => (
+                                <div className='popupconfirm'>
+                                    <div className='popupconfirm-inner'>
+                                        <h1>Confirmation</h1>
+                                        <p>
+                                            Are you sure you want to pay this commission
+                        </p>
+                                        <p>
+                                            <button className='popupconfirm-acceptbutton' onClick={() => { payCommission(commissionid).then(close) }}>Accept</button>
+                                            <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+                        </Popup>
+                        <Popup trigger={<button className='commissiontype-cancelButton'>Cancel</button>} modal nested>
+                            {close => (
+                                <div className='popupconfirm'>
+                                    <div className='popupconfirm-inner'>
+                                        <h1>Confirmation</h1>
+                                        <p>
+                                            Are you sure you want cancel this commission
+                        </p>
+                                        <p>
+                                            <button className='popupconfirm-acceptbutton' onClick={() => { cancelCommission(commissionid).then(close)}}>Reject</button>
+                                            <button className='popupconfirm-cancelbutton' onClick={close}>No</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+                        </Popup>
+                    </div>
+                    )
+        default:
+            return(
+                <label>You must wait to interact</label>
+            )
+    }
+  }
+
+    if (dataIsReturned && commissionList && commissionList.data){
         return (
-            <div className='mycommissionytypes-container'>
-                <button className='addcommissiontype-addbutton' onClick={toggleAddPopup}>Add new one</button>
+            <div className='myAskedcommissions-container'>
             <div className='table-wrapper'>
-                <table className='table-myCommissionTypes'>
+                <table className='table-myAskedCommissions'>
                     <thead>
                         <tr className='table-headers'>
                             <th>Title</th>
-                            <th>Price</th>
-                            <th>Description</th>
+                            <th>Comments</th>
+                            <th>Status</th>
+                            <th>User</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {commissionTypeList.data.map((commissionType) => (
+                        {commissionList.data.map((commission) => (
                             <tr>
-                                <td>{commissionType.title}</td>
-                                <td>{commissionType.price}</td>
-                                <td>{commissionType.description}</td>
+                                <td>{commission.title}</td>
+                                <td>{commission.comments}</td>
+                                <td>{commission.status}</td>
+                                <td>{commission.contractorUser}</td>
                                 <td>
-                                    <Popup trigger={<button className='commissiontype-editButton'>Editar</button>} modal nested>
-                                        {
-                                            close => (
-                                                <EditCommissionTypeForm value={commissionType._id} binding={close} changeData={setDidChange}></EditCommissionTypeForm>
-                                            )
-                                        }
-                                    </Popup>
-                                    
-                                    <Popup trigger={<button className='commissiontype-deleteButton'>Eliminar</button>} modal nested>
-                                        {close => (
-                                            <div className='popupconfirm'>
-                                                <div className='popupconfirm-inner'>
-                                                    <h1>Confirmation</h1>
-                                                    <p>
-                                                        Are you sure you want to delete this commission type?
-                                            </p>
-                                                    <p>
-                                                        <button className='popupconfirm-acceptbutton' value={commissionType._id} onClick={(e) => {
-                                                            deleteDefined(e)
-                                                            .then(close)
-                                                        }}>Yes</button>
-                                                        <button className='popupconfirm-cancelbutton' onClick={close}>Cancel</button>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        )}                                        
-                                    </Popup>
+                                    {renderContextualButtons(commission.status, commission.id)}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            {showAddPopup ? <AddCommissionType binding={toggleAddPopup}></AddCommissionType> : null}
             </div>
         )
     }else{
         return (
-            <div className='mycommissionytypes-container'>
-                <button className='addcommissiontype-addbutton' onClick={toggleAddPopup}>Add new one</button>
+            <div className='myAskedCommissions-container'>
                 <div>
                     <h1>Not yet added commissions, add one</h1>
                 </div>
-                {showAddPopup ? <AddCommissionType binding={toggleAddPopup}></AddCommissionType> : null}
             </div>
         )
     }
     
 }
 
-export default MyCommissionTypes
+export default MyAskedCommissions
