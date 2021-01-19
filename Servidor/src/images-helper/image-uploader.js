@@ -62,7 +62,8 @@ async function uploadImageProfile(buffer, name){
 
 function createImageName(originalName){
   const identifier = Math.random().toString().replace(/0\./,'');
-  return identifier + originalName + '.jpg'
+  const outString = originalName.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  return identifier + outString + '.jpg'
 }
 
 module.exports = {uploadImageMiniature, uploadImagePost, uploadImageProfile, createImageName}

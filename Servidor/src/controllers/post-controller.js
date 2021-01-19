@@ -1,5 +1,4 @@
 const Post = require('../mongo/models/post');
-const jwt = require('jwt-simple');
 const Users = require('../mongo/models/user.js');
 const tokenService = require('./token-service');
 
