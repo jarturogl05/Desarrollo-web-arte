@@ -63,7 +63,6 @@ const createUser = async(req, res) =>{
         let createProfile = await profile.create([{
             user: createUser[0]._id
         }], options)
-
         if (createUser && createProfile){
             try{
                 const confirmationToken = tokenService.createConfirmationToken(username, email)

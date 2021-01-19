@@ -19,7 +19,6 @@ function Form() {
 
   const submit = async (e) =>{
     e.preventDefault();
-    
     if (checkFields()){
       const registerResponse = await doRegister(username, email, password)
       if (registerResponse){

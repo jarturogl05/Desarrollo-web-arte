@@ -2,7 +2,7 @@
     padding-top: 10px;
     text-align: center;
     align-items: start;
-    display: flex;
+    display: flex-start;
     position: absolute;
 }
 .userNotFound-container h1 {
