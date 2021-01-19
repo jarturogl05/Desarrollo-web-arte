@@ -27,6 +27,8 @@ function AddCommissionTypeForm(props) {
                 setError("Server Error")
                 console.log(error);
             }
+        }else{
+            alert('Empty fields, fill all the fields before continuing')
         }
     }
     
@@ -39,7 +41,7 @@ function AddCommissionTypeForm(props) {
       }
 
       function checkEmptyString(testString){
-        return !(testString.length === 0 || !testString.trim());
+        return !(!testString || testString.length === 0 || !testString.trim());
       }
     
       function addResponseStatus(addResponse){
@@ -61,7 +63,7 @@ function AddCommissionTypeForm(props) {
     return (
         <div className='popup'>
             <div className='popup_inner'>
-                {isLoading && <GenericLoadingOverlay message="Creating a new commission type"></GenericLoadingOverlay>}
+            {isLoading && <GenericLoadingOverlay message="Creating a new commission type"></GenericLoadingOverlay>}
                 <form className='addNewCommissionTypeForm' onSubmit={submit}>
                     <h1>Add a new commission type</h1>
                     <p>
@@ -80,7 +82,7 @@ function AddCommissionTypeForm(props) {
                         <input
                             type="number"
                             autoFocus
-                            min='0'
+                            min='1'
                             max='500'
                             onChange = {(e) => setPrice(e.target.value)}
                         ></input>
