@@ -66,14 +66,13 @@ function App() {
         <header/>
         <div className="App">
           <Switch>
-            <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
-            <PrivateRoute excat path='/createpost' component={Createpost}></PrivateRoute>
-            <Route excat path='/hometest' component={Home}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/register" component={Register}></Route>
+            <PrivateRoute isLoggedIn exact path="/" component={Home}></PrivateRoute>
+            <PrivateRoute excat path='/createpost' component={Createpost}></PrivateRoute>
             <PrivateRoute exact path="/post/:id" component={Post} ></PrivateRoute>
-            <Route exact path="/profile/:username" component={UserProfile}></Route>
-            <Route exact path="/mycommmisions" component={commissionAdmin}></Route>
+            <PrivateRoute exact path="/profile/:username" component={UserProfile}></PrivateRoute>
+            <PrivateRoute exact path="/mycommmisions" component={commissionAdmin}></PrivateRoute>
           </Switch>
         </div>
       </UserContext.Provider>
