@@ -15,7 +15,7 @@ function Form() {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
 
-  const {token, setToken,  setRefreshToken, setCurrentUsername } = useContext(UserContext);
+  const {token, currentUsername, setToken,  setRefreshToken, setCurrentUsername } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{

@@ -15,7 +15,7 @@ import {setLocalStorage, getLocalStorage} from './utils/localStorage'
 
 import React, { useState, useEffect } from "react";
 
-import { BrowserRouter, Switch, Route, useLocation, withRouter } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 
 function App() {
@@ -56,7 +56,6 @@ function App() {
     else{
       setToken(undefined);
       setLocalStorage("token", undefined);
-
     }
   }
 
