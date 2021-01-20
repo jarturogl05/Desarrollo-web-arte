@@ -15,11 +15,13 @@ function CreatepostForm() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [tags, setTags] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [warningMessage, setWarningMessage] = useState('');
   const {token}  = useContext(UserContext);
   const history = useHistory();
 
   function handleFile() {
+    setErrorMessage('');
     var result = false;
     if (selectedFile[0]) {
       console.log(selectedFile[0], "aaaa");
@@ -29,25 +31,31 @@ function CreatepostForm() {
   }
 
   const hanldeSumbit = async (e) => {
+    
     e.preventDefault();
-    var result = handleFile();
-    if (result) {
-      setLoading(true);
-      const result = await createPost(selectedFile, title, tags, description, token);
-
-      checkResult(result);
-      //setLoading(false);
-      // history.push('/hometest');
+    console.log(tags);
+    if(tags.length === 0){
+      setWarningMessage('Enter at least one tag');
+    }else{
+      var result = handleFile();
+      if (result) {
+        setWarningMessage('');
+        setLoading(true);
+        const result = await createPost(selectedFile, title, tags, description, token);
+        checkResult(result);
+      }else{
+        setWarningMessage('Select an Image');
+      }
     }
+
   };
 
   const checkResult = (result) => {
-    console.log(result);
     if (result !== undefined) {
       setLoading(false);
       history.push("/hometest");
     } else {
-      setErrorMessage(true);
+      setErrorMessage('Server error, Try again later');
       setLoading(false);
     }
   };
@@ -63,8 +71,9 @@ function CreatepostForm() {
           <Dropzone setSelectedFile={setSelectedFile}></Dropzone>
         </div>
         {errorMessage && (
-          <p className="errorMessage">Server error, Please try again later</p>
+          <p className="errorMessage">{errorMessage}</p>
         )}
+        {warningMessage &&(<p className="warningMessage">{warningMessage}</p>)}
         <div className="postform-formcontainer">
           <div className="postform-labelscontainer">
             <ul>
