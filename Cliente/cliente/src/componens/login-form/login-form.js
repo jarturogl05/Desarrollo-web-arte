@@ -15,7 +15,7 @@ function Form() {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
 
-  const {token, setToken,  setRefreshToken } = useContext(UserContext);
+  const {token, setToken,  setRefreshToken, setCurrentUsername } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{
@@ -37,6 +37,7 @@ function Form() {
       case "ok":
         setToken(loginResponse.token);
         setRefreshToken(loginResponse.refreshToken);
+        setCurrentUsername(username);
         history.push("/");
         break;
       case "USER_NOT_FOUND":
