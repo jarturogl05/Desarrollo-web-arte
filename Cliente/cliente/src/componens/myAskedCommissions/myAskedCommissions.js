@@ -164,7 +164,7 @@ function MyAskedCommissions() {
         return (
             <div className='myAskedCommissions-container'>
                 <div>
-                    <h1>Not yet added commissions, add one</h1>
+                    <h1>Not yet asked commissions</h1>
                 </div>
             </div>
         )
