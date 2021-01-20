@@ -58,7 +58,7 @@ describe('Fail to get a profile: ',()=>{
 describe('Get a profile by his id successfully: ',()=>{
 	it('should get a profile', (done) => {		
 		chai.request(url)
-			.post('/getUserProfileInfoById/' + autorId)
+			.post(`/getUserProfileInfoById/${autorId}`)
 			.set('authorization', `bearer ${token}`)
 			.end( function(err,res){
 				expect(res).to.have.status(200);
