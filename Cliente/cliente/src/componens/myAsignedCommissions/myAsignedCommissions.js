@@ -189,7 +189,7 @@ function MyAsignedCommissions() {
         return (
             <div className='myAsignedCommissions-container'>
                 <div>
-                    <h1>Not yet added commissions, add one</h1>
+                    <h1>Not yet asigned commissions</h1>
                 </div>
             </div>
         )

@@ -91,7 +91,7 @@ const createUser = async(req, res) =>{
                 await session.abortTransaction();
                 session.endSession();
                 res.send({
-                    status: 'error',
+                    status: 'Error',
                     message: 'No se pudo enviar el correo, reintentar mas tarde'
                 })
             }
