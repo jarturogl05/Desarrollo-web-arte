@@ -35,7 +35,6 @@ function App() {
         setToken(undefined)
         setLocalStorage("token", undefined);
         setLocalStorage("refreshToken", undefined);
-        setLocalStorage("currentUsername", undefined);
       }
     }
       tokenStauts();
