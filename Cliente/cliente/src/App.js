@@ -24,6 +24,7 @@ function App() {
 
   const [token, setToken] = useState(() => getLocalStorage("token", tokenInitialState));
   const [refreshToken, setRefreshToken] = useState(() => getLocalStorage("refreshToken", tokenInitialState))
+  const [currentUsername, setCurrentUsername] = useState(() => getLocalStorage("currentUsername", tokenInitialState))
 
   useEffect(() => {
     const tokenStauts = async () => {
@@ -34,7 +35,7 @@ function App() {
         setToken(undefined)
         setLocalStorage("token", undefined);
         setLocalStorage("refreshToken", undefined);
-
+        setLocalStorage("currentUsername", undefined);
       }
     }
       tokenStauts();
@@ -42,12 +43,14 @@ function App() {
 
   useEffect(() => {
     setLocalStorage("refreshToken", refreshToken);
+    setLocalStorage("currentUsername", currentUsername);
   },[refreshToken])
 
   
   const checkResponse = (response) => {
     if(response.message === "Access Granted"){
       setLocalStorage("token", token);
+      setLocalStorage("currentUsername", currentUsername);
     }else if(response.message === "Refreshing Token"){
       setLocalStorage("token", response.newToken);
     }
@@ -62,7 +65,7 @@ function App() {
     <BrowserRouter>
     <ScrollToTop>
 
-      <UserContext.Provider value={{token,refreshToken, setToken, setRefreshToken}}>
+      <UserContext.Provider value={{token, refreshToken, currentUsername, setToken, setRefreshToken, setCurrentUsername}}>
         <header/>
         <div className="App">
           <Switch>
@@ -72,7 +75,7 @@ function App() {
             <PrivateRoute excat path='/createpost' component={Createpost}></PrivateRoute>
             <PrivateRoute exact path="/post/:id" component={Post} ></PrivateRoute>
             <PrivateRoute exact path="/profile/:username" component={UserProfile}></PrivateRoute>
-            <PrivateRoute exact path="/mycommmisions" component={commissionAdmin}></PrivateRoute>
+            <PrivateRoute exact path="/mycommisions" component={commissionAdmin}></PrivateRoute>
           </Switch>
         </div>
       </UserContext.Provider>

@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "./navbar.css";
 import { useHistory } from "react-router-dom";
 import Dropdown from "../dropdown-navbar/dropdown";
+import UserContext from '../../utils/userContext';
 
 function NavBar() {
   const [dropdown, setDropdown] = useState(false);
@@ -32,16 +33,16 @@ function NavBar() {
       setDropdown(true);
     }
   };
-
   return (
     <div className="nav-bar">
       <h1 className="nav-bar_logo" onClick={handleOnClickLogo}>
-        App
+        WebArt
       </h1>
       <ul className="nav-bar_menu">
         <li>
           <a href="/">Home</a>
           <a href="/createpost">Create Post</a>
+          <a href='/mycommisions'>Manage My Commissions</a>
           <button onClick={handleOnClickUser} ref={wrapperRef}>Menu ▼
           {dropdown && <Dropdown   />}
           </button>
