@@ -29,7 +29,7 @@ async function getPostById(id){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/post/' + id, settings);
+        const response = await fetch('http://localhost:4000/getPost/' + id, settings);
         const json = await response.json();
         return json;
     } catch (error) {
