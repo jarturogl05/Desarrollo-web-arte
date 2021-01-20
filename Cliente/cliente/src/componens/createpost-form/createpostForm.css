@@ -124,6 +124,12 @@
     padding-top: 100px;
 }
 
+.warningMessage{
+    color: #bb4d00;    ;
+    font-size: 2rem;
+    padding-top: 100px;
+}
+
 @media only screen and (max-width: 600px) {
     .postform-labelscontainer{
         height: auto;
