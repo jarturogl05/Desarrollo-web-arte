@@ -1,3 +1,6 @@
+//const address = 'https://webartuv.herokuapp.com/';
+const address = 'http://localhost:4000/';
+
 async function getMyCommissionTypes(token){
 
     const settings = {
@@ -13,7 +16,7 @@ async function getMyCommissionTypes(token){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getAllMyCommissionTypes', settings);
+        const response = await fetch( address + 'getAllMyCommissionTypes', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -32,7 +35,7 @@ async function getCommissionTypes(contractedUser, page){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getCommissionTypes/' + contractedUser + '/' + page, settings);
+        const response = await fetch(address + 'getCommissionTypes/' + contractedUser + '/' + page, settings);
         const json = await response.json();
         
         return json;
@@ -58,7 +61,7 @@ async function addCommissionType(token, title, price, description){
     }
     try {
         console.log(token, title, price, description)
-        const response = await fetch('http://localhost:4000/createCommissionType', settings);
+        const response = await fetch(address + 'createCommissionType', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -80,7 +83,7 @@ async function deleteCommissionType(token, id){
         })
     }
     try {
-        const response = await fetch('http://localhost:4000/deleteCommissionType', settings);
+        const response = await fetch(address + 'deleteCommissionType', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -105,7 +108,7 @@ async function editCommissionType(token, id, title, price, description){
         })
     }
     try {
-        const response = await fetch('http://localhost:4000/editCommissionType', settings);
+        const response = await fetch(address + 'editCommissionType', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -130,7 +133,7 @@ async function askCommission(token, contractedUser, commissionId, comments){
         })
     }
     try {
-        const response = await fetch('http://localhost:4000/askCommission', settings);
+        const response = await fetch(address + 'askCommission', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -149,7 +152,7 @@ async function getMyAskedCommissions(token){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getMyAskedCommissions', settings);
+        const response = await fetch( address + 'getMyAskedCommissions', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -168,7 +171,7 @@ async function getMyAsignedCommissions(token){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getMyAsignedCommissions', settings);
+        const response = await fetch( address + 'getMyAsignedCommissions', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -192,7 +195,7 @@ async function ResponseCommission(commissionId, response){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/responseCommission', settings);
+        const response = await fetch( address + 'responseCommission', settings);
         const json = await response.json();
         return json;
     } catch (error) {

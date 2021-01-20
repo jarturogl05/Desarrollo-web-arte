@@ -1,4 +1,5 @@
-
+//const address = 'https://webartuv.herokuapp.com/';
+const address = 'http://localhost:4000/';
 
 async function getProfileInfo(username, token){
 
@@ -16,7 +17,7 @@ async function getProfileInfo(username, token){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getUserProfileInfoByUsername', settings);
+        const response = await fetch(address + 'getUserProfileInfoByUsername', settings);
         console.log()
         const json = await response.json();
         return json;
@@ -41,7 +42,7 @@ async function getAvailableCommissions(token, refreshToken){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getAvailableCommissions', settings);
+        const response = await fetch(address + 'getAvailableCommissions', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -73,7 +74,7 @@ async function editProfile(token, refreshToken, username, description, twitter, 
 
     try {
         console.log(username)
-        const response = await fetch('http://localhost:4000/updateProfile', settings);
+        const response = await fetch(address + 'updateProfile', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -92,7 +93,7 @@ async function getProfileInfoById(id, token){
         }),
     }
     try {
-        const response = await fetch('http://localhost:4000/getUserProfileInfoById/' + id, settings);
+        const response = await fetch(address + 'getUserProfileInfoById/' + id, settings);
         const json = await response.json();
         console.log(json);
         return json;

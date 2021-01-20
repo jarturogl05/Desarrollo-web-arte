@@ -1,3 +1,6 @@
+//const address = 'https://webartuv.herokuapp.com/';
+const address = 'http://localhost:4000/';
+
 async function createPost(file, title, tags, description, token) {
   let data = new FormData();
   data.append("image", file[0]);
@@ -17,7 +20,7 @@ async function createPost(file, title, tags, description, token) {
   };
 
   try {
-    const response = await fetch("http://localhost:4000/createpost", settings);
+    const response = await fetch(address + "createpost", settings);
     const json = await response.json();
     return json;
   } catch (error) {

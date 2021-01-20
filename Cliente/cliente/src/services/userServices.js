@@ -1,3 +1,7 @@
+//const address = 'https://webartuv.herokuapp.com/';
+const address = 'http://localhost:4000/';
+
+
 async function doLogin(username, password){
 
     const settings = {
@@ -14,7 +18,7 @@ async function doLogin(username, password){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/login', settings);
+        const response = await fetch(address +  'login', settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -40,7 +44,7 @@ async function doRegister(username, email, password){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/create', settings);
+        const response = await fetch(address + 'create', settings);
         const json = await response.json();
         return json;
     } catch (error) {
