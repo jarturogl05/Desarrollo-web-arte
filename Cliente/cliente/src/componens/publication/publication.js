@@ -63,8 +63,6 @@ function Publication(props) {
           </div>
             <p>{postInfo.description}</p>
         </div>
-
-        <SocialButtons></SocialButtons>
       </div>
       <UserInfo autorFetched={autorFetched}></UserInfo>
        <Carousel autorWorks={autorWorks}></Carousel>

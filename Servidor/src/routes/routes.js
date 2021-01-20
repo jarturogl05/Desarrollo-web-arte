@@ -9,8 +9,10 @@ const multer = require('multer');
 const inMemoryStorage = multer.memoryStorage();
 const uploadStrategy = multer({storage: inMemoryStorage}).single('image');
 
-router.post('/login' , userController.login);
-router.post('/create' , userController.createUser);
+const validator = require('../middleware/validator');
+
+router.post('/login' , validator.login, userController.login);
+router.post('/create' , validator.createUser, userController.createUser);
 router.post('/authenticateToken', userController.authenticateToken);
 
 router.post('/updateProfile' , profileController.updateProfile);
@@ -36,6 +38,5 @@ router.get('/post/:id',postService.getPost );
 router.get('/postList/:page',postService.getPostsList );
 router.get('/autorPosts/:autorID/:page', postService.getPostsByAutor);
 router.get('/autorPostsName/:autorName/:page', postService.getPostsByAutorName);
-
 
 module.exports = router;

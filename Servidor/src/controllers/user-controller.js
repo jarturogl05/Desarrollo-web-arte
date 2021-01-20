@@ -6,9 +6,14 @@ const mongoose = require('mongoose');
 const Users = require('../mongo/models/user.js');
 const profile = require('../mongo/models/profileInfo');
 const tokenService = require('./token-service');
+const { validationResult } = require('express-validator');
 
 
 const login = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     try {      
             const {username, password} = req.body;
             const user = await Users.findOne({username});
@@ -39,6 +44,10 @@ const login = async(req, res) => {
 
 
 const createUser = async(req, res) =>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const session = await mongoose.startSession()
     session.startTransaction()
     try{

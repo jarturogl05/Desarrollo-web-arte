@@ -117,6 +117,4 @@ const UploadProfile = async(req, res) =>{
     }
 }
 
-
-
 module.exports = {createPost, UploadProfile, getPost, getPostsList, getPostsByAutor,getPostsByAutorName }
