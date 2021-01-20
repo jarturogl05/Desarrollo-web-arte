@@ -98,7 +98,7 @@
     font-weight: 800;
     background-color: rgb(255, 0, 0);
   }
-  .commission-editButton {
+  .commissiontype-editButton {
     margin-top: 2em;
     padding: 0.5rem;
     margin-bottom: 3rem;
@@ -109,7 +109,7 @@
     font-weight: 800;
     background-color: rgb(21, 100, 168);
   }
-  .commission-deleteButton {
+  .commissiontype-deleteButton {
     margin-top: 2em;
     padding: 0.5rem;
     margin-bottom: 3rem;

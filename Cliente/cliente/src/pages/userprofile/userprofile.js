@@ -23,15 +23,12 @@ function UserProfile(){
             console.log('Error')
         }
     }
-
-
-
     return (
         <div>
             <NavBar></NavBar>
             <Profile userProfileInfo = {dataIsReturned && profileInfo.data ? profileInfo : undefined} ></Profile>
-            <h1>Publications</h1>
-            <GalleryUser ></GalleryUser>
+            {dataIsReturned && profileInfo.data && <GalleryUser></GalleryUser>}
+
         </div>
     )
 }

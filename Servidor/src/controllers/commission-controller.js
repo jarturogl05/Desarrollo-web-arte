@@ -84,6 +84,8 @@ const editCommissionType = async(req, res) => {
         }
 
     }catch(error){
+        await session.abortTransaction()
+        session.endSession()
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});
     }
@@ -118,6 +120,8 @@ const deleteCommissionType = async(req, res) => {
         }
 
     }catch(error){
+        await session.abortTransaction()
+        session.endSession()
         console.log(error);
         res.status(500).send({status:'ERROR', message: 'error'});
     }
@@ -165,6 +169,8 @@ const askCommission = async(req, res) => {
 
                 res.status(200).send({status: 'ok', message: 'Registered Commission!'})
         }else{
+            await session.abortTransaction()
+            session.endSession()
             res.status(500).send({status: 'Error', message:'Server error'})
         }
     }catch(error){
