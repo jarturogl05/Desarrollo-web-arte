@@ -4,7 +4,6 @@ const expect = require('chai').expect;
 
 chai.use(chaiHttp);
 const url = 'http://localhost:4000';
-const autorId = '6003bece4ad4621b6c83ce0e'
 var token=''
 
 describe('Make a correct Login: ',()=>{
