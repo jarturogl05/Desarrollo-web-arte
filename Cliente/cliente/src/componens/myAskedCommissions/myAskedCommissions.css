@@ -87,3 +87,25 @@
   font-weight: 800;
   background-color: rgb(255, 0, 0);
 }
+.commission-cancelButton {
+  margin-top: 2em;
+  padding: 0.5rem;
+  margin-bottom: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(245, 0, 0);
+}
+.commission-payButton {
+  margin-top: 2em;
+  padding: 0.5rem;
+  margin-bottom: 3rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+  color:white;
+  font-weight: 800;
+  background-color: rgb(52, 182, 0);
+}

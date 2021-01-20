@@ -71,7 +71,7 @@ function MyAsignedCommissions() {
         case 'Asked':
             return(
             <div className='contextButtons-Container'>
-                <Popup trigger={<button className='commissiontype-acceptButton'>Acept</button>} modal nested>
+                <Popup trigger={<button className='commission-acceptButton'>Acept</button>} modal nested>
                     {close => (
                         <div className='popupconfirm'>
                             <div className='popupconfirm-inner'>
@@ -87,7 +87,7 @@ function MyAsignedCommissions() {
                         </div>
                     )}
                 </Popup>
-                <Popup trigger={<button className='commissiontype-rejectButton'>Reject</button>} modal nested>
+                <Popup trigger={<button className='commission-rejectButton'>Reject</button>} modal nested>
                     {close => (
                         <div className='popupconfirm'>
                             <div className='popupconfirm-inner'>
@@ -108,7 +108,7 @@ function MyAsignedCommissions() {
         case 'Paid':
             return(
                 <div className='contextButtons-Container'>
-                    <Popup trigger={<button className='commissiontype-inProgresstButton'>Mark as In Progress</button>} modal nested>
+                    <Popup trigger={<button className='commission-inProgressButton'>Mark as In Progress</button>} modal nested>
                         {close => (
                             <div className='popupconfirm'>
                                 <div className='popupconfirm-inner'>
@@ -126,10 +126,10 @@ function MyAsignedCommissions() {
                     </Popup>
                 </div>
                 )
-        case 'In Progress':
+        case 'InProgress':
             return(
                 <div className='contextButtons-Container'>
-                    <Popup trigger={<button className='commissiontype-inProgresstButton'>Mark as delivered</button>} modal nested>
+                    <Popup trigger={<button className='commission-delieveredButton'>Mark as delivered</button>} modal nested>
                         {close => (
                             <div className='popupconfirm'>
                                 <div className='popupconfirm-inner'>
