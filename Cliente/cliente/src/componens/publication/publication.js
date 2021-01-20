@@ -30,14 +30,14 @@ function Publication(props) {
   useEffect(() => {
 
       async function fetchAutorWorks(){
-      if(autorId !== ''){
+      if(autorId !== '' ){
         const postsFetched = await getPostByUser(postInfo.autorId,1);
         setAutorWorks(postsFetched.docs);
       }
     }
 
     async function fetchUser(){
-      if(autorId !== ''){
+      if(autorId !== '' ){
         const autorFetched = await getProfileInfoById(postInfo.autorId, token);
         setAutorFetched(autorFetched);
       }
@@ -49,25 +49,38 @@ function Publication(props) {
   }, [autorId]);
 
 
-  return (
-    <div className="publication">
-      <img src={postInfo.URLImage} alt="art"></img>
-      <div className="publication_info">
-        <div className="publication_info_metadata">
-          <h2>{postInfo.name}</h2>
-          <div className="publication_info_tags">
-            {postInfo.tags &&
-              postInfo.tags.map((tag) => {
-                return <a>{tag}</a>;
-              })}
+  if(postInfo){
+    return (
+    
+      <div className="publication">
+        <img src={postInfo.URLImage} alt="art"></img>
+        <div className="publication_info">
+          <div className="publication_info_metadata">
+            <h2>{postInfo.name}</h2>
+            <div className="publication_info_tags">
+              {postInfo.tags &&
+                postInfo.tags.map((tag) => {
+                  return <a>{tag}</a>;
+                })}
+            </div>
+              <p>{postInfo.description}</p>
           </div>
-            <p>{postInfo.description}</p>
         </div>
+        <UserInfo autorFetched={autorFetched}></UserInfo>
+         <Carousel autorWorks={autorWorks}></Carousel>
       </div>
-      <UserInfo autorFetched={autorFetched}></UserInfo>
-       <Carousel autorWorks={autorWorks}></Carousel>
-    </div>
-  );
+    );
+  }else{
+    return(
+      <div className="postNotFound-container">
+      <h1>
+          Your princess was not found in this castle
+      </h1>
+  </div>
+    );
+
+  }
+
 }
 
 export default Publication;
