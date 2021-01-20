@@ -31,7 +31,7 @@ function MyAskedCommissions() {
   }
 
   async function payCommission(commissionId){  
-    const response = await ResponseCommission(commissionId, 'Accepted')
+    const response = await ResponseCommission(commissionId, 'Paid')
     checkResponse(response);
   }
 
@@ -67,7 +67,7 @@ function MyAskedCommissions() {
         case 'Asked':
             return(
                 <div className='contextButtons-Container'>
-                    <Popup trigger={<button className='commission-CancelButton'>Cancel</button>} modal nested>
+                    <Popup trigger={<button className='commission-cancelButton'>Cancel</button>} modal nested>
                         {close => (
                             <div className='popupconfirm'>
                                 <div className='popupconfirm-inner'>
@@ -88,7 +88,7 @@ function MyAskedCommissions() {
                 case 'Accepted':
                     return(
                     <div className='contextButtons-Container'>
-                        <Popup trigger={<button className='commissiontype-payButton'>Pay commission</button>} modal nested>
+                        <Popup trigger={<button className='commission-payButton'>Pay commission</button>} modal nested>
                             {close => (
                                 <div className='popupconfirm'>
                                     <div className='popupconfirm-inner'>
@@ -104,7 +104,7 @@ function MyAskedCommissions() {
                                 </div>
                             )}
                         </Popup>
-                        <Popup trigger={<button className='commissiontype-cancelButton'>Cancel</button>} modal nested>
+                        <Popup trigger={<button className='commission-cancelButton'>Cancel</button>} modal nested>
                             {close => (
                                 <div className='popupconfirm'>
                                     <div className='popupconfirm-inner'>
