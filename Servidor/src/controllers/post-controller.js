@@ -29,34 +29,23 @@ const createPost = async (req, res) => {
         const URLImage = URLBlob + "imagenes/" + blobImageName;
         const URLThumbnail = URLBlob + "miniaturas/" + blobThumbnailName;
 
-        try {
-          await Post.create({
-            autorId,
-            name,
-            description,
-            workType,
-            tags: newtags,
-            URLImage,
-            URLThumbnail,
-          });
+        await Post.create({
+          autorId,
+          name,
+          description,
+          workType,
+          tags: newtags,
+          URLImage,
+          URLThumbnail,
+        });
 
-          var bufferResize = await resizeImageBuffer(req.file.buffer);
-          var bufferThumbnail = await applySmartCrop(
-            bufferResize,
-            "",
-            512,
-            512
-          );
-          await uploadImagePost(bufferResize, blobImageName);
-          await uploadImageMiniature(bufferThumbnail, blobThumbnailName);
-          res.status(200).send({ message: "Registered Post" });
-        } catch (error) {
-          console.log(error);
-          res.status(500).send({ status: "ERROR", message: "error" });
-        }
+        var bufferResize = await resizeImageBuffer(req.file.buffer);
+        var bufferThumbnail = await applySmartCrop(bufferResize, "", 512, 512);
+        await uploadImagePost(bufferResize, blobImageName);
+        await uploadImageMiniature(bufferThumbnail, blobThumbnailName);
+        res.status(200).send({ message: "Registered Post" });
       }
     } catch (e) {
-      console.log(e);
       res.status(500).send({ status: "ERROR", message: "error" });
     }
   }
@@ -64,31 +53,58 @@ const createPost = async (req, res) => {
 
 const getPost = async (req, res) =>{
     const postId = req.params.id;
-    const post = await Post.findById(postId);
-    res.status(200).send({status:'OK', post});
+    try{
+      const post = await Post.findById(postId);
+      res.status(200).send({status:'OK', post});
+    }catch (e) {
+      res.status(500).send({ status: "ERROR", message: "error" });
+    }
+
     
 }
 
 const getPostsByAutor = async (req, res) => {
     const ID = req.params.autorID;
     const numberPage = req.params.page;
-    const posts = await Post.paginate({autorId : ID},{select:'URLThumbnail', limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}});
-    res.status(200).send(posts);
+    try{
+      const posts = await Post.paginate({autorId : ID},{select:'URLThumbnail', limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}});
+      res.status(200).send(posts);
+
+    } catch (e) {
+      res.status(500).send({ status: "ERROR", message: "error" });
+    }
 }
 
 const getPostsByAutorName = async (req, res) => {
   const name = req.params.autorName;
   const numberPage = req.params.page;
-  const user = await Users.findOne({username:name});
-  const posts = await Post.paginate({autorId : user._id},{select:'URLThumbnail', limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}});
-  res.status(200).send(posts);
-}
+  try {
+    const user = await Users.findOne({ username: name });
+    const posts = await Post.paginate(
+      { autorId: user._id },
+      {
+        select: "URLThumbnail",
+        limit: 6,
+        page: numberPage,
+        sort: { _id: -1, createdAt: -1 },
+      }
+    );
+    res.status(200).send(posts);
+  } catch (e) {
+    res.status(500).send({ status: "ERROR", message: "error" });
+  }
+};
 
 
 const getPostsList = async(req, res) =>{
     const numberPage = req.params.page
-    const posts = await Post.paginate({},{ select:'URLThumbnail',  limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}  });
-    res.status(200).send(posts);
+    try{
+      const posts = await Post.paginate({},{ select:'URLThumbnail',  limit:6, page:numberPage, sort:{_id: -1, createdAt: -1}  });
+      res.status(200).send(posts);
+    }catch (e) {
+      res.status(500).send({ status: "ERROR", message: "error" });
+    }
+
 }
 
 
