@@ -50,18 +50,19 @@ const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     setUnsupportedFiles([]);
 
       if (validateFile(files[0])) {
-        // add to an array so we can display the name of file
-        setSelectedFiles((prevArray) => [...prevArray, files[0]]);
+        const size = files[0].size/1024/1024;
+        if(size < 6){
+          setSelectedFiles((prevArray) => [...prevArray, files[0]]);
+
+        }else{
+          files[0]["invalid"] = true;
+          setUnsupportedFiles(prevArray => [...prevArray, files[0]]);
+          setErrorMessage("The file must be less than 6 MB");
+        }
         
       } else {
-        // add a new property called invalid
         files[0]["invalid"] = true;
-
-        // add to the same array so we can display the name of the file
-        //setSelectedFiles((prevArray) => [...prevArray, files[i]]);
         setUnsupportedFiles(prevArray => [...prevArray, files[0]]);
-
-        // set error message
         setErrorMessage("File type not permitted");
       }
     
@@ -71,22 +72,18 @@ const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 
 
   const removeFile = (name) => {
-    // find the index of the item
-    // remove the item from array
+
 
     const validFileIndex = validFiles.findIndex((e) => e.name === name);
     validFiles.splice(validFileIndex, 1);
-    // update validFiles array
     setValidFiles([...validFiles]);
     const selectedFileIndex = selectedFiles.findIndex((e) => e.name === name);
     selectedFiles.splice(selectedFileIndex, 1);
-    // update selectedFiles array
     setSelectedFiles([...selectedFiles]);
 
     const unsupportedFileIndex = unsupportedFiles.findIndex(e => e.name === name);
     if (unsupportedFileIndex !== -1) {
         unsupportedFiles.splice(unsupportedFileIndex, 1);
-        // update unsupportedFiles array
         setUnsupportedFiles([...unsupportedFiles]);
     }
 
@@ -127,7 +124,7 @@ const [unsupportedFiles, setUnsupportedFiles] = useState([]);
 
   return (
     <div>
-    {unsupportedFiles.length ? <p className='errorMessage'>Unsupported file</p> : ''}
+    {unsupportedFiles.length ? <p className='errorMessage'>{errorMessage}</p> : ''}
 
       <div
         className="drop-container"
