@@ -53,7 +53,7 @@ function CreatepostForm() {
   const checkResult = (result) => {
     if (result !== undefined) {
       setLoading(false);
-      history.push("/hometest");
+      history.push("/");
     } else {
       setErrorMessage('Server error, Try again later');
       setLoading(false);
