@@ -40,11 +40,11 @@ function Form() {
         history.push("/");
         break;
       case "USER_NOT_FOUND":
-        setError(loginResponse.status);
+        alert('User not found, check your spelling and try again')
         console.log(error);
         break;
       case "INVALID_PASSWORD":
-        setError(loginResponse.status);
+        alert('Incorrect Password, check your spelling and try again')
         console.log(error);
         break;
       default:
@@ -58,8 +58,6 @@ function Form() {
   return (
     <div className="container_form">
       {isLoading && <GenericLoader message='Login in'></GenericLoader>}
-      {error ?(
-      <h1>{error}</h1>): null}
       <h2>Login</h2>
       <form className="form-grup" onSubmit={submit}>
         <p>
