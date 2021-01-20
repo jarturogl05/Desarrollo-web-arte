@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import UserContext from "../../utils/userContext";
 import { useHistory } from "react-router-dom";
+import GenericLoader from '../GenericLoadingOverlay/GenericLoadingOverlayContainer'
 
 import { doLogin } from "../../services/userServices";
 
@@ -12,13 +13,16 @@ function Form() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState();
 
   const {token, setToken,  setRefreshToken } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{
     e.preventDefault();
+    setIsLoading(true);
     const loginResponse = await doLogin(username, password)
+    setIsLoading(false);
     if (loginResponse){
      loginResponseStatus(loginResponse);
     }
@@ -26,7 +30,6 @@ function Form() {
       setError("Server Error")
       console.log(error);
     }
-
   }
 
    function loginResponseStatus(loginResponse){
@@ -37,11 +40,11 @@ function Form() {
         history.push("/");
         break;
       case "USER_NOT_FOUND":
-        setError(loginResponse.status);
+        alert('User not found, check your spelling and try again')
         console.log(error);
         break;
       case "INVALID_PASSWORD":
-        setError(loginResponse.status);
+        alert('Incorrect Password, check your spelling and try again')
         console.log(error);
         break;
       default:
@@ -54,8 +57,7 @@ function Form() {
 
   return (
     <div className="container_form">
-      {error ?(
-      <h1>{error}</h1>): null}
+      {isLoading && <GenericLoader message='Login in'></GenericLoader>}
       <h2>Login</h2>
       <form className="form-grup" onSubmit={submit}>
         <p>

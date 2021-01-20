@@ -4,9 +4,10 @@ const expect = require('chai').expect;
 
 chai.use(chaiHttp);
 const url = 'http://localhost:4000';
-const newUser=''
-const newEmail=''
+const newUser='ElBArto'
+const newEmail='rar55640@cuoly.com'
 var token=''
+var refreshToken=''
 
 describe('Make a correct Login: ',()=>{
 	it('should login into an existing user', (done) => {		
@@ -15,6 +16,7 @@ describe('Make a correct Login: ',()=>{
 			.send({username:'isValid620', password: 'holala'})
 			.end( function(err,res){
 				token = res.body.token;
+				refreshToken = res.body.refreshToken;
 				expect(res).to.have.status(200);
 				done();
 			});
@@ -81,7 +83,7 @@ describe('Failed confirm',()=>{
 		chai.request(url)
 			.get('/confirm/badrealToken')
 			.end( function(err,res){
-				expect(res).to.have.status(200);
+				expect(res).to.have.status(400);
 				done();
 			});
 	});
@@ -114,7 +116,7 @@ describe('Token fail validation',()=>{
 		chai.request(url)
 			.get('/authenticateToken')
 			.end( function(err,res){
-				expect(res).to.have.status(403);
+				expect(res).to.have.status(404);
 				done();
 			});
 	});
@@ -124,6 +126,7 @@ describe('Token success validation',()=>{
 		chai.request(url)
 			.get('/authenticateToken')
 			.set('authentication', `bearer ${token}`)
+			.set('refreshToken', `bearer ${refreshToken}`)
 			.end( function(err,res){
 				expect(res).to.have.status(200);
 				done();
