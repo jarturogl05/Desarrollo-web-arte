@@ -47,8 +47,8 @@
 .userProfileButton-Container{
     padding-top: 10px;
     padding-right: 10px;
+    margin-left: 60%;
     display: grid;
-    margin-left: auto;
 }
 .userProfile-followButton{
     position: relative;
