@@ -1,3 +1,6 @@
+//const address = 'https://webartuv.herokuapp.com/';
+const address = 'http://localhost:4000/';
+
 async function getHomePosts(page){
 
     const settings = {
@@ -10,7 +13,7 @@ async function getHomePosts(page){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/postList/' + page, settings);
+        const response = await fetch(address + 'postList/' + page, settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -29,7 +32,7 @@ async function getPostById(id){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/getPost/' + id, settings);
+        const response = await fetch(address + 'getPost/' + id, settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -48,7 +51,7 @@ async function getPostByUser(autorId, page){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/autorPosts/' + autorId + '/' + page, settings);
+        const response = await fetch(address + 'autorPosts/' + autorId + '/' + page, settings);
         const json = await response.json();
         return json;
     } catch (error) {
@@ -67,7 +70,7 @@ async function getPostByUserName(autorName, page){
     }
 
     try {
-        const response = await fetch('http://localhost:4000/autorPostsName/' + autorName + '/' + page, settings);
+        const response = await fetch(address + 'autorPostsName/' + autorName + '/' + page, settings);
         const json = await response.json();
         return json;
     } catch (error) {
