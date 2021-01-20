@@ -30,8 +30,8 @@ function UserProfile(){
         <div>
             <NavBar></NavBar>
             <Profile userProfileInfo = {dataIsReturned && profileInfo.data ? profileInfo : undefined} ></Profile>
-            <h1>Publications</h1>
-            <GalleryUser ></GalleryUser>
+            {dataIsReturned && profileInfo.data && <h1>Publications</h1> && <GalleryUser></GalleryUser>}
+
         </div>
     )
 }
