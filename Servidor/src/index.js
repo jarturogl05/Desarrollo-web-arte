@@ -9,7 +9,11 @@ global.baseDir = path.resolve(__dirname)
 const app = express();
 app.use(cors());
 dotenv.config();
-app.use(helmet());
+
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
+
 app.use(express.json());
 app.use(routes);
 const PORT = process.env.PORT || 4000;
