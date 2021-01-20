@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import UserContext from "../../utils/userContext";
 import { useHistory } from "react-router-dom";
+import GenericLoader from '../GenericLoadingOverlay/GenericLoadingOverlayContainer'
 
 import { doLogin } from "../../services/userServices";
 
@@ -12,13 +13,16 @@ function Form() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState();
 
   const {token, setToken,  setRefreshToken } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) =>{
     e.preventDefault();
+    setIsLoading(true);
     const loginResponse = await doLogin(username, password)
+    setIsLoading(false);
     if (loginResponse){
      loginResponseStatus(loginResponse);
     }
@@ -26,7 +30,6 @@ function Form() {
       setError("Server Error")
       console.log(error);
     }
-
   }
 
    function loginResponseStatus(loginResponse){
@@ -54,6 +57,7 @@ function Form() {
 
   return (
     <div className="container_form">
+      {isLoading && <GenericLoader message='Login in'></GenericLoader>}
       {error ?(
       <h1>{error}</h1>): null}
       <h2>Login</h2>
